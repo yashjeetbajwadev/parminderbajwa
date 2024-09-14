@@ -1,5 +1,5 @@
-import { BLOG_URL, DOCS_URL } from '../../lib/constants';
-import { testimonialImages } from '../../static/testimonials';
+import { BLOG_URL, DOCS_URL } from '@/lib/constants';
+import { testimonialImages } from '@/../public/testimonials';
 
 export const testimonials = [
   {
@@ -33,6 +33,8 @@ export const testimonials = [
     avatarSrc: testimonialImages[9],
   },
 ];
+
+export const websiteName = 'Parminder Bajwa'
 
 export const footerNavigation = {
   app: [

@@ -1,6 +1,6 @@
 import { TfiDashboard } from 'react-icons/tfi';
 import { Link } from 'react-router-dom';
-import { cn } from '../lib/utils';
+import { cn } from '@/lib/utils';
 
 export const UserMenuItems = ({ setMobileMenuOpen }: { setMobileMenuOpen?: any }) => {
   const path = window.location.pathname;

@@ -1,6 +1,7 @@
 import Autoplay from 'embla-carousel-autoplay';
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '../../components/ui/carousel';
-import { testimonials } from '../contentSections';
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
+import { testimonials } from '../../contentSections';
+import Image from 'next/image';
 
 function Testimonials() {
   return (
@@ -27,7 +28,7 @@ function Testimonials() {
               <CarouselContent>
                 {testimonials.map((testimonial, index) => (
                   <CarouselItem key={index} className='items-center justify-center md:basis-1/3'>
-                    <img className='h-full w-full rounded-xl' src={testimonial.avatarSrc} alt='Avatar' />
+                    <Image className='h-full w-full rounded-xl' src={testimonial.avatarSrc} alt='Avatar' />
                   </CarouselItem>
                 ))}
               </CarouselContent>
@@ -36,7 +37,7 @@ function Testimonials() {
               <CarouselNext className='text-white' />
             </Carousel>
             <div className='mt-10 text-center text-[18px] font-normal italic leading-normal text-white'>
-              <p>"Home is where love resides, memories are created, friends always belong, and laughter never ends."</p>
+              <p>&quot;Home is where love resides, memories are created, friends always belong, and laughter never ends.&quot;</p>
             </div>
           </div>
         </div>

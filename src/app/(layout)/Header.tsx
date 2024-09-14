@@ -3,8 +3,8 @@ import Image from "next/image";
 import { useState } from "react";
 import { AiFillCloseCircle } from "react-icons/ai";
 import { HiBars3 } from "react-icons/hi2";
-import { BLOG_URL } from "../lib/constants";
-import logo from "../static/PB.png";
+import { BLOG_URL } from "@/lib/constants";
+import logo from "@/../public/PB.png";
 
 export const navigation = [
   { name: "Home", href: "/" },

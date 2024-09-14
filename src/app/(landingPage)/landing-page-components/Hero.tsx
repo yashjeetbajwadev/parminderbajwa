@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
-import { Button } from '../../components/ui/button';
-import ParminderBajwa from '../../static/parminderbajwa.webp';
+import { Button } from '@/components/ui/button';
+import ParminderBajwa from '@/../public/parminderbajwa.webp';
+import Image from 'next/image';
 
 function Hero() {
+  // Constants
   // constants
   const textColours: string[] = ['text-blue-500', 'text-green-500', 'text-orange-500', 'text-red-500'];
   const circleColours: string[] = ['bg-blue-200', 'bg-green-200', 'bg-orange-200', 'bg-red-200'];
@@ -63,7 +65,6 @@ function Hero() {
     }, animationDelay);
     return () => clearInterval(interval);
   });
-
   return (
     <div className='grid overflow-x-hidden'>
       <div className='my-[60px] md:my-[100px]'>
@@ -91,7 +92,7 @@ function Hero() {
               className={`clipCircle relative z-30 mx-auto my-0 grid h-[min(90vw,320px)] w-[min(90vw,320px)] shrink-0 items-center justify-items-center transition-colors duration-300 ease-linear lg:h-[360px] lg:w-[360px] ${circleColour} dark:bg-boxdark`}
             >
               <div className='relative col-start-1 col-end-auto row-start-1 row-end-auto'>
-                <img
+                <Image
                   className={`relative w-[min(90vw,228px)] rounded-2xl shadow-xl xsm:w-[min(90vw,256px)]`}
                   src={ParminderBajwa}
                   alt='Parminder Bajwa'

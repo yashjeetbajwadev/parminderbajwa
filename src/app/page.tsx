@@ -1,3 +1,5 @@
+"use client"
+import LandingPage from "./(landingPage)/LandingPage"
 export default function Page({
     params,
     searchParams,
@@ -5,7 +7,5 @@ export default function Page({
     params: { slug: string }
     searchParams: { [key: string]: string | string[] | undefined }
 }>) {
-    return <div>
-
-    </div>
+    return <LandingPage />
 }

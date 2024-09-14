@@ -1,4 +1,4 @@
-import { footerNavigation } from './landing-page/contentSections';
+import { footerNavigation } from '../contentSections';
 
 function Footer() {
   return (
