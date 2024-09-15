@@ -1,4 +1,4 @@
-import { footerNavigation } from '../contentSections';
+import { footerNavigation } from '../../../app/contentSections';
 
 function Footer() {
   return (

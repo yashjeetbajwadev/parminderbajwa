@@ -18,7 +18,13 @@ function Header() {
   const [isScrolling, setIsScrolling] = useState(false);
 
   const NavLogo = () => (
-    <Image className="h-8 w-8" src={logo} alt="Parminder Bajwa" />
+    <Image
+      className="h-8 w-8"
+      src={logo}
+      alt="Parminder Bajwa"
+      width={32}
+      height={32}
+    />
   );
 
   if (typeof window !== "undefined") {

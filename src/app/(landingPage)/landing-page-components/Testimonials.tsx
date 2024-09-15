@@ -28,7 +28,12 @@ function Testimonials() {
               <CarouselContent>
                 {testimonials.map((testimonial, index) => (
                   <CarouselItem key={index} className='items-center justify-center md:basis-1/3'>
-                    <Image className='h-full w-full rounded-xl' src={testimonial.avatarSrc} alt='Avatar' />
+                    <Image className='h-full w-full rounded-xl' 
+                    src={testimonial.avatarSrc} 
+                    alt='Avatar'
+                    width={300}
+                    height={300}
+                    />
                   </CarouselItem>
                 ))}
               </CarouselContent>

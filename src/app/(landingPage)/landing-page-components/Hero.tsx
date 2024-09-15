@@ -96,6 +96,8 @@ function Hero() {
                   className={`relative w-[min(90vw,228px)] rounded-2xl shadow-xl xsm:w-[min(90vw,256px)]`}
                   src={ParminderBajwa}
                   alt='Parminder Bajwa'
+                  width={228}
+                  height={228}
                 />
               </div>
             </div>
