@@ -29,7 +29,7 @@ function ListingListImageCarousel({ record }: { record: ListingsResponse }) {
         {record.images.length > 1 && (
           <React.Fragment>
             <Button
-              variant="ghost"
+              variant="secondary"
               size="icon"
               className="absolute left-2 top-1/2 transform -translate-y-1/2"
               onClick={prevImage}
@@ -37,7 +37,7 @@ function ListingListImageCarousel({ record }: { record: ListingsResponse }) {
               <ChevronLeftIcon className="h-6 w-6" />
             </Button>
             <Button
-              variant="ghost"
+              variant="secondary"
               size="icon"
               className="absolute right-2 top-1/2 transform -translate-y-1/2"
               onClick={nextImage}
