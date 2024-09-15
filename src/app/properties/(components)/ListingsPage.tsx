@@ -1,4 +1,4 @@
-import { useData } from "@/components/DataFetcher";
+import { useListData } from "@/components/DataFetcher";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -15,7 +15,7 @@ import ListingListImageCarousel from "./ListingListImageCarousel";
 
 
 export function ListingsPage() {
-  const data = useData();
+  const data = useListData();
   const [currentPage, setCurrentPage] = useState(data?.page);
 
   const formatDate = (dateString: string) => {
@@ -123,7 +123,11 @@ export function ListingsPage() {
               )}
             </CardContent>
             <CardFooter className="bg-muted p-4">
-              <Button className="w-full">View Details</Button>
+              <Button className="w-full"
+              onClick={() => {
+                  window.location.href = `/properties/${listing.id}`;
+                }
+              }>View Details</Button>
             </CardFooter>
           </Card>
         ))}

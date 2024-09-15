@@ -1,17 +1,19 @@
 import React, { useState, useEffect, createContext, useContext, ReactNode } from 'react';
 import { CollectionRecords, CollectionResponses } from '@/types/pocketbase';
-import { ListResult } from 'pocketbase';
+import { ListResult, RecordModel } from 'pocketbase';
 
-// Create context for data
-const DataContext = createContext<any>(null);
+// Create contexts for data
+const ListDataContext = createContext<any>(null);
+const SingleDataContext = createContext<any>(null);
 
 interface DataFetcherProps<T extends keyof CollectionRecords> {
   collectionName: T;
+  id?: string;
   children: ReactNode;
 }
 
-export default function DataFetcher<T extends keyof CollectionRecords>({ collectionName, children }: DataFetcherProps<T>): JSX.Element {
-  const [data, setData] = useState<ListResult<CollectionResponses[T]> | null>(null);
+export function DataFetcher<T extends keyof CollectionRecords>({ collectionName, id, children }: DataFetcherProps<T>): JSX.Element {
+  const [data, setData] = useState<ListResult<CollectionResponses[T]> | RecordModel | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -19,11 +21,14 @@ export default function DataFetcher<T extends keyof CollectionRecords>({ collect
     async function fetchData() {
       try {
         setIsLoading(true);
-        const response = await fetch(`/api/data?collection=${collectionName}`);
+        const url = id 
+          ? `/api/data?collection=${collectionName}&id=${id}`
+          : `/api/data?collection=${collectionName}`;
+        const response = await fetch(url);
         if (!response.ok) {
           throw new Error('Failed to fetch data');
         }
-        const result: ListResult<CollectionResponses[T]> = await response.json();
+        const result = await response.json();
         setData(result);
         setError(null);
       } catch (err) {
@@ -34,20 +39,26 @@ export default function DataFetcher<T extends keyof CollectionRecords>({ collect
       }
     }
     fetchData();
-  }, [collectionName]);
+  }, [collectionName, id]);
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
   if (!data) return <div>No data available</div>;
 
+  const ContextProvider = id ? SingleDataContext.Provider : ListDataContext.Provider;
+
   return (
-    <DataContext.Provider value={data}>
-      {typeof children === 'function' ? (children as (data: ListResult<CollectionResponses[T]>) => JSX.Element)(data) : children}
-    </DataContext.Provider>
-  );
+      <ContextProvider value={data}>
+        {typeof children === 'function' ? (children as (data: any) => JSX.Element)(data) : children}
+      </ContextProvider>
+    );
 }
 
-// Custom hook to use data context
-export function useData() {
-  return useContext(DataContext);
+// Custom hooks to use data contexts
+export function useListData() {
+  return useContext(ListDataContext);
+}
+
+export function useSingleData() {
+  return useContext(SingleDataContext);
 }
