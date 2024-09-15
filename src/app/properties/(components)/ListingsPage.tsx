@@ -125,7 +125,7 @@ export function ListingsPage() {
             <CardFooter className="bg-muted p-4">
               <Button className="w-full"
               onClick={() => {
-                  window.location.href = `/properties/${listing.id}`;
+                  window.location.href = `/properties/${encodeURI(listing.address)}/${listing.id}`;
                 }
               }>View Details</Button>
             </CardFooter>

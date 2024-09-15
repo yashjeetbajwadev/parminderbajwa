@@ -1,6 +1,8 @@
 import React, { useState, useEffect, createContext, useContext, ReactNode } from 'react';
 import { CollectionRecords, CollectionResponses } from '@/types/pocketbase';
 import { ListResult, RecordModel } from 'pocketbase';
+import Loading from './custom/Loading';
+import ErrorComponent  from './custom/Error';
 
 // Create contexts for data
 const ListDataContext = createContext<any>(null);
@@ -41,9 +43,9 @@ export function DataFetcher<T extends keyof CollectionRecords>({ collectionName,
     fetchData();
   }, [collectionName, id]);
 
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error}</div>;
-  if (!data) return <div>No data available</div>;
+  if (isLoading) return <Loading />;
+  if (error) return <ErrorComponent message={error} />;
+  if (!data) return <ErrorComponent message="No data found" />;
 
   const ContextProvider = id ? SingleDataContext.Provider : ListDataContext.Provider;
 
