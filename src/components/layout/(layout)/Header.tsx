@@ -10,7 +10,7 @@ export const navigation = [
   { name: "Home", href: "/" },
   { name: "Properties", href: "/properties" },
   { name: "About", href: "/about" },
-  { name: "Blog", href: BLOG_URL },
+  { name: "Blog", href: "/blogs" },
 ];
 
 function Header() {
