@@ -1,5 +1,6 @@
 'use client';
 import BackButtonBreadcrumb from "@/components/custom/BackBreadCrumb"
+import ContactForm from "@/components/custom/ContactMeForm";
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Phone, Mail, MapPin, Award } from "lucide-react"
@@ -86,6 +87,9 @@ export default function Component() {
             </Button>
             </section>
         </div>
+        <div className="mt-12">
+            <ContactForm />
         </div>
+    </div>
   )
 }

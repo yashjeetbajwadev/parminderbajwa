@@ -1,6 +1,7 @@
 import Header from "./(layout)/Header";
 import Footer from "./(layout)/Footer";
 import "@/app/globals.css";
+import { AlertProvider } from "../custom/Alert";
 
 export default function MainRootLayout({
   children,
@@ -12,7 +13,9 @@ export default function MainRootLayout({
           <div className="scroll-smooth">
             <div className="bg-white">
               <Header />
-              {children}
+              <AlertProvider>
+                {children}
+              </AlertProvider>
               <Footer />
             </div>
           </div>
