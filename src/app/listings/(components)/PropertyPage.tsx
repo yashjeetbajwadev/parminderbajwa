@@ -1,9 +1,6 @@
-import {
-  BedIcon,
-  BathIcon,
-  CarIcon,
-  RulerIcon,
-} from "lucide-react";
+'use client';
+import ListingListImageCarousel from "@/app/listings/(components)/ListingListImageCarousel";
+import BackButtonBreadcrumb from "@/components/custom/BreadCrumb";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -14,21 +11,24 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { useSingleData } from "@/components/DataFetcher";
-import ListingListImageCarousel from "@/app/listings/(components)/ListingListImageCarousel";
+import { formatDate, formatSinglePage, validDate } from "@/lib/utils";
+import { ListingsResponse } from "@/types/pocketbase";
+import {
+  BathIcon,
+  BedIcon,
+  CarIcon,
+  RulerIcon,
+} from "lucide-react";
 import React from "react";
-import BackButtonBreadcrumb from "@/components/custom/BackBreadCrumb";
-import { formatDate, formatSinglePage, ValidDate } from "@/lib/utils";
 
-export function PropertyPage() {
-  const property = useSingleData();
-  if (!property) return <div>No data available</div>;
+export function PropertyPage({ data }: { data: ListingsResponse }): JSX.Element {
+  if (!data) return <div>No data available</div>;
 
   const BreadcrumbItems = () => {
     return [
       { href: "/", label: "Home" },
       { href: "/listings", label: "Properties" },
-      { href: `/${formatSinglePage("listings", property.id, property.title)}`, label: property.title ?? "Property" },
+      { href: `/${formatSinglePage("listings", data.id, data.title)}`, label: data.title ?? "Property" },
     ]
   };
 
@@ -41,41 +41,41 @@ export function PropertyPage() {
             <div className="flex justify-between items-start">
               <div>
                 <CardTitle className="text-3xl font-bold">
-                  {property.title}
+                  {data.title}
                 </CardTitle>
                 <CardDescription className="text-lg">
-                  {property.address}, {property.city}, {property.state}{" "}
-                  {property.zip}
+                  {data.address}, {data.city}, {data.state}{" "}
+                  {data.zip}
                 </CardDescription>
               </div>
               <div className="text-right">
                 <p className="text-3xl font-bold">
-                  ${property.price.toLocaleString()}
+                  ${data.price.toLocaleString()}
                 </p>
-                {property.priceByNegotiation && (
+                {data.priceByNegotiation && (
                   <Badge variant="secondary">Price by Negotiation</Badge>
                 )}
               </div>
             </div>
           </CardHeader>
           <CardContent>
-            <ListingListImageCarousel record={property} />
+            <ListingListImageCarousel record={data} />
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 my-6">
               <div className="flex items-center">
                 <BedIcon className="mr-2" />
-                <span>{property.bedroom} Bedrooms</span>
+                <span>{data.bedroom} Bedrooms</span>
               </div>
               <div className="flex items-center">
                 <BathIcon className="mr-2" />
-                <span>{property.bathroom} Bathrooms</span>
+                <span>{data.bathroom} Bathrooms</span>
               </div>
               <div className="flex items-center">
                 <CarIcon className="mr-2" />
-                <span>{property.parking} Parking Spaces</span>
+                <span>{data.parking} Parking Spaces</span>
               </div>
               <div className="flex items-center">
                 <RulerIcon className="mr-2" />
-                <span>{property.squareFt} sq ft</span>
+                <span>{data.squareFt} sq ft</span>
               </div>
             </div>
 
@@ -84,41 +84,41 @@ export function PropertyPage() {
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <p>
-                    <strong>Type:</strong> {property.type.join(", ")}
+                    <strong>Type:</strong> {data.type.join(", ")}
                   </p>
                   <p>
-                    <strong>Lot Size:</strong> {property.lotSize} acres
+                    <strong>Lot Size:</strong> {data.lotSize} acres
                   </p>
-                  {property.yearBuilt && ValidDate(property.yearBuilt) &&
+                  {data.yearBuilt && validDate(data.yearBuilt) &&
                     <p>
-                      <strong>Year Built:</strong> {formatDate(property.yearBuilt)}
+                      <strong>Year Built:</strong> {formatDate(data.yearBuilt)}
                     </p>
                   }
                 </div>
                 <div>
-                  {property.listingDate && ValidDate(property.listingDate) &&
+                  {data.listingDate && validDate(data.listingDate) &&
                     <p>
                       <strong>Listing Date:</strong>{" "}
-                      {formatDate(property.listingDate)}
+                      {formatDate(data.listingDate)}
                     </p>
                   }
                   <p>
-                    <strong>Status:</strong> {property.status.join(", ")}
+                    <strong>Status:</strong> {data.status.join(", ")}
                   </p>
                   <p>
-                    <strong>Agent:</strong> {property.agent}
+                    <strong>Agent:</strong> {data.agent}
                   </p>
                 </div>
               </div>
 
               <div>
                 <h3 className="text-xl font-semibold">Amenities</h3>
-                <p>{property.amenities}</p>
+                <p>{data.amenities}</p>
               </div>
 
               <div>
                 <h3 className="text-xl font-semibold">Additional Information</h3>
-                <p>{property.additionalInfo}</p>
+                <p>{data.additionalInfo}</p>
               </div>
             </div>
           </CardContent>

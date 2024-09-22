@@ -1,3 +1,4 @@
+'use client';
 import PocketBaseImage from '@/components/PocketBaseImage'
 import { ListingsResponse } from '@/types/pocketbase'
 import { Button } from "@/components/ui/button";
@@ -24,7 +25,6 @@ function ListingListImageCarousel({ record }: { record: ListingsResponse }) {
             width={300}
             height={300}
             alt={record.title}
-            src="/placeholder.png"
         />
         {record.images.length > 1 && (
           <React.Fragment>

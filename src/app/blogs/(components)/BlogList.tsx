@@ -1,18 +1,16 @@
-import { formatDistanceToNow } from 'date-fns'
+'use client';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { useListData } from '@/components/DataFetcher'
-import { BlogsResponse } from '@/types/pocketbase'
 import { formatSinglePage } from '@/lib/utils'
+import { BlogsResponse } from '@/types/pocketbase'
+import { formatDistanceToNow } from 'date-fns'
+import { ListResult } from 'pocketbase'
 
-export  function BlogList() {
-  const blogData = useListData();
-  console.log(blogData);
-
+export function BlogList({ data }: { data: ListResult<BlogsResponse> }) {
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-8">Blog Posts</h1>
       <div className="grid gap-6 grid-cols-2">
-        {blogData.items.map((post: BlogsResponse) => (
+        {data.items.map((post: BlogsResponse) => (
           <Card key={post.id} className="flex flex-col">
             <CardHeader>
               <CardTitle>{post.title}</CardTitle>

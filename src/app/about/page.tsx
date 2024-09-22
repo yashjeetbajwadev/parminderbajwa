@@ -1,5 +1,5 @@
 'use client';
-import BackButtonBreadcrumb from "@/components/custom/BackBreadCrumb"
+import BackButtonBreadcrumb from "@/components/custom/BreadCrumb"
 import ContactForm from "@/components/custom/ContactMeForm";
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"

@@ -1,21 +1,18 @@
-"use client";
-import React from "react";
-import { DataFetcher } from "@/components/DataFetcher";
-import { useRouter, useSearchParams } from 'next/navigation';
 import { BlogPost } from "@/app/blogs/(components)/BlogPost";
+import { getCollectionDataWithId, getSearchParams } from "@/lib/utils";
+import { BlogsResponse } from "@/types/pocketbase";
+import { serverSearchParamType } from "@/types/types";
+import { redirect } from 'next/navigation';
 
-function Page() {
-  const params = useSearchParams();
-  const id = params.get('object') ?? false;
-  const router = useRouter();
+async function Page({ searchParams }: { searchParams: serverSearchParamType; }) {
+  const id = getSearchParams(searchParams, "object");
   if (!id) {
-    router.push('/blogs');
+    redirect('/blogs');
   }
-  console.log(id);
+  const blog: BlogsResponse = await getCollectionDataWithId({ collectionName: "blogs", id: id });
+
   return (
-    <DataFetcher collectionName={"blogs"} id={id as string}>
-      <BlogPost />
-    </DataFetcher>
+    <BlogPost data={blog} />
   );
 }
 

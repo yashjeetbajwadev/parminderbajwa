@@ -1,23 +1,17 @@
-"use client";
-import React from "react";
-import { DataFetcher } from "@/components/DataFetcher";
 import { PropertyPage } from "@/app/listings/(components)/PropertyPage";
-import { useRouter, useSearchParams } from 'next/navigation';
+import { getCollectionDataWithId, getSearchParams } from "@/lib/utils";
+import { ListingsResponse } from "@/types/pocketbase";
+import { serverSearchParamType } from "@/types/types";
+import { redirect } from "next/navigation";
 
-function Page() {
-  // read the id from the URL next
-  const params = useSearchParams();
-  const id = params.get('object') ?? null;
-  const router = useRouter();
+async function Page({ searchParams }: { searchParams: serverSearchParamType; }) {
+  const id = getSearchParams(searchParams, "object");
   if (!id) {
-    router.push('/listings');
-    return null;
+    redirect('/listings');
   }
-
+  const listings: ListingsResponse = await getCollectionDataWithId({ collectionName: "listings", id: id });
   return (
-    <DataFetcher collectionName={"listings"} id={id as string}>
-      <PropertyPage />
-    </DataFetcher>
+    <PropertyPage data={listings} />
   );
 }
 

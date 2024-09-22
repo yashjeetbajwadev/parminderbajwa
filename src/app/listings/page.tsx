@@ -1,21 +1,23 @@
-"use client";
-import { DataFetcher } from "@/components/DataFetcher";
-import BackButtonBreadcrumb from "@/components/custom/BackBreadCrumb";
+import BackButtonBreadcrumb from "@/components/custom/BreadCrumb";
+import { getCollectionData } from "@/lib/utils";
+import { ListingsResponse } from "@/types/pocketbase";
+import { ListResult } from "pocketbase";
+import React from "react";
 import { ListingsList } from "./(components)/ListingsList";
 
-function page() {
+export async function Page() {
   const BreadcrumbItems = [
     { href: "/", label: "Home" },
     { href: "/listings", label: "Properties" },
   ];
+  const listings: ListResult<ListingsResponse> = await getCollectionData({ collectionName: "listings" });
   return (
-    <DataFetcher collectionName={"listings"}>
+    <React.Fragment>
       <BackButtonBreadcrumb
         items={BreadcrumbItems}
       />
-      <ListingsList />
-    </DataFetcher>
+      <ListingsList data={listings} />
+    </React.Fragment>
   );
 }
-
-export default page;
+export default Page;

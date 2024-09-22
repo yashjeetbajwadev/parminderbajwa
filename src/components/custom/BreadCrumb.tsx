@@ -1,8 +1,8 @@
+'use client';
 import React from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { ChevronRight } from 'lucide-react';
 
 interface BreadcrumbItem {
   href: string;
@@ -13,7 +13,7 @@ interface BackButtonBreadcrumbProps {
   items: BreadcrumbItem[];
 }
 
-const BackButtonBreadcrumb: React.FC<BackButtonBreadcrumbProps> = ({ items }) => {
+const ButtonBreadcrumb: React.FC<BackButtonBreadcrumbProps> = ({ items }) => {
   const router = useRouter();
 
   return (
@@ -42,4 +42,4 @@ const BackButtonBreadcrumb: React.FC<BackButtonBreadcrumbProps> = ({ items }) =>
   );
 };
 
-export default BackButtonBreadcrumb;
+export default ButtonBreadcrumb;
