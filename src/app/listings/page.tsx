@@ -1,20 +1,19 @@
 "use client";
-import React from "react";
 import { DataFetcher } from "@/components/DataFetcher";
-import { ListingsPage as ExampleListing } from "./(components)/ListingsPage";
 import BackButtonBreadcrumb from "@/components/custom/BackBreadCrumb";
+import { ListingsList } from "./(components)/ListingsList";
 
 function page() {
   const BreadcrumbItems = [
     { href: "/", label: "Home" },
-    { href: "/properties", label: "Properties" },
+    { href: "/listings", label: "Properties" },
   ];
   return (
-    <DataFetcher collectionName="listings">
+    <DataFetcher collectionName={"listings"}>
       <BackButtonBreadcrumb
         items={BreadcrumbItems}
       />
-      <ExampleListing />
+      <ListingsList />
     </DataFetcher>
   );
 }

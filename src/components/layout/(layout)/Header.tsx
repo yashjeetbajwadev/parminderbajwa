@@ -8,7 +8,7 @@ import logo from "@/../public/PB.png";
 
 export const navigation = [
   { name: "Home", href: "/" },
-  { name: "Properties", href: "/properties" },
+  { name: "Properties", href: "/listings" },
   { name: "About", href: "/about" },
   { name: "Blog", href: "/blogs" },
 ];

@@ -15,25 +15,22 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { useSingleData } from "@/components/DataFetcher";
-import ListingListImageCarousel from "@/app/properties/(components)/ListingListImageCarousel";
+import ListingListImageCarousel from "@/app/listings/(components)/ListingListImageCarousel";
 import React from "react";
 import BackButtonBreadcrumb from "@/components/custom/BackBreadCrumb";
+import { formatDate, formatSinglePage, ValidDate } from "@/lib/utils";
 
-export default function PropertyListing() {
+export function PropertyPage() {
   const property = useSingleData();
   if (!property) return <div>No data available</div>;
-  const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString("en-US", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    });
+
+  const BreadcrumbItems = () => {
+    return [
+      { href: "/", label: "Home" },
+      { href: "/listings", label: "Properties" },
+      { href: `/${formatSinglePage("listings", property.id, property.title)}`, label: property.title ?? "Property" },
+    ]
   };
-  const BreadcrumbItems = () => {return [
-    { href: "/", label: "Home" },
-    { href: "/properties", label: "Properties" },
-    { href: `/properties/${encodeURI(property.address)}/${property.id}`, label: property.title ?? "Property" },
-  ]};
 
   return (
     <React.Fragment>
@@ -62,7 +59,7 @@ export default function PropertyListing() {
             </div>
           </CardHeader>
           <CardContent>
-          <ListingListImageCarousel record={property} />
+            <ListingListImageCarousel record={property} />
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 my-6">
               <div className="flex items-center">
                 <BedIcon className="mr-2" />
@@ -92,15 +89,19 @@ export default function PropertyListing() {
                   <p>
                     <strong>Lot Size:</strong> {property.lotSize} acres
                   </p>
-                  <p>
-                    <strong>Year Built:</strong> {formatDate(property.yearBuilt)}
-                  </p>
+                  {property.yearBuilt && ValidDate(property.yearBuilt) &&
+                    <p>
+                      <strong>Year Built:</strong> {formatDate(property.yearBuilt)}
+                    </p>
+                  }
                 </div>
                 <div>
-                  <p>
-                    <strong>Listing Date:</strong>{" "}
-                    {formatDate(property.listingDate)}
-                  </p>
+                  {property.listingDate && ValidDate(property.listingDate) &&
+                    <p>
+                      <strong>Listing Date:</strong>{" "}
+                      {formatDate(property.listingDate)}
+                    </p>
+                  }
                   <p>
                     <strong>Status:</strong> {property.status.join(", ")}
                   </p>

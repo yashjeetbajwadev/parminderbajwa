@@ -1,20 +1,22 @@
 "use client";
 import React from "react";
 import { DataFetcher } from "@/components/DataFetcher";
+import { PropertyPage } from "@/app/listings/(components)/PropertyPage";
 import { useRouter, useSearchParams } from 'next/navigation';
-import { BlogPost } from "@/app/blogs/(components)/BlogPost";
 
 function Page() {
+  // read the id from the URL next
   const params = useSearchParams();
-  const id = params.get('object') ?? false;
+  const id = params.get('object') ?? null;
   const router = useRouter();
   if (!id) {
-    router.push('/blogs');
+    router.push('/listings');
+    return null;
   }
-  console.log(id);
+
   return (
-    <DataFetcher collectionName={"blogs"} id={id as string}>
-      <BlogPost />
+    <DataFetcher collectionName={"listings"} id={id as string}>
+      <PropertyPage />
     </DataFetcher>
   );
 }

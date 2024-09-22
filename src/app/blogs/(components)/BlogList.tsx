@@ -2,26 +2,11 @@ import { formatDistanceToNow } from 'date-fns'
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { useListData } from '@/components/DataFetcher'
 import { BlogsResponse } from '@/types/pocketbase'
+import { formatSinglePage } from '@/lib/utils'
 
-type BlogPost = {
-  id: string
-  title: string
-  author: string
-  body: string
-  created: string
-  url: string
-}
-
-type BlogData = {
-  page: number
-  perPage: number
-  totalPages: number
-  totalItems: number
-  items: BlogPost[]
-}
-
-export default function BlogList() {
- const blogData = useListData();
+export  function BlogList() {
+  const blogData = useListData();
+  console.log(blogData);
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -40,7 +25,9 @@ export default function BlogList() {
               <p className="text-sm text-muted-foreground">
                 {formatDistanceToNow(new Date(post.created), { addSuffix: true })}
               </p>
-              <a href={`/blogs/${post.title}/${post.id}`} className="text-primary hover:underline">
+              <a
+                href={formatSinglePage("blogs", post.id, post.title)}
+                className="text-primary hover:underline">
                 Read more
               </a>
             </CardFooter>

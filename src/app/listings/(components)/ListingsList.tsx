@@ -12,19 +12,12 @@ import { ListingsResponse } from "@/types/pocketbase";
 import { BathIcon, BedDoubleIcon, CalendarIcon, CarIcon, HomeIcon, RulerIcon } from 'lucide-react';
 import { useState } from "react";
 import ListingListImageCarousel from "./ListingListImageCarousel";
+import { formatDate, formatSinglePage, ValidDate } from "@/lib/utils";
 
 
-export function ListingsPage() {
+export function ListingsList() {
   const data = useListData();
   const [currentPage, setCurrentPage] = useState(data?.page);
-
-  const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString("en-US", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    });
-  };
 
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat("en-US", {
@@ -108,15 +101,17 @@ export function ListingsPage() {
                   </div>
                 )}
               </div>
-              <p className="text-sm text-muted-foreground mb-2">
+              {listing.listingDate && ValidDate(listing.listingDate) &&
+                <p className="text-sm text-muted-foreground mb-2">
                 Listed on {formatDate(listing.listingDate)}
               </p>
+              }
               {listing.priceByNegotiation && (
                 <Badge variant="outline" className="mb-2">
                   Price by Negotiation
                 </Badge>
               )}
-              {listing.auctionDate && (
+              {listing.auctionDate && ValidDate(listing.auctionDate) && (
                 <p className="text-sm">
                   Auction Date: {formatDate(listing.auctionDate)}
                 </p>
@@ -125,7 +120,7 @@ export function ListingsPage() {
             <CardFooter className="bg-muted p-4">
               <Button className="w-full"
               onClick={() => {
-                  window.location.href = `/properties/${encodeURI(listing.address)}/${listing.id}`;
+                  window.location.href = formatSinglePage("listings", listing.id, listing.title);
                 }
               }>View Details</Button>
             </CardFooter>

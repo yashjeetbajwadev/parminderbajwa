@@ -1,8 +1,8 @@
 "use client";
-import React from "react";
 import { DataFetcher } from "@/components/DataFetcher";
-import BlogList from "./(components)/BlogList";
+import { BlogList } from "./(components)/BlogList";
 import BackButtonBreadcrumb from "@/components/custom/BackBreadCrumb";
+import React from "react";
 
 function page() {
   const BreadcrumbItems = [
@@ -10,10 +10,12 @@ function page() {
     { href: "/blogs", label: "Blogs" },
   ];
   return (
-    <DataFetcher collectionName="listings">
+    <React.Fragment>
       <BackButtonBreadcrumb items={BreadcrumbItems} />
-      <BlogList />
-    </DataFetcher>
+      <DataFetcher collectionName={"blogs"}>
+        <BlogList />
+      </DataFetcher>
+    </React.Fragment>
   );
 }
 
