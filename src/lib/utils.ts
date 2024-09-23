@@ -1,7 +1,7 @@
 import { CollectionRecords, CollectionResponses } from "@/types/pocketbase";
 import { serverSearchParamType, ValueOf } from "@/types/types";
 import { type ClassValue, clsx } from "clsx";
-import { ListResult } from "pocketbase";
+import { ListResult, RecordOptions } from "pocketbase";
 import { twMerge } from "tailwind-merge";
 import { getDataHandleRequest } from "./handlers/getData";
 
@@ -9,13 +9,21 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
+const defaultListCollectionOptions:RecordOptions = {
+  limit: 10,
+  page: 1,
+  sort: "created",
+  order: "desc",
+}
+
 export async function getCollectionData<T extends keyof CollectionRecords>({
   collectionName,
   options,
 }: CommonAPIProps<T>): Promise<ListResult<CollectionResponses[T]>> {
+  options = { ...defaultListCollectionOptions, ...options };
   const optionsString = new URLSearchParams(options).toString();
   if (isServer()) {
-    const response = await getDataHandleRequest(collectionName);
+    const response = await getDataHandleRequest(collectionName, undefined, options);
     if (!response.ok) {
       throw new Error("Failed to fetch data");
     }
@@ -41,7 +49,7 @@ export async function getCollectionDataWithId<
 }: CommonAPIProps<T> & { id: string }): Promise<CollectionResponses[T]> {
   const optionsString = new URLSearchParams(options).toString();
   if (isServer()) {
-    const response = await getDataHandleRequest(collectionName, id);
+    const response = await getDataHandleRequest(collectionName, id, options);
     if (!response.ok) {
       throw new Error("Failed to fetch data");
     }
@@ -122,7 +130,7 @@ export const getSearchParams = (searchParam: serverSearchParamType, key: string)
 
 type CommonAPIProps<T extends keyof CollectionRecords> = {
   collectionName: T;
-  options?: Record<string, string>;
+  options?: RecordOptions;
 };
 type APIResult<T extends keyof CollectionRecords> =
   | ListResult<CollectionResponses[T]>

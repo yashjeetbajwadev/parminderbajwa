@@ -13,10 +13,18 @@ import { ListingsResponse } from "@/types/pocketbase";
 import { BathIcon, BedDoubleIcon, CalendarIcon, CarIcon, HomeIcon, RulerIcon } from 'lucide-react';
 import { ListResult } from "pocketbase";
 import ListingListImageCarousel from "./ListingListImageCarousel";
-
+import {useEffect, useState} from 'react';
+import { useRouter } from "next/navigation";
 
 export function ListingsList({ data }: { data: ListResult<ListingsResponse> }): JSX.Element {
-  // const [currentPage, setCurrentPage] = useState(data?.page);
+  const router = useRouter();
+  const [currentPage, setCurrentPage] = useState(data?.page);
+
+  useEffect(() => {
+    if (currentPage > 1) {
+      router.push("/listings?page=" + currentPage);
+    }
+  }, [currentPage, router]);
 
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat("en-US", {
@@ -34,6 +42,22 @@ export function ListingsList({ data }: { data: ListResult<ListingsResponse> }): 
         <p className="text-muted-foreground">
           Showing {data.items.length} of {data.totalItems} listings
         </p>
+        <div className="flex gap-2">
+          <Button
+            variant="outline"
+            disabled={currentPage === 1}
+            onClick={() => setCurrentPage(currentPage - 1)}
+          >
+            Previous
+          </Button>
+          <Button
+            variant="outline"
+            disabled={currentPage === data.totalPages}
+            onClick={() => setCurrentPage(currentPage + 1)}
+          >
+            Next
+          </Button>
+        </div>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {data?.items?.map((listing: ListingsResponse) => (
@@ -112,8 +136,5 @@ export function ListingsList({ data }: { data: ListResult<ListingsResponse> }): 
       </div>
     </div>
   );
-}
-function useState(page: number): [any, any] {
-  throw new Error("Function not implemented.");
 }
 

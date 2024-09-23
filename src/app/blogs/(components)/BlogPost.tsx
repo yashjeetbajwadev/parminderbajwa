@@ -27,9 +27,9 @@ export function BlogPost({ data }: { data: BlogsResponse }) {
         </header>
         <div className="prose max-w-none">
           {data.body?.split("\n").map((paragraph, index) => (
-            <p key={index} className="mb-4">
-              {paragraph}
-            </p>
+            <div key={index} className="mb-4 prose max-w-none"
+              dangerouslySetInnerHTML={{ __html: paragraph }}
+            />
           ))}
         </div>
         <footer className="mt-8 text-sm text-gray-500">

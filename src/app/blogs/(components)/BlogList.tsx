@@ -17,7 +17,9 @@ export function BlogList({ data }: { data: ListResult<BlogsResponse> }) {
             </CardHeader>
             <CardContent className="flex-grow">
               <p className="text-sm text-muted-foreground mb-2">By {post.author}</p>
-              <p className="line-clamp-3">{post.body}</p>
+              <div className="line-clamp-3 prose max-w-none"
+                dangerouslySetInnerHTML={{ __html: post.body }}
+              />
             </CardContent>
             <CardFooter className="flex justify-between items-center">
               <p className="text-sm text-muted-foreground">

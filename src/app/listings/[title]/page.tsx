@@ -9,7 +9,12 @@ async function Page({ searchParams }: { searchParams: serverSearchParamType; }) 
   if (!id) {
     redirect('/listings');
   }
-  const listings: ListingsResponse = await getCollectionDataWithId({ collectionName: "listings", id: id });
+  const listings: ListingsResponse = await getCollectionDataWithId({
+    collectionName: "listings", id: id, options: {
+      fields:
+        "id,created,updated,type,title,address,city,state,zip,price,auctionDate,priceByNegotiation,bedroom,bathroom,parking,squareFt,lotSize,yearBuilt,amenities,images,agent,listingDate,status"
+    }
+  },);
   return (
     <PropertyPage data={listings} />
   );

@@ -10,11 +10,15 @@ async function page() {
     { href: "/", label: "Home" },
     { href: "/blogs", label: "Blogs" },
   ];
-  const blogs: ListResult<BlogsResponse> = await getCollectionData({ collectionName: "blogs" });
+  const blogs: ListResult<BlogsResponse> = await getCollectionData({
+    collectionName: "blogs", options: {
+      fields: "id,title,description,created,updated,author,images,body:excerpt(135,true)"
+    }
+  });
   return (
     <React.Fragment>
       <BackButtonBreadcrumb items={BreadcrumbItems} />
-        <BlogList data={blogs}/>
+      <BlogList data={blogs} />
     </React.Fragment>
   );
 }
