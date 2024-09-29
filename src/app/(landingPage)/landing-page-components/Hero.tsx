@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import ParminderBajwa from '@/../public/parminderbajwa.webp';
 import Image from 'next/image';
+import React from 'react';
 
 function Hero() {
   // Constants
@@ -110,24 +111,24 @@ function Hero() {
               Find your dream home effortlessly with Parminder Bajwa and our expert real estate services.
             </p>
           </div>
-          <div className='relative z-30 flex items-center justify-center md:space-x-8'>
+          <div className='flex items-center justify-center gap-1 flex-wrap'>
             <Button
+              className='max-w-[500px] bg-blue-500 text-white flex-grow rounded-xl p-8 text-[18px] hover:text-white dark:text-white dark:hover:bg-white dark:hover:text-gray-700 md:flex-grow-0'
               type='button'
               onClick={() => {
                 const contactMe = document.getElementById('contactMe');
                 contactMe?.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
               }}
-              className='hidden gap-x-1 p-8 text-[18px] text-white hover:bg-blue-600 md:flex md:rounded-xl md:bg-blue-500'
             >
               Get in touch
             </Button>
             <Button
+              className='max-w-[500px] flex-grow rounded-xl p-8 text-[18px] text-gray-700 hover:bg-gray-700 hover:text-white dark:text-white dark:hover:bg-white dark:hover:text-gray-700 md:flex-grow-0'
               type='button'
               variant='outline'
               onClick={() => {
                 window.location.href = '/listings';
               }}
-              className='max-w-[500px] flex-grow rounded-xl p-8 text-[18px] text-gray-700 hover:bg-gray-700 hover:text-white dark:text-white dark:hover:bg-white dark:hover:text-gray-700 md:flex-grow-0'
             >
               View properties
             </Button>
