@@ -12,7 +12,8 @@ async function page() {
   ];
   const blogs: ListResult<BlogsResponse> = await getCollectionData({
     collectionName: "blogs", options: {
-      fields: "id,title,description,created,updated,author,images,body:excerpt(135,true)"
+      fields: "id,title,description,created,updated,author,images,body:excerpt(135,true)",
+      filter: "active=true"
     }
   });
   return (

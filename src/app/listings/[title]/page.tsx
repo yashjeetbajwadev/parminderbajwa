@@ -1,22 +1,36 @@
 import { PropertyPage } from "@/app/listings/(components)/PropertyPage";
-import { getCollectionDataWithId, getSearchParams } from "@/lib/utils";
+import { getCollectionData, getCollectionDataWithId, getSearchParams } from "@/lib/utils";
 import { ListingsResponse } from "@/types/pocketbase";
 import { serverSearchParamType } from "@/types/types";
 import { redirect } from "next/navigation";
+import { ListResult } from "pocketbase";
 
 async function Page({ searchParams }: { searchParams: serverSearchParamType; }) {
   const id = getSearchParams(searchParams, "object");
   if (!id) {
     redirect('/listings');
   }
-  const listings: ListingsResponse = await getCollectionDataWithId({
-    collectionName: "listings", id: id, options: {
-      fields:
-        "id,created,updated,type,title,address,city,state,zip,price,auctionDate,priceByNegotiation,bedroom,bathroom,parking,squareFt,lotSize,yearBuilt,amenities,images,agent,listingDate,status"
+  const listing: ListingsResponse = await getCollectionDataWithId({
+    collectionName: "listings",
+    id: id,
+    options: {
+      sort: '-featuredOnHomePage,-created,@random',
+      filter: "status='active'",
+      expand: "agent",
     }
   },);
+  const listingsList: ListResult<ListingsResponse> = await getCollectionData({
+    collectionName: "listings",
+    options: {
+      expand: ['agent'],
+      perPage: 5,
+      sort: '-featuredOnHomePage,-created,@random',
+      filter: `status='active' && id!='${id}'`
+    }
+  });
+
   return (
-    <PropertyPage data={listings} />
+    <PropertyPage data={listing} listingList={listingsList} />
   );
 }
 

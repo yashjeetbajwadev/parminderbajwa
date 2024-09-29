@@ -14,7 +14,7 @@ export function BlogPost({ data }: { data: BlogsResponse }) {
   return (
     <React.Fragment>
       <BackButtonBreadcrumb items={BreadcrumbItems} />
-      <article className="container w-4/5 mx-auto px-4 py-8">
+      <article className="container w-full md:w-4/5 mx-auto px-4 py-8">
         <header className="mb-8">
           <h1 className="text-3xl font-bold mb-2">{data.title}</h1>
           <div className="text-sm text-gray-500">

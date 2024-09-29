@@ -13,7 +13,7 @@ export async function getDataHandleRequest<T extends keyof CollectionRecords>(
   try {
     if (id) {
       // Fetch a single record
-      const record = await pb.collection(collectionName).getOne(id,{options});
+      const record = await pb.collection(collectionName).getOne(id, options);
       return NextResponse.json(record);
     } else {
       // Fetch a list of records

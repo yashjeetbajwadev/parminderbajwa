@@ -9,7 +9,12 @@ async function Page({ searchParams }: { searchParams: serverSearchParamType; }) 
   if (!id) {
     redirect('/blogs');
   }
-  const blog: BlogsResponse = await getCollectionDataWithId({ collectionName: "blogs", id: id });
+  const blog: BlogsResponse = await getCollectionDataWithId({
+    collectionName: "blogs", id: id, options: {
+      fields: "id,created,updated,title,author,body",
+      filter: "active=true"
+    }
+  });
 
   return (
     <BlogPost data={blog} />

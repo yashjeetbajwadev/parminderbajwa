@@ -1,3 +1,4 @@
+'use client';
 import { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import ParminderBajwa from '@/../public/parminderbajwa.webp';
@@ -112,6 +113,10 @@ function Hero() {
           <div className='relative z-30 flex items-center justify-center md:space-x-8'>
             <Button
               type='button'
+              onClick={() => {
+                const contactMe = document.getElementById('contactMe');
+                contactMe?.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
+              }}
               className='hidden gap-x-1 p-8 text-[18px] text-white hover:bg-blue-600 md:flex md:rounded-xl md:bg-blue-500'
             >
               Get in touch
@@ -119,6 +124,9 @@ function Hero() {
             <Button
               type='button'
               variant='outline'
+              onClick={() => {
+                window.location.href = '/listings';
+              }}
               className='max-w-[500px] flex-grow rounded-xl p-8 text-[18px] text-gray-700 hover:bg-gray-700 hover:text-white dark:text-white dark:hover:bg-white dark:hover:text-gray-700 md:flex-grow-0'
             >
               View properties

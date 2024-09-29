@@ -1,3 +1,4 @@
+'use client';
 function Incentive() {
   return (
     <div className='mg:mx-2 relative mx-7 my-0 pt-4 md:z-40 md:mx-2 lg:mx-auto lg:w-full lg:max-w-6xl'>

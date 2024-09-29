@@ -2,6 +2,7 @@ import Header from "./(layout)/Header";
 import Footer from "./(layout)/Footer";
 import "@/app/globals.css";
 import { AlertProvider } from "../custom/Alert";
+import ContactForm from "../custom/ContactMeForm";
 
 export default function MainRootLayout({
   children,
@@ -15,6 +16,9 @@ export default function MainRootLayout({
               <Header />
               <AlertProvider>
                 {children}
+                <div className="mt-20">
+                  <ContactForm />
+                </div>
               </AlertProvider>
               <Footer />
             </div>

@@ -1,20 +1,29 @@
 import { CollectionRecords, CollectionResponses } from "@/types/pocketbase";
 import { serverSearchParamType, ValueOf } from "@/types/types";
 import { type ClassValue, clsx } from "clsx";
-import { ListResult, RecordOptions } from "pocketbase";
+import { ListOptions, ListResult, RecordOptions } from "pocketbase";
 import { twMerge } from "tailwind-merge";
 import { getDataHandleRequest } from "./handlers/getData";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
+export function formatPrice(price: number) {
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "NZD",
+    currencyDisplay: "code",
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
+  }).format(price);
+}
 
-const defaultListCollectionOptions:RecordOptions = {
+const defaultListCollectionOptions: ListOptions = {
   limit: 10,
   page: 1,
-  sort: "created",
+  sort: "-created",
   order: "desc",
-}
+};
 
 export async function getCollectionData<T extends keyof CollectionRecords>({
   collectionName,
@@ -23,7 +32,11 @@ export async function getCollectionData<T extends keyof CollectionRecords>({
   options = { ...defaultListCollectionOptions, ...options };
   const optionsString = new URLSearchParams(options).toString();
   if (isServer()) {
-    const response = await getDataHandleRequest(collectionName, undefined, options);
+    const response = await getDataHandleRequest(
+      collectionName,
+      undefined,
+      options
+    );
     if (!response.ok) {
       throw new Error("Failed to fetch data");
     }
@@ -124,13 +137,16 @@ export const formatDate = (dateString: string) => {
 };
 export const isServer = () => typeof window === "undefined";
 
-export const getSearchParams = (searchParam: serverSearchParamType, key: string) => {
+export const getSearchParams = (
+  searchParam: serverSearchParamType,
+  key: string
+) => {
   return searchParam[key] as string | undefined;
-}
+};
 
 type CommonAPIProps<T extends keyof CollectionRecords> = {
   collectionName: T;
-  options?: RecordOptions;
+  options?: ListOptions;
 };
 type APIResult<T extends keyof CollectionRecords> =
   | ListResult<CollectionResponses[T]>
@@ -142,4 +158,3 @@ type FetchDataFromAPIProps<T extends keyof CollectionRecords> =
     setError?: (error: string | null) => void;
     setIsLoading?: (isLoading: boolean) => void;
   };
-

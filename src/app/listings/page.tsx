@@ -10,7 +10,7 @@ export async function Page() {
     { href: "/", label: "Home" },
     { href: "/listings", label: "Properties" },
   ];
-  const listings: ListResult<ListingsResponse> = await getCollectionData({ collectionName: "listings" });
+  const listings: ListResult<ListingsResponse> = await getCollectionData({ collectionName: "listings", options: { filter: "status='active'" } });
   return (
     <React.Fragment>
       <BackButtonBreadcrumb

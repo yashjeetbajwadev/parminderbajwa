@@ -1,63 +1,46 @@
 'use client';
-import PocketBaseImage from '@/components/PocketBaseImage'
-import { ListingsResponse } from '@/types/pocketbase'
-import { Button } from "@/components/ui/button";
-import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react'
-import React, { useState } from 'react'
 
-function ListingListImageCarousel({ record }: { record: ListingsResponse }) {
-    const [currentImageIndex, setCurrentImageIndex] = useState(0)
-  
-    const nextImage = () => {
-      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % record.images.length)
-    }
-  
-    const prevImage = () => {
-      setCurrentImageIndex((prevIndex) => (prevIndex - 1 + record.images.length) % record.images.length)
-    }
-  
-    return (
-      <div className="relative">
-        <PocketBaseImage
-            record={record}
-            filename={record.images[currentImageIndex]}
-            className="w-full h-40 md:h-60 object-cover"
-            width={300}
-            height={300}
-            alt={record.title}
-        />
-        {record.images.length > 1 && (
-          <React.Fragment>
-            <Button
-              variant="secondary"
-              size="icon"
-              className="absolute left-2 top-1/2 transform -translate-y-1/2"
-              onClick={prevImage}
-            >
-              <ChevronLeftIcon className="h-6 w-6" />
-            </Button>
-            <Button
-              variant="secondary"
-              size="icon"
-              className="absolute right-2 top-1/2 transform -translate-y-1/2"
-              onClick={nextImage}
-            >
-              <ChevronRightIcon className="h-6 w-6" />
-            </Button>
-            <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex space-x-1">
-              {record.images.map((_, index) => (
-                <div
-                  key={index}
-                  className={`h-1.5 w-1.5 rounded-full ${
-                    index === currentImageIndex ? 'bg-white' : 'bg-white/50'
-                  }`}
-                />
-              ))}
-            </div>
-          </ React.Fragment>
-        )}
-      </div>
-    )
-  }
+import React from 'react';
+import { ListingsResponse } from '@/types/pocketbase';
+import PocketBaseImage from '@/components/PocketBaseImage';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
+import { cn, isServer } from '@/lib/utils';
 
-export default ListingListImageCarousel
+function ListingListImageCarousel({ record, ImageClassName}: { record: ListingsResponse, ImageClassName?: string}) {
+  if (!record.images.length){
+    record.images = ['placeholder.png'];
+  } 
+
+  return (
+    <Carousel className={cn("w-full")}>
+      <CarouselContent>
+        {record.images.map((image, index) => (
+          <CarouselItem key={index}>
+            <PocketBaseImage
+              record={record}
+              filename={image}
+              className={cn("object-cover",  ImageClassName)}
+              width={isServer()? 1920: window.innerWidth}
+              height={isServer()? 1080: window.innerWidth}
+              alt={`${record.title} - Image ${index + 1}`}
+            />
+          </CarouselItem>
+        ))}
+      </CarouselContent>
+      {record.images.length > 1 && (
+        <>
+          <CarouselPrevious className="absolute left-2 top-1/2 transform -translate-y-1/2" />
+          <CarouselNext className="absolute right-2 top-1/2 transform -translate-y-1/2" />
+        </>
+      )}
+    </Carousel>
+  );
+}
+
+export default ListingListImageCarousel;

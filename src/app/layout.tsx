@@ -8,7 +8,9 @@ export default function RootLayout({
 }) {
   return (
     <MainRootLayout>
-      {children}
+      <div className="container mx-auto px-4 py-8 w-full md:w-4/5">
+        {children}
+      </div>
     </MainRootLayout>
   )
 }

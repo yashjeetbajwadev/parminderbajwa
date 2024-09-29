@@ -8,12 +8,12 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { formatDate, formatSinglePage, validDate } from "@/lib/utils";
+import { formatDate, formatPrice, formatSinglePage, validDate } from "@/lib/utils";
 import { ListingsResponse } from "@/types/pocketbase";
 import { BathIcon, BedDoubleIcon, CalendarIcon, CarIcon, HomeIcon, RulerIcon } from 'lucide-react';
 import { ListResult } from "pocketbase";
 import ListingListImageCarousel from "./ListingListImageCarousel";
-import {useEffect, useState} from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from "next/navigation";
 
 export function ListingsList({ data }: { data: ListResult<ListingsResponse> }): JSX.Element {
@@ -26,18 +26,9 @@ export function ListingsList({ data }: { data: ListResult<ListingsResponse> }): 
     }
   }, [currentPage, router]);
 
-  const formatPrice = (price: number) => {
-    return new Intl.NumberFormat("en-US", {
-      style: "currency",
-      currency: "NZD",
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0,
-    }).format(price);
-  };
-
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-8">Real Estate Listings</h1>
+      <h1 className="text-3xl font-bold mb-8">My Listings</h1>
       <div className="mb-8 flex justify-between items-center">
         <p className="text-muted-foreground">
           Showing {data.items.length} of {data.totalItems} listings
@@ -61,9 +52,9 @@ export function ListingsList({ data }: { data: ListResult<ListingsResponse> }): 
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {data?.items?.map((listing: ListingsResponse) => (
-          <Card key={listing.id} className="overflow-hidden">
+          <Card key={listing.id} className="overflow-hidden grid">
             <CardHeader className="p-0">
-              <ListingListImageCarousel record={listing} />
+              <ListingListImageCarousel record={listing} ImageClassName="h-96" />
             </CardHeader>
             <CardContent className="p-4">
               <CardTitle className="text-xl mb-2">{listing.title}</CardTitle>
@@ -95,11 +86,11 @@ export function ListingsList({ data }: { data: ListResult<ListingsResponse> }): 
                 </div>
                 <div className="flex items-center">
                   <HomeIcon className="w-4 h-4 mr-1" />
-                  <span>{listing.squareFt} sqft</span>
+                  <span>{listing.floorSquareFt} sqft</span>
                 </div>
                 <div className="flex items-center">
                   <RulerIcon className="w-4 h-4 mr-1" />
-                  <span>{listing.lotSize} lot</span>
+                  <span>{listing.landSquareFt} sqft</span>
                 </div>
                 {listing.yearBuilt && (
                   <div className="flex items-center">
@@ -124,8 +115,8 @@ export function ListingsList({ data }: { data: ListResult<ListingsResponse> }): 
                 </p>
               )}
             </CardContent>
-            <CardFooter className="bg-muted p-4">
-              <Button className="w-full"
+            <CardFooter className="bg-muted p-4 self-end">
+              <Button className="w-full m-0"
                 onClick={() => {
                   window.location.href = formatSinglePage("listings", listing.id, listing.title);
                 }

@@ -1,13 +1,13 @@
 'use client'
-import React from 'react'
-import { useState } from 'react'
-import { useForm } from 'react-hook-form'
-import ReCAPTCHA from "react-google-recaptcha"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
+import { Textarea } from "@/components/ui/textarea"
+import React, { useState } from 'react'
+import ReCAPTCHA from "react-google-recaptcha"
+import { useForm } from 'react-hook-form'
 import { useAlert } from './Alert'
+import ContactDetail from "@/app/about/(components)/ContactDetail"
 
 type FormData = {
   FName: string
@@ -60,77 +60,80 @@ export default function ContactForm() {
 
   return (
     <React.Fragment>
-    <h3 className="text-2xl font-semibold mb-4 text-center">Contact Me</h3>
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 max-w-md mx-auto">
-      <div>
-        <Label htmlFor="FName">Full Name</Label>
-        <Input
-          id="FName"
-          {...register("FName", { required: "Full name is required" })}
-          aria-invalid={errors.FName ? "true" : "false"}
-        />
-        {errors.FName && <p className="text-red-500 text-sm mt-1">{errors.FName.message}</p>}
+      <div className="w-4/5 mx-auto" id="contactMe">
+        <h3 className="text-4xl mb-4 text-center pt-20 font-extrabold">Contact Me</h3>
+        <ContactDetail />
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 max-w-md mx-auto">
+          <div>
+            <Label htmlFor="FName">Full Name</Label>
+            <Input
+              id="FName"
+              {...register("FName", { required: "Full name is required" })}
+              aria-invalid={errors.FName ? "true" : "false"}
+            />
+            {errors.FName && <p className="text-red-500 text-sm mt-1">{errors.FName.message}</p>}
+          </div>
+
+          <div>
+            <Label htmlFor="Email">Email</Label>
+            <Input
+              id="Email"
+              type="email"
+              {...register("Email", {
+                required: "Email is required",
+                pattern: {
+                  value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                  message: "Invalid email address"
+                }
+              })}
+              aria-invalid={errors.Email ? "true" : "false"}
+            />
+            {errors.Email && <p className="text-red-500 text-sm mt-1">{errors.Email.message}</p>}
+          </div>
+
+          <div>
+            <Label htmlFor="Phone">Phone</Label>
+            <Input
+              id="Phone"
+              type="tel"
+              {...register("Phone", {
+                required: "Phone number is required",
+                pattern: {
+                  value: /^[0-9]{10}$/,
+                  message: "Invalid phone number, please enter 10 digits"
+                }
+              })}
+              aria-invalid={errors.Phone ? "true" : "false"}
+            />
+            {errors.Phone && <p className="text-red-500 text-sm mt-1">{errors.Phone.message}</p>}
+          </div>
+
+          <div>
+            <Label htmlFor="Message">Message</Label>
+            <Textarea
+              id="Message"
+              {...register("Message", { required: "Message is required" })}
+              aria-invalid={errors.Message ? "true" : "false"}
+            />
+            {errors.Message && <p className="text-red-500 text-sm mt-1">{errors.Message.message}</p>}
+          </div>
+
+          <ReCAPTCHA
+            sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY ?? ""}
+            onChange={(value) => setRecaptchaValue(value)}
+          />
+
+          {submitError && (
+            <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+              <span className="block sm:inline">{submitError}</span>
+            </div>
+          )}
+
+          <Button type="submit" disabled={isSubmitting} className="w-full">
+            {isSubmitting ? 'Submitting...' : 'Submit'}
+          </Button>
+        </form>
       </div>
-
-      <div>
-        <Label htmlFor="Email">Email</Label>
-        <Input
-          id="Email"
-          type="email"
-          {...register("Email", { 
-            required: "Email is required",
-            pattern: {
-              value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-              message: "Invalid email address"
-            }
-          })}
-          aria-invalid={errors.Email ? "true" : "false"}
-        />
-        {errors.Email && <p className="text-red-500 text-sm mt-1">{errors.Email.message}</p>}
-      </div>
-
-      <div>
-        <Label htmlFor="Phone">Phone</Label>
-        <Input
-          id="Phone"
-          type="tel"
-          {...register("Phone", { 
-            required: "Phone number is required",
-            pattern: {
-              value: /^[0-9]{10}$/,
-              message: "Invalid phone number, please enter 10 digits"
-            }
-          })}
-          aria-invalid={errors.Phone ? "true" : "false"}
-        />
-        {errors.Phone && <p className="text-red-500 text-sm mt-1">{errors.Phone.message}</p>}
-      </div>
-
-      <div>
-        <Label htmlFor="Message">Message</Label>
-        <Textarea
-          id="Message"
-          {...register("Message", { required: "Message is required" })}
-          aria-invalid={errors.Message ? "true" : "false"}
-        />
-        {errors.Message && <p className="text-red-500 text-sm mt-1">{errors.Message.message}</p>}
-      </div>
-
-      <ReCAPTCHA
-        sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY ?? ""}
-        onChange={(value) => setRecaptchaValue(value)}
-      />
-
-      {submitError && (
-        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
-          <span className="block sm:inline">{submitError}</span>
-        </div>
-      )}
-
-      <Button type="submit" disabled={isSubmitting} className="w-full">
-        {isSubmitting ? 'Submitting...' : 'Submit'}
-      </Button>
-    </form>
     </React.Fragment>
   )
 }

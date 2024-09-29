@@ -7,7 +7,7 @@ import type { RecordService } from 'pocketbase'
 
 export enum Collections {
 	Blogs = "blogs",
-	Clients = "clients",
+	Contactme = "contactme",
 	Listings = "listings",
 	Premissions = "premissions",
 	Testimonials = "testimonials",
@@ -46,9 +46,10 @@ export type BlogsRecord = {
 	url?: string
 }
 
-export type ClientsRecord = {
+export type ContactmeRecord = {
 	buying?: boolean
 	email?: string
+	message?: string
 	name?: string
 	phone?: string
 	selling?: boolean
@@ -67,21 +68,22 @@ export enum ListingsStatusOptions {
 export type ListingsRecord = {
 	additionalInfo?: string
 	address?: string
-	agent?: string
+	agent?: RecordIdString
 	amenities?: string
 	auctionDate?: IsoDateString
 	bathroom?: number
 	bedroom?: number
 	city?: string
+	featuredOnHomePage?: number
+	floorSquareFt?: number
 	images?: string[]
+	landSquareFt?: number
 	listingDate?: IsoDateString
-	lotSize?: number
 	parking?: number
 	price?: number
 	priceByNegotiation?: boolean
-	squareFt?: number
 	state?: string
-	status?: ListingsStatusOptions[]
+	status?: ListingsStatusOptions
 	title?: string
 	type?: ListingsTypeOptions[]
 	yearBuilt?: IsoDateString
@@ -90,6 +92,7 @@ export type ListingsRecord = {
 
 export type PremissionsRecord = {
 	isAdmin?: boolean
+	role?: string
 }
 
 export type TestimonialsRecord = {
@@ -105,7 +108,7 @@ export type UsersRecord = {
 
 // Response types include system fields and match responses from the PocketBase API
 export type BlogsResponse<Texpand = unknown> = Required<BlogsRecord> & BaseSystemFields<Texpand>
-export type ClientsResponse<Texpand = unknown> = Required<ClientsRecord> & BaseSystemFields<Texpand>
+export type ContactmeResponse<Texpand = unknown> = Required<ContactmeRecord> & BaseSystemFields<Texpand>
 export type ListingsResponse<Texpand = unknown> = Required<ListingsRecord> & BaseSystemFields<Texpand>
 export type PremissionsResponse<Texpand = unknown> = Required<PremissionsRecord> & BaseSystemFields<Texpand>
 export type TestimonialsResponse<Texpand = unknown> = Required<TestimonialsRecord> & BaseSystemFields<Texpand>
@@ -115,7 +118,7 @@ export type UsersResponse<Texpand = unknown> = Required<UsersRecord> & AuthSyste
 
 export type CollectionRecords = {
 	blogs: BlogsRecord
-	clients: ClientsRecord
+	contactme: ContactmeRecord
 	listings: ListingsRecord
 	premissions: PremissionsRecord
 	testimonials: TestimonialsRecord
@@ -124,7 +127,7 @@ export type CollectionRecords = {
 
 export type CollectionResponses = {
 	blogs: BlogsResponse
-	clients: ClientsResponse
+	contactme: ContactmeResponse
 	listings: ListingsResponse
 	premissions: PremissionsResponse
 	testimonials: TestimonialsResponse
@@ -136,7 +139,7 @@ export type CollectionResponses = {
 
 export type TypedPocketBase = PocketBase & {
 	collection(idOrName: 'blogs'): RecordService<BlogsResponse>
-	collection(idOrName: 'clients'): RecordService<ClientsResponse>
+	collection(idOrName: 'contactme'): RecordService<ContactmeResponse>
 	collection(idOrName: 'listings'): RecordService<ListingsResponse>
 	collection(idOrName: 'premissions'): RecordService<PremissionsResponse>
 	collection(idOrName: 'testimonials'): RecordService<TestimonialsResponse>

@@ -12,17 +12,21 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { formatDate, formatSinglePage, validDate } from "@/lib/utils";
-import { ListingsResponse } from "@/types/pocketbase";
+import { ListingsResponse, UsersRecord } from "@/types/pocketbase";
 import {
   BathIcon,
   BedIcon,
   CarIcon,
   RulerIcon,
 } from "lucide-react";
+import { ListResult } from "pocketbase";
 import React from "react";
+import ListingsSwiper from "./ListingSwiper";
 
-export function PropertyPage({ data }: { data: ListingsResponse }): JSX.Element {
+export function PropertyPage({ data, listingList }: { data: ListingsResponse, listingList: ListResult<ListingsResponse> }): JSX.Element {
   if (!data) return <div>No data available</div>;
+  const expand = data?.expand as { agent: UsersRecord };
+  const agent = expand?.agent ?? { name: "Unknown" };
 
   const BreadcrumbItems = () => {
     return [
@@ -59,7 +63,9 @@ export function PropertyPage({ data }: { data: ListingsResponse }): JSX.Element 
             </div>
           </CardHeader>
           <CardContent>
-            <ListingListImageCarousel record={data} />
+            <div className=" w-full h-full">
+              <ListingListImageCarousel record={data} ImageClassName={"w-full h-full"} />
+            </div>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 my-6">
               <div className="flex items-center">
                 <BedIcon className="mr-2" />
@@ -75,7 +81,7 @@ export function PropertyPage({ data }: { data: ListingsResponse }): JSX.Element 
               </div>
               <div className="flex items-center">
                 <RulerIcon className="mr-2" />
-                <span>{data.squareFt} sq ft</span>
+                <span>{data.floorSquareFt} sq ft</span>
               </div>
             </div>
 
@@ -87,7 +93,7 @@ export function PropertyPage({ data }: { data: ListingsResponse }): JSX.Element 
                     <strong>Type:</strong> {data.type.join(", ")}
                   </p>
                   <p>
-                    <strong>Lot Size:</strong> {data.lotSize} acres
+                    <strong>Lot Size:</strong> {data.landSquareFt} sq ft
                   </p>
                   {data.yearBuilt && validDate(data.yearBuilt) &&
                     <p>
@@ -103,10 +109,10 @@ export function PropertyPage({ data }: { data: ListingsResponse }): JSX.Element 
                     </p>
                   }
                   <p>
-                    <strong>Status:</strong> {data.status.join(", ")}
+                    <strong>Status:</strong> {data.status}
                   </p>
                   <p>
-                    <strong>Agent:</strong> {data.agent}
+                    <strong>Agent:</strong> {agent.name}
                   </p>
                 </div>
               </div>
@@ -117,7 +123,7 @@ export function PropertyPage({ data }: { data: ListingsResponse }): JSX.Element 
               </div>
 
               <div>
-                <h3 className="text-xl font-semibold">Additional Information</h3>
+                <h3 className="text-xl font-semibold">Description</h3>
                 <p>{data.additionalInfo}</p>
               </div>
             </div>
@@ -127,6 +133,10 @@ export function PropertyPage({ data }: { data: ListingsResponse }): JSX.Element 
             <Button>Schedule Viewing</Button>
           </CardFooter>
         </Card>
+        {
+          listingList.items.length > 0 &&
+          <ListingsSwiper data={listingList} />
+        }
       </div>
     </React.Fragment>
   );
