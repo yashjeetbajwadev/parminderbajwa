@@ -13,5 +13,5 @@ export default async function GET(request: NextRequest) {
     );
   }
 
-  return getDataHandleRequest(collection, id || undefined);
+  return getDataHandleRequest(collection, id ?? undefined);
 }

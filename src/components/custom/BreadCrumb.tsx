@@ -14,10 +14,9 @@ interface BackButtonBreadcrumbProps {
 }
 
 const ButtonBreadcrumb: React.FC<BackButtonBreadcrumbProps> = ({ items }) => {
-  const router = useRouter();
 
   return (
-    <div className="flex container items-center space-x-4 m-0 px-4 mx-auto">
+    <div className="flex container items-center space-x-4 m-0 mx-auto max-w-7xl">
       <nav className="flex" aria-label="Breadcrumb">
         <ol className="flex items-center space-x-2">
           {items.map((item, index) => (

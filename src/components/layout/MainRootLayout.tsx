@@ -10,7 +10,7 @@ export default function MainRootLayout({
   return (
     <html lang="en">
       <body>
-        <div className="min-h-screen dark:bg-boxdark-2 dark:text-white">
+        <div className="min-h-screen dark:bg-boxdark-2 dark:text-white text-gray-700">
           <div className="scroll-smooth">
             <div className="bg-white">
               <Header />

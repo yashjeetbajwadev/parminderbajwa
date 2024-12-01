@@ -39,7 +39,7 @@ export function PropertyPage({ data, listingList }: { data: ListingsResponse, li
   return (
     <React.Fragment>
       <BackButtonBreadcrumb items={BreadcrumbItems()} />
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto py-8 max-w-7xl">
         <Card className="w-full">
           <CardHeader>
             <div className="flex justify-between items-start">
@@ -64,7 +64,7 @@ export function PropertyPage({ data, listingList }: { data: ListingsResponse, li
           </CardHeader>
           <CardContent>
             <div className=" w-full h-full">
-              <ListingListImageCarousel record={data} ImageClassName={"w-full h-full"} />
+              <ListingListImageCarousel record={data} ImageClassName={"w-full h-full"} openDialogOnClick />
             </div>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 my-6">
               <div className="flex items-center">

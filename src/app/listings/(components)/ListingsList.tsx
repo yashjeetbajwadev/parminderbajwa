@@ -27,7 +27,7 @@ export function ListingsList({ data }: { data: ListResult<ListingsResponse> }): 
   }, [currentPage, router]);
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="container mx-auto py-8 max-w-7xl">
       <h1 className="text-3xl font-bold mb-8">My Listings</h1>
       <div className="mb-8 flex justify-between items-center">
         <p className="text-muted-foreground">
@@ -50,7 +50,7 @@ export function ListingsList({ data }: { data: ListResult<ListingsResponse> }): 
           </Button>
         </div>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {data?.items?.map((listing: ListingsResponse) => (
           <Card key={listing.id} className="overflow-hidden grid">
             <CardHeader className="p-0">
@@ -65,10 +65,10 @@ export function ListingsList({ data }: { data: ListResult<ListingsResponse> }): 
                 </span>
                 <Badge
                   variant={
-                    listing.status[0] === "active" ? "default" : "secondary"
+                    listing.status === "active" ? "default" : "secondary"
                   }
                 >
-                  {listing.status[0]}
+                  {listing.status[0].toUpperCase() + listing.status.substring(1)}
                 </Badge>
               </div>
               <div className="grid grid-cols-3 gap-2 mb-4">

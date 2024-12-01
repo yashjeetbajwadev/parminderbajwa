@@ -6,17 +6,17 @@ import { ListingsResponse } from '@/types/pocketbase'
 import { ListResult } from 'pocketbase'
 import ListingListImageCarousel from './ListingListImageCarousel'
 import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
+    Carousel,
+    CarouselContent,
+    CarouselItem,
+    CarouselNext,
+    CarouselPrevious,
 } from "@/components/ui/carousel"
-import { formatPrice } from '@/lib/utils'
+import { formatPrice, formatSinglePage } from '@/lib/utils'
 
 export default function ListingsCarousel({ data }: { data: ListResult<ListingsResponse> }) {
     return (
-        <Card className="container mx-auto my-8">
+        <Card className="container mx-auto my-8 bg-primary/5">
             <CardHeader>
                 <div className="flex justify-between items-center mb-4">
                     <h2 className="text-2xl font-bold">Featured Listings</h2>
@@ -37,8 +37,13 @@ export default function ListingsCarousel({ data }: { data: ListResult<ListingsRe
                                     <CardContent className='flex flex-grow justify-center items-center'>
                                         <ListingListImageCarousel record={listing} ImageClassName="h-64 w-full object-cover" />
                                     </CardContent>
-                                    <CardFooter>
+                                    <CardFooter className="flex flex-col gap-2 p-4">
                                         <p className="font-semibold">{formatPrice(listing.price)}</p>
+                                        <Button className="w-full m-0"
+                                            onClick={() => {
+                                                window.location.href = formatSinglePage("listings", listing.id, listing.title);
+                                            }
+                                            }>View Details</Button>
                                     </CardFooter>
                                 </Card>
                             </CarouselItem>

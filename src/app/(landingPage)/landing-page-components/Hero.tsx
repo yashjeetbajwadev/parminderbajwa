@@ -6,7 +6,6 @@ import Image from 'next/image';
 import React from 'react';
 
 function Hero() {
-  // Constants
   // constants
   const textColours: string[] = ['text-blue-500', 'text-green-500', 'text-orange-500', 'text-red-500'];
   const circleColours: string[] = ['bg-blue-200', 'bg-green-200', 'bg-orange-200', 'bg-red-200'];
@@ -111,9 +110,9 @@ function Hero() {
               Find your dream home effortlessly with Parminder Bajwa and our expert real estate services.
             </p>
           </div>
-          <div className='flex items-center justify-center gap-1 flex-wrap'>
+          <div className='flex items-center justify-center gap-4 flex-wrap'>
             <Button
-              className='max-w-[500px] bg-blue-500 text-white flex-grow rounded-xl p-8 text-[18px] hover:text-white dark:text-white dark:hover:bg-white dark:hover:text-gray-700 md:flex-grow-0'
+              className='max-w-[500px] bg-blue-500 text-white flex-grow rounded-xl p-6 text-[18px] hover:text-white dark:text-white dark:hover:bg-white dark:hover:text-gray-700 md:flex-grow-0'
               type='button'
               onClick={() => {
                 const contactMe = document.getElementById('contactMe');
@@ -123,7 +122,7 @@ function Hero() {
               Get in touch
             </Button>
             <Button
-              className='max-w-[500px] flex-grow rounded-xl p-8 text-[18px] text-gray-700 hover:bg-gray-700 hover:text-white dark:text-white dark:hover:bg-white dark:hover:text-gray-700 md:flex-grow-0'
+              className='max-w-[500px] flex-grow rounded-xl p-6 text-[18px] text-gray-700 hover:bg-gray-700 hover:text-white dark:text-white dark:hover:bg-white dark:hover:text-gray-700 md:flex-grow-0'
               type='button'
               variant='outline'
               onClick={() => {

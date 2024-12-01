@@ -7,7 +7,7 @@ import { ListResult } from 'pocketbase'
 
 export function BlogList({ data }: { data: ListResult<BlogsResponse> }) {
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="container mx-auto py-8 max-w-7xl">
       <h1 className="text-3xl font-bold mb-8">Blog Posts</h1>
       <div className="grid gap-6 grid-cols-2">
         {data.items.map((post: BlogsResponse) => (

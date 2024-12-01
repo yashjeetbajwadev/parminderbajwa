@@ -1,44 +1,75 @@
-import { footerNavigation } from '../../../app/contentSections';
+import Link from 'next/link'
+import { Phone, Mail, Facebook, Twitter, Instagram } from 'lucide-react'
 
-function Footer() {
+export default function Footer() {
+  const currentYear = new Date().getFullYear()
+
   return (
-    <div className='mx-auto mt-6 max-w-7xl px-6 dark:bg-boxdark-2 lg:px-8'>
-      <footer
-        aria-labelledby='footer-heading'
-        className='relative border-t border-gray-900/10 py-24 dark:border-gray-200/10 sm:mt-32'
-      >
-        <h2 id='footer-heading' className='sr-only'>
-          Footer
-        </h2>
-        <div className='mt-10 flex items-start justify-end gap-20'>
+    <footer className="bg-gray-100 text-gray-600 py-8 mt-10 ">
+      <div className="container mx-auto px-4 max-w-7xl">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {/* Contact Information */}
           <div>
-            <h3 className='text-sm font-semibold leading-6 text-gray-900 dark:text-white'>App</h3>
-            <ul role='list' className='mt-6 space-y-4'>
-              {footerNavigation.app.map((item) => (
-                <li key={item.name}>
-                  <a href={item.href} className='text-sm leading-6 text-gray-600 hover:text-gray-900 dark:text-white'>
-                    {item.name}
-                  </a>
-                </li>
-              ))}
+            <h3 className="font-semibold text-lg mb-4">Contact Information</h3>
+            <ul className="space-y-2">
+              <li className="flex items-center">
+                <Phone className="w-5 h-5 mr-2" />
+                <span>(123) 456-7890</span>
+              </li>
+              <li className="flex items-center">
+                <Mail className="w-5 h-5 mr-2" />
+                <a href="mailto:info@example.com" className="hover:text-gray-900">p.bajwa@barfoot.co.nz</a>
+              </li>
             </ul>
           </div>
+
+          {/* Quick Navigation */}
           <div>
-            <h3 className='text-sm font-semibold leading-6 text-gray-900 dark:text-white'>Company</h3>
-            <ul role='list' className='mt-6 space-y-4'>
-              {footerNavigation.company.map((item) => (
-                <li key={item.name}>
-                  <a href={item.href} className='text-sm leading-6 text-gray-600 hover:text-gray-900 dark:text-white'>
-                    {item.name}
-                  </a>
-                </li>
-              ))}
+            <h3 className="font-semibold text-lg mb-4">Quick Navigation</h3>
+            <ul className="space-y-2">
+              <li><Link href="/" className="hover:text-gray-900">Home</Link></li>
+              <li><Link href="/listings" className="hover:text-gray-900">Listings</Link></li>
+              <li><Link href="/blogs" className="hover:text-gray-900">Blogs</Link></li>
+              <li><Link href="/about" className="hover:text-gray-900">About Us</Link></li>
+              <li><Link href="#contactMe" className="hover:text-gray-900">Contact</Link></li>
             </ul>
+          </div>
+
+          {/* Legal */}
+          <div>
+            <h3 className="font-semibold text-lg mb-4">Legal</h3>
+            <ul className="space-y-2">
+              <li><Link href="/privacy-policy" className="hover:text-gray-900">Privacy Policy</Link></li>
+              <li><Link href="/terms-of-service" className="hover:text-gray-900">Terms of Service</Link></li>
+            </ul>
+          </div>
+
+          {/* Social Media */}
+          <div>
+            <h3 className="font-semibold text-lg mb-4">Social Media</h3>
+            <div className="flex space-x-4">
+              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="hover:text-gray-900">
+                <Facebook className="w-6 h-6" />
+                <span className="sr-only">Facebook</span>
+              </a>
+              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="hover:text-gray-900">
+                <Twitter className="w-6 h-6" />
+                <span className="sr-only">Twitter</span>
+              </a>
+              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="hover:text-gray-900">
+                <Instagram className="w-6 h-6" />
+                <span className="sr-only">Instagram</span>
+              </a>
+            </div>
           </div>
         </div>
-      </footer>
-    </div>
-  );
+
+        {/* Copyright */}
+        <div className="mt-8 pt-8 border-t border-gray-200 text-center">
+          <p>&copy; {currentYear} Parminder Bajwa. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+  )
 }
 
-export default Footer;

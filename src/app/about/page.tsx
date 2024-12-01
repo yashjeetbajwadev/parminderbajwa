@@ -12,7 +12,7 @@ export default function Component() {
         { href: "/about", label: "About" },
     ]
     return (
-        <div className="mx-auto w-full md:w-4/5 px-4 py-8">
+        <div className="mx-auto w-full py-8 max-w-7xl">
             <div className="mb-8">
                 <BackButtonBreadcrumb items={BreadCrumbItems} />
             </div>

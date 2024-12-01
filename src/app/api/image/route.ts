@@ -32,7 +32,7 @@ export async function GET(request: NextRequest) {
     const fileResponse = await fetch(fileUrl);
 
     if (!fileResponse.ok) {
-      console.error("Failed to fetch image:", await JSON.stringify(fileResponse));
+      console.error("Failed to fetch image:", JSON.stringify(fileResponse));
       return NextResponse.json(
         { error: "Failed to fetch image" },
         { status: 500 }
