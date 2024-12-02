@@ -19,7 +19,7 @@ export function ContactModal({ className }: ContactMeFormProps) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline" className={className}>Contact Me</Button>
+        <Button variant="outline" className={className}>Get In Touch</Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px] bg-white">
         <DialogHeader>

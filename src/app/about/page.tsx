@@ -1,78 +1,112 @@
-'use client';
-import BackButtonBreadcrumb from "@/components/custom/BreadCrumb";
-import { ContactMe } from "@/components/custom/ContactMe/ContactMe";
-import { Card, CardContent } from "@/components/ui/card";
-import { Award } from "lucide-react";
-import Image from "next/image";
-import ContactDetail from "./(components)/ContactDetail";
+'use client'
+import { Badge } from "@/components/ui/badge"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { CheckCircle } from 'lucide-react'
+import Image from 'next/image'
+import ContactDetail from './(components)/ContactDetail'
+import ButtonBreadcrumb from "@/components/custom/BreadCrumb"
+import React from "react"
 
-export default function Component() {
-    const BreadCrumbItems = [
+export default function AboutMe() {
+    const BreadcrumbItems = [
         { href: "/", label: "Home" },
-        { href: "/about", label: "About" },
-    ]
+        { href: "/about", label: "About Me" },
+    ];
     return (
-        <div className="mx-auto w-full py-8 max-w-7xl">
-            <div className="mb-8">
-                <BackButtonBreadcrumb items={BreadCrumbItems} />
-            </div>
-            <div className="grid gap-6 md:grid-cols-2 lg:gap-12">
-                <div className="flex flex-col space-y-4">
-                    <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">Parminder Bajwa</h1>
-                    <h2 className="text-2xl font-semibold">Your Key to Real Estate Success</h2>
-                    <p className="text-muted-foreground">
-                        Are you ready to make your property dreams a reality? Look no further than Parminder Bajwa, your dedicated
-                        real estate expert.
-                    </p>
-                    <ContactDetail className="justify-start" />
-                </div>
-                <div className="relative h-[300px] overflow-hidden rounded-lg md:h-[400px]">
-                    <Image
-                        alt="Parminder Bajwa"
-                        className="object-cover"
-                        height="400"
-                        src="/parminderbajwa.webp"
-                        style={{
-                            aspectRatio: "300/400",
-                            objectFit: "cover",
-                        }}
-                        width="300"
-                    />
-                </div>
-            </div>
-            <div className="mt-12 space-y-8">
-                <section>
-                    <h3 className="text-2xl font-semibold mb-4">Why Choose Parminder?</h3>
-                    <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-                        {[
-                            "Client-Centric Approach",
-                            "Unparalleled Expertise",
-                            "Powerful Network",
-                            "Innovative Marketing",
-                            "Transparent Communication",
-                            "Unwavering Commitment",
-                            "Integrity and Respect",
-                        ].map((item, index) => (
-                            <Card key={index}>
-                                <CardContent className="flex items-center p-4">
-                                    <Award className="h-5 w-5 mr-2 text-primary" />
-                                    <p>{item}</p>
-                                </CardContent>
-                            </Card>
-                        ))}
+        <React.Fragment>
+            <ButtonBreadcrumb items={BreadcrumbItems} />
+                <div className="flex flex-col md:flex-row gap-6 max-w-7xl mx-auto mt-2">
+                    <div className="md:w-1/3">
+                        <Card className="w-full">
+                            <CardContent className="p-6">
+                                <Image
+                                    src="/parminderbajwa.webp"
+                                    alt="Parminder Bajwa"
+                                    width={300}
+                                    height={400}
+                                    className="w-full h-auto rounded-lg shadow-lg"
+                                />
+                                <h2 className="mt-4 text-xl font-semibold text-gray-900">Parminder Bajwa</h2>
+                                <p className="text-gray-600">Real Estate Specialist | Barfoot & Thompson</p>
+                                <ContactDetail className="justify-start mt-2"/>
+                            </CardContent>
+                        </Card>
                     </div>
-                </section>
-                <section>
-                    <h3 className="text-2xl font-semibold mb-4">Your Real Estate Journey Starts Here</h3>
-                    <p className="text-muted-foreground mb-4">
-                        Whether you&apos;re a first-time buyer, looking to upgrade, or planning a move to a new suburb, I&apos;m here to guide
-                        you every step of the way. From auctions to negotiations, from pricing strategies to tender processes – I&apos;ve
-                        got you covered.
-                    </p>
-                    <p className="font-semibold mb-4">Don&apos;t let your property goals remain dreams. Take the first step towards your real estate success today.</p>
-                    <ContactMe openInModal />
-                </section>
+
+                    <div className="md:w-2/3 space-y-6">
+                        <Card>
+                            <CardHeader>
+                                <CardTitle>Professional Profile</CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                                <p className="text-gray-700">
+                                    With a proven track record of successful property transactions, I transform real estate challenges into opportunities. My commitment is to deliver exceptional results tailored to your unique needs.
+                                </p>
+                            </CardContent>
+                        </Card>
+
+                        <Card>
+                            <CardHeader>
+                                <CardTitle>Core Strengths</CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                                <ul className="space-y-2">
+                                    <li className="flex items-start">
+                                        <CheckCircle className="h-5 w-5 text-green-500 mr-2 mt-1" />
+                                        <div>
+                                            <span className="font-semibold">Strategic Expertise:</span> Comprehensive market knowledge and innovative approaches to buying and selling
+                                        </div>
+                                    </li>
+                                    <li className="flex items-start">
+                                        <CheckCircle className="h-5 w-5 text-green-500 mr-2 mt-1" />
+                                        <div>
+                                            <span className="font-semibold">Client-First Philosophy:</span> Personalized guidance through every stage of your property journey
+                                        </div>
+                                    </li>
+                                    <li className="flex items-start">
+                                        <CheckCircle className="h-5 w-5 text-green-500 mr-2 mt-1" />
+                                        <div>
+                                            <span className="font-semibold">Extensive Network:</span> Connected with key industry professionals to maximize your property&apos;s potential
+                                        </div>
+                                    </li>
+                                    <li className="flex items-start">
+                                        <CheckCircle className="h-5 w-5 text-green-500 mr-2 mt-1" />
+                                        <div>
+                                            <span className="font-semibold">Transparent Communication:</span> Clear, honest, and timely updates that keep you informed and empowered
+                                        </div>
+                                    </li>
+                                </ul>
+                            </CardContent>
+                        </Card>
+
+                        <Card>
+                            <CardHeader>
+                                <CardTitle>Services</CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                                <div className="flex flex-wrap gap-2">
+                                    <Badge variant="secondary">First-time buyer support</Badge>
+                                    <Badge variant="secondary">Property valuation</Badge>
+                                    <Badge variant="secondary">Auction and tender representation</Badge>
+                                    <Badge variant="secondary">Negotiation management</Badge>
+                                    <Badge variant="secondary">Marketing strategy development</Badge>
+                                </div>
+                            </CardContent>
+                        </Card>
+
+                        <Card>
+                            <CardHeader>
+                                <CardTitle>Why Partner with Parminder?</CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                                <p className="text-gray-700">
+                                    Your property goals deserve a dedicated, knowledgeable, and results-driven professional. Let&apos;s turn your real estate dreams into reality.
+                                </p>
+                            </CardContent>
+                        </Card>
+                    </div>
             </div>
-        </div>
+        </React.Fragment>
     )
 }
+
