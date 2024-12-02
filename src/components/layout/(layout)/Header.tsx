@@ -4,9 +4,7 @@ import React from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import {
-  HamburgerMenuIcon,
-} from "@radix-ui/react-icons";
+import { HamburgerMenuIcon } from "@radix-ui/react-icons";
 import { ContactMe } from "@/components/custom/ContactMe/ContactMe";
 
 const NAV_ITEMS = [
@@ -40,15 +38,17 @@ export default function Header() {
               </SheetTrigger>
               <SheetContent side="left" className="w-[300px] flex flex-col p-8">
                 {/* Navigation Links */}
-                <div className="flex flex-col space-y-6 mb-8">
+                <div className="flex flex-col text-gray-700 space-y-6 mb-8 mt-12">
                   {NAV_ITEMS.map((item) => (
-                    <Link
-                      key={item.href}
-                      href={item.href}
-                      className="text-foreground hover:text-primary transition-colors text-2xl font-medium"
-                    >
-                      {item.label}
-                    </Link>
+                    <SheetTrigger asChild key={item.href}>
+                      <Link
+                        key={item.href}
+                        href={item.href}
+                        className="text-foreground hover:text-primary transition-colors text-2xl font-medium"
+                      >
+                        {item.label}
+                      </Link>
+                    </SheetTrigger>
                   ))}
                 </div>
                 <ContactMe openInModal />

@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -8,15 +8,31 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { formatDate, formatPrice, formatSinglePage, validDate } from "@/lib/utils";
+import {
+  formatDate,
+  formatPrice,
+  formatSinglePage,
+  validDate,
+} from "@/lib/utils";
 import { ListingsResponse } from "@/types/pocketbase";
-import { BathIcon, BedDoubleIcon, CalendarIcon, CarIcon, HomeIcon, RulerIcon } from 'lucide-react';
+import {
+  BathIcon,
+  BedDoubleIcon,
+  CalendarIcon,
+  CarIcon,
+  HomeIcon,
+  RulerIcon,
+} from "lucide-react";
 import { ListResult } from "pocketbase";
 import ListingListImageCarousel from "./ListingListImageCarousel";
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
-export function ListingsList({ data }: { data: ListResult<ListingsResponse> }): JSX.Element {
+export function ListingsList({
+  data,
+}: {
+  data: ListResult<ListingsResponse>;
+}): JSX.Element {
   const router = useRouter();
   const [currentPage, setCurrentPage] = useState(data?.page);
 
@@ -54,7 +70,10 @@ export function ListingsList({ data }: { data: ListResult<ListingsResponse> }): 
         {data?.items?.map((listing: ListingsResponse) => (
           <Card key={listing.id} className="overflow-hidden grid">
             <CardHeader className="p-0">
-              <ListingListImageCarousel record={listing} ImageClassName="h-full" />
+              <ListingListImageCarousel
+                record={listing}
+                ImageClassName="h-full"
+              />
             </CardHeader>
             <CardContent className="p-4">
               <CardTitle className="text-xl mb-2">{listing.title}</CardTitle>
@@ -68,7 +87,8 @@ export function ListingsList({ data }: { data: ListResult<ListingsResponse> }): 
                     listing.status === "active" ? "default" : "secondary"
                   }
                 >
-                  {listing.status[0].toUpperCase() + listing.status.substring(1)}
+                  {listing.status[0].toUpperCase() +
+                    listing.status.substring(1)}
                 </Badge>
               </div>
               <div className="grid grid-cols-3 gap-2 mb-4">
@@ -99,11 +119,11 @@ export function ListingsList({ data }: { data: ListResult<ListingsResponse> }): 
                   </div>
                 )}
               </div>
-              {listing.listingDate && validDate(listing.listingDate) &&
+              {listing.listingDate && validDate(listing.listingDate) && (
                 <p className="text-sm text-muted-foreground mb-2">
                   Listed on {formatDate(listing.listingDate)}
                 </p>
-              }
+              )}
               {listing.priceByNegotiation && (
                 <Badge variant="outline" className="mb-2">
                   Price by Negotiation
@@ -116,11 +136,18 @@ export function ListingsList({ data }: { data: ListResult<ListingsResponse> }): 
               )}
             </CardContent>
             <CardFooter className="bg-muted p-4 self-end">
-              <Button className="w-full m-0"
+              <Button
+                className="w-full m-0"
                 onClick={() => {
-                  window.location.href = formatSinglePage("listings", listing.id, listing.title);
-                }
-                }>View Details</Button>
+                  window.location.href = formatSinglePage(
+                    "listings",
+                    listing.id,
+                    listing.title
+                  );
+                }}
+              >
+                View Details
+              </Button>
             </CardFooter>
           </Card>
         ))}
@@ -128,4 +155,3 @@ export function ListingsList({ data }: { data: ListResult<ListingsResponse> }): 
     </div>
   );
 }
-

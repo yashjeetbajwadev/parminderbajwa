@@ -13,9 +13,13 @@ export default function MainRootLayout({
           <div className="scroll-smooth">
             <div className="bg-white">
               <AlertProvider>
-              <Header />
-                {children}
-              <Footer />
+                <div className="flex flex-col h-screen justify-between">
+                  <div>
+                    <Header />
+                    {children}
+                  </div>
+                  <Footer />
+                </div>
               </AlertProvider>
             </div>
           </div>
