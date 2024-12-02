@@ -54,7 +54,7 @@ export function ListingsList({ data }: { data: ListResult<ListingsResponse> }): 
         {data?.items?.map((listing: ListingsResponse) => (
           <Card key={listing.id} className="overflow-hidden grid">
             <CardHeader className="p-0">
-              <ListingListImageCarousel record={listing} ImageClassName="h-96" />
+              <ListingListImageCarousel record={listing} ImageClassName="h-full" />
             </CardHeader>
             <CardContent className="p-4">
               <CardTitle className="text-xl mb-2">{listing.title}</CardTitle>

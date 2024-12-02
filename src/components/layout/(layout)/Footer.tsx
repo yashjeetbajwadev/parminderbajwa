@@ -31,7 +31,7 @@ export default function Footer() {
               <li><Link href="/" className="hover:text-gray-900">Home</Link></li>
               <li><Link href="/listings" className="hover:text-gray-900">Listings</Link></li>
               <li><Link href="/blogs" className="hover:text-gray-900">Blogs</Link></li>
-              <li><Link href="/about" className="hover:text-gray-900">About Us</Link></li>
+              <li><Link href="/about" className="hover:text-gray-900">About</Link></li>
               <ContactMe openInModal />
             </ul>
           </div>
