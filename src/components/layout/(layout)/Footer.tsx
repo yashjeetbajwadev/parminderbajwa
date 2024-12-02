@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { Phone, Mail, Facebook, Twitter, Instagram } from 'lucide-react'
+import { ContactMe } from '@/components/custom/ContactMe/ContactMe'
 
 export default function Footer() {
   const currentYear = new Date().getFullYear()
@@ -31,7 +32,7 @@ export default function Footer() {
               <li><Link href="/listings" className="hover:text-gray-900">Listings</Link></li>
               <li><Link href="/blogs" className="hover:text-gray-900">Blogs</Link></li>
               <li><Link href="/about" className="hover:text-gray-900">About Us</Link></li>
-              <li><Link href="#contactMe" className="hover:text-gray-900">Contact</Link></li>
+              <ContactMe openInModal />
             </ul>
           </div>
 

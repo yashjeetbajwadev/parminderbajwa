@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import ParminderBajwa from '@/../public/parminderbajwa.webp';
 import Image from 'next/image';
 import React from 'react';
+import { ContactMe } from '@/components/custom/ContactMe/ContactMe';
 
 function Hero() {
   // constants
@@ -108,19 +109,10 @@ function Hero() {
           <div className='relative z-30 mb-[36px] text-center text-gray-700'>
             <p className='text-[18px] font-normal leading-normal dark:text-white'>
               Find your dream home effortlessly with Parminder Bajwa and our expert real estate services.
-            </p>
+            </p>  
           </div>
           <div className='flex items-center justify-center gap-4 flex-wrap'>
-            <Button
-              className='max-w-[500px] bg-blue-500 text-white flex-grow rounded-xl p-6 text-[18px] hover:text-white dark:text-white dark:hover:bg-white dark:hover:text-gray-700 md:flex-grow-0'
-              type='button'
-              onClick={() => {
-                const contactMe = document.getElementById('contactMe');
-                contactMe?.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
-              }}
-            >
-              Get in touch
-            </Button>
+            <ContactMe openInModal className='max-w-[500px] bg-blue-500 text-white flex-grow rounded-xl p-6 text-[18px] hover:text-black dark:text-white dark:hover:bg-white dark:hover:text-gray-700 md:flex-grow-0'/>
             <Button
               className='max-w-[500px] flex-grow rounded-xl p-6 text-[18px] text-gray-700 hover:bg-gray-700 hover:text-white dark:text-white dark:hover:bg-white dark:hover:text-gray-700 md:flex-grow-0'
               type='button'

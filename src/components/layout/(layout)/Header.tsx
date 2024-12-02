@@ -7,6 +7,7 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import {
   HamburgerMenuIcon,
 } from "@radix-ui/react-icons";
+import { ContactMe } from "@/components/custom/ContactMe/ContactMe";
 
 const NAV_ITEMS = [
   { label: "Home", href: "/" },
@@ -50,15 +51,7 @@ export default function Header() {
                     </Link>
                   ))}
                 </div>
-
-                {/* Hire Me Button */}
-                <Button variant="default" className="w-full mt-auto bg-[#3b82f6]">
-                  <Link
-                    href="#contactMe"
-                  >
-                    Get in Touch
-                  </Link>
-                </Button>
+                <ContactMe openInModal />
               </SheetContent>
             </Sheet>
           </div>
@@ -78,14 +71,8 @@ export default function Header() {
           ))}
         </div>
 
-        {/* Social Links, Theme Toggle, Hire Me - Right side */}
         <div className="flex items-center space-x-6">
-          {/* Hire Me Button - Visible on all screen sizes */}
-          <Button variant="default" className="rounded-full bg-[#3b82f6]">
-            <Link href="#contactMe">
-              Get in Touch
-            </Link>
-          </Button>
+          <ContactMe openInModal />
         </div>
       </div>
     </nav>

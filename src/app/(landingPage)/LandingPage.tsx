@@ -8,6 +8,7 @@ import ListingsSwiper from '../listings/(components)/ListingSwiper';
 import { getCollectionData } from '@/lib/utils';
 import { ListingsResponse } from '@/types/pocketbase';
 import { ListResult } from 'pocketbase';
+import {ContactMe} from '@/components/custom/ContactMe/ContactMe';
 
 export default async function LandingPage() {
   const listingsList: ListResult<ListingsResponse> = await getCollectionData({
@@ -30,6 +31,9 @@ export default async function LandingPage() {
         <Hero />
         <ListingsSwiper data={listingsList}/>
         <Testimonials />
+        <div className='mt-20'>
+          <ContactMe/>
+        </div>
       </main>
     </React.Fragment>
   );

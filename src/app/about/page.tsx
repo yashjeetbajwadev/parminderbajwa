@@ -1,8 +1,8 @@
 'use client';
 import BackButtonBreadcrumb from "@/components/custom/BreadCrumb";
-import { Button } from "@/components/ui/button";
+import { ContactMe } from "@/components/custom/ContactMe/ContactMe";
 import { Card, CardContent } from "@/components/ui/card";
-import { Award, Phone } from "lucide-react";
+import { Award } from "lucide-react";
 import Image from "next/image";
 import ContactDetail from "./(components)/ContactDetail";
 
@@ -70,15 +70,7 @@ export default function Component() {
                         got you covered.
                     </p>
                     <p className="font-semibold mb-4">Don&apos;t let your property goals remain dreams. Take the first step towards your real estate success today.</p>
-                    <Button className="w-full sm:w-auto"
-                        onClick={() => {
-                            const contactMe = document.getElementById('contactMe');
-                            contactMe?.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
-                        }}>
-                        <Phone className="mr-2 h-4 w-4"
-
-                        /> Contact Parminder Now
-                    </Button>
+                    <ContactMe openInModal />
                 </section>
             </div>
         </div>
