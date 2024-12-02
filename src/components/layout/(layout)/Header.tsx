@@ -17,7 +17,7 @@ const NAV_ITEMS = [
 
 export default function Header() {
   return (
-    <nav className="sticky top-0 left-0 w-full bg-background/80 backdrop-blur-md z-50">
+    <nav className="sticky top-0 left-0 w-full bg-white/95 z-50">
       <div className="container mx-auto flex justify-between items-center py-4 px-5 xl:px-0 max-w-7xl">
         {/* Logo and Mobile Menu Toggle */}
         <div className="flex justify-between items-center space-x-2">

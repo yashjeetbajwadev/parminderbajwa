@@ -35,7 +35,7 @@ export default function ListingsCarousel({ data }: { data: ListResult<ListingsRe
                                         <CardTitle className="text-lg">{listing.title}</CardTitle>
                                     </CardHeader>
                                     <CardContent className='flex flex-grow justify-center items-center'>
-                                        <ListingListImageCarousel record={listing} ImageClassName="h-64 w-full object-cover" />
+                                        <ListingListImageCarousel record={listing} ImageClassName="w-full h-full rounded-xl" />
                                     </CardContent>
                                     <CardFooter className="flex flex-col gap-2 p-4">
                                         <p className="font-semibold">{formatPrice(listing.price)}</p>

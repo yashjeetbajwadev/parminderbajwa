@@ -28,7 +28,7 @@ const ListingListImageCarousel = ({ record, ImageClassName, openDialogOnClick = 
                 <PocketBaseImage
                   record={record}
                   filename={image}
-                  className={cn("object-cover cursor-pointer", ImageClassName)}
+                  className={cn("object-cover", ImageClassName)}
                   width={isServer() ? 1920 : window.innerWidth}
                   height={isServer() ? 1080 : window.innerWidth}
                   alt={`${record.title} - Image ${index + 1}`}

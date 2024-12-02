@@ -14,11 +14,11 @@ export default function Footer() {
             <ul className="space-y-2">
               <li className="flex items-center">
                 <Phone className="w-5 h-5 mr-2" />
-                <span>(123) 456-7890</span>
+                <span>(+64) 210 249 6278</span>
               </li>
               <li className="flex items-center">
                 <Mail className="w-5 h-5 mr-2" />
-                <a href="mailto:info@example.com" className="hover:text-gray-900">p.bajwa@barfoot.co.nz</a>
+                <a href="mailto:p.bajwa@barfoot.co.nz" className="hover:text-gray-900">p.bajwa@barfoot.co.nz</a>
               </li>
             </ul>
           </div>

@@ -1,3 +1,4 @@
+import { cn } from "@/lib/utils";
 import { BaseSystemFields } from "@/types/pocketbase";
 import Image, { ImageProps } from "next/image";
 import { useEffect, useState } from "react";
@@ -52,7 +53,7 @@ export default function PocketBaseImage({
       src={imageUrl}
       alt={props.alt || `${record.id}_${filename}`}
       onClick={() => setIsOpen(true)}
-      className="cursor-pointer"
+      className={cn("cursor-pointer", props.className)}
     />
   )
 }

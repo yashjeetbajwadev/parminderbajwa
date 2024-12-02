@@ -74,7 +74,7 @@ function Hero() {
             className={`relative z-40 grid items-center justify-items-center text-center lg:w-[850.57px] lg:justify-items-end`}
           >
             <h2
-              className={`relative col-start-1 col-end-auto row-start-1 row-end-auto mb-2 text-[clamp(32px,15vw,62px)] leading-none lg:text-[80px] ${textColour} ${animation} font-bold`}
+              className={`relative col-start-1 col-end-auto row-start-1 row-end-auto mb-2 text-[clamp(32px,15vw,62px)] leading-none lg:text-[80px] ${textColour} ${animation} font-bold sm:h-14 md:h-auto sm:bottom-12 md:bottom-auto sm:w-[90%] md:w-auto `}
             >
               <span className='font-bold'>{text}</span>
             </h2>
