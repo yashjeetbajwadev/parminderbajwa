@@ -1,4 +1,5 @@
-import { Facebook, Instagram, Mail, Phone, Twitter } from 'lucide-react'
+import { Mail, Phone } from 'lucide-react'
+import Image from 'next/image'
 import Link from 'next/link'
 
 export default function Footer() {
@@ -38,8 +39,8 @@ export default function Footer() {
           <div>
             <h3 className="font-semibold text-lg mb-4">Legal</h3>
             <ul className="space-y-2">
-              <li><Link href="/privacy-policy" className="hover:text-gray-900">Privacy Policy</Link></li>
-              <li><Link href="/terms-of-service" className="hover:text-gray-900">Terms of Service</Link></li>
+              <li><Link href="https://www.barfoot.co.nz/global/legal-documents/privacy-statement" className="hover:text-gray-900">Privacy Policy</Link></li>
+              <li><Link href="https://www.barfoot.co.nz/global/legal-documents/terms-of-use" className="hover:text-gray-900">Terms of Service</Link></li>
             </ul>
           </div>
 
@@ -47,17 +48,13 @@ export default function Footer() {
           <div>
             <h3 className="font-semibold text-lg mb-4">Social Media</h3>
             <div className="flex space-x-4">
-              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="hover:text-gray-900">
-                <Facebook className="w-6 h-6" />
+              <a href="https://www.facebook.com/profile.php?id=100075699308387" target="_blank" rel="noopener noreferrer" className="hover:text-gray-900">
+                <Image src='icons/facebook.svg' alt='facebook logo' width={24} height={24} />
                 <span className="sr-only">Facebook</span>
               </a>
-              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="hover:text-gray-900">
-                <Twitter className="w-6 h-6" />
-                <span className="sr-only">Twitter</span>
-              </a>
-              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="hover:text-gray-900">
-                <Instagram className="w-6 h-6" />
-                <span className="sr-only">Instagram</span>
+              <a href="https://www.tiktok.com/@parminderbajwabarfoot" target="_blank" rel="noopener noreferrer" className="hover:text-gray-900">
+                <Image src='icons/tiktok.svg' alt='tiktok Logo' width={24} height={24}/>
+                <span className="sr-only">TikTok</span>
               </a>
             </div>
           </div>

@@ -2,6 +2,7 @@ import Header from "./(layout)/Header";
 import Footer from "./(layout)/Footer";
 import "@/app/globals.css";
 import { AlertProvider } from "../custom/Alert";
+import Head from "next/head";
 
 export default function MainRootLayout({
   children,
