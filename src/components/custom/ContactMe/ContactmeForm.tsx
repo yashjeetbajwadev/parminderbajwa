@@ -12,7 +12,7 @@ import * as z from 'zod'
 import { useAlert } from '../Alert'
 
 const formSchema = z.object({
-    name: z.string().min(2, { message: 'Name must be at least 2 characters.' }),
+    FName: z.string().min(2, { message: 'Name must be at least 2 characters.' }),
     email: z.string().email({ message: 'Please enter a valid email address.' }),
     phone: z.string().min(7,{ message: 'Please enter a valid Phone Number.' }),
     message: z.string().min(2, { message: 'Message must be at least 2 characters.' }),
@@ -83,10 +83,10 @@ export function ContactForm({ setOpen }: Readonly<ContactFormProps>) {
                 <div>
                     <Input
                         placeholder="Your Name"
-                        {...register('name')}
-                        aria-invalid={errors.name ? 'true' : 'false'}
+                        {...register('FName')}
+                        aria-invalid={errors.FName ? 'true' : 'false'}
                     />
-                    {errors.name && <p className="text-sm text-red-500 mt-1">{errors.name.message}</p>}
+                    {errors.FName && <p className="text-sm text-red-500 mt-1">{errors.FName.message}</p>}
                 </div>
                 <div>
                     <Input
