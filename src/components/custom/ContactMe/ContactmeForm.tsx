@@ -124,7 +124,7 @@ export function ContactForm({ setOpen }: Readonly<ContactFormProps>) {
             {...register("phone")}
             aria-invalid={errors.phone ? "true" : "false"}
           />
-          {errors.email && (
+          {errors.phone && (
             <p className="text-sm text-red-500 mt-1">{errors.phone.message}</p>
           )}
         </div>
