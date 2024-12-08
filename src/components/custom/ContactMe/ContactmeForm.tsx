@@ -31,8 +31,8 @@ export function ContactForm({
   setOpen,
   className,
 }: Readonly<ContactFormProps>) {
+  const recaptchaRef = React.createRef<ReCAPTCHA>();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [recaptchaValue, setRecaptchaValue] = useState<string | null>(null);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const {
     register,
@@ -45,54 +45,50 @@ export function ContactForm({
   const { callAlert } = useAlert();
 
   const onSubmit = async (data: FormData) => {
-    if (!recaptchaValue) {
-      setSubmitError("Please complete the reCAPTCHA");
-      return;
-    }
+    recaptchaRef.current?.executeAsync().then((token) => {
+      setIsSubmitting(true);
+      setSubmitError(null);
+      try {
+        const resetForm = () => {
+          reset();
+        };
 
-    setIsSubmitting(true);
-    setSubmitError(null);
+        fetch(
+          "/api/post?custom=true&json=true&route=contactme",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ ...data, recaptchaValue: token }),
+          }
+        ).then((response) => {
 
-    try {
-      const resetForm = () => {
-        reset();
-        setRecaptchaValue(null);
-      };
-
-      const response = await fetch(
-        "/api/post?custom=true&json=true&route=contactme",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ ...data, recaptchaValue }),
-        }
-      );
-
-      resetForm();
-      if (!response.ok) {
-        callAlert("Error", "Failed to submit the form");
-        throw new Error("Failed to submit the form");
+          resetForm();
+          if (!response.ok) {
+            callAlert("Error", "Failed to submit the form");
+            throw new Error("Failed to submit the form");
+          }
+          callAlert(
+            "Message Sent!",
+            "Thank you for your message. We'll get back to you soon."
+          );
+          setOpen?.(false);
+        });
+      } catch (error) {
+        setSubmitError("Failed to submit the form. Please try again.");
+      } finally {
+        setIsSubmitting(false);
       }
-      callAlert(
-        "Message Sent!",
-        "Thank you for your message. We'll get back to you soon."
-      );
-      setOpen?.(false);
-    } catch (error) {
-      setSubmitError("Failed to submit the form. Please try again.");
-    } finally {
-      setIsSubmitting(false);
-    }
 
-    reset();
+      reset();
+    });
   };
 
   return (
     <div
       className={cn(
-        "flex flex-col justify-center items-center text-gray-700 px-5 xl:px-0",
+        "flex flex-col justify-center items-center text-gray-700 px-5 xl:px-0 overflow-clip",
         className
       )}
     >
@@ -151,9 +147,9 @@ export function ContactForm({
           )}
         </div>
         <ReCAPTCHA
+          ref={recaptchaRef}
           size="invisible"
           sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY ?? ""}
-          onChange={(value) => setRecaptchaValue(value)}
         />
 
         {submitError && (

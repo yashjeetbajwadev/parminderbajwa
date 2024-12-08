@@ -34,7 +34,7 @@ export const AlertProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     <AlertContext.Provider value={{ callAlert }}>
       {children}
       {alert.show && (
-        <Alert className="bg-slate-800 text-white fixed bottom-4 right-4 w-80 z-50">
+        <Alert className="bg-slate-800 text-white w-80 animate-bounce h-fit z-99999 fixed inset-0 mx-auto inset-y-10" variant="default">
           <AlertTitle>{alert.title}</AlertTitle>
           <AlertDescription>{alert.description}</AlertDescription>
         </Alert>

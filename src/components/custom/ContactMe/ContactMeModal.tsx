@@ -5,20 +5,21 @@ import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
-  DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { ContactForm } from "./ContactmeForm";
 import { cn } from "@/lib/utils";
-type ContactMeFormProps = {
+import { Description } from "@radix-ui/react-dialog";
+type ContactMeFormProps = Readonly<{
   className?: string;
-};
+}>;
 export function ContactModal({ className }: ContactMeFormProps) {
   const [open, setOpen] = useState(false);
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog open={open} onOpenChange={setOpen} >
+      <DialogTitle hidden>Get In Touch</DialogTitle>
       <DialogTrigger asChild>
         <Button
           variant="default"
@@ -27,7 +28,10 @@ export function ContactModal({ className }: ContactMeFormProps) {
           Get In Touch
         </Button>
       </DialogTrigger>
-      <DialogContent className="max-w-md bg-white sm:mx-auto rounded-xl">
+      <DialogContent className="max-w-md bg-white sm:mx-auto rounded-xl overflow-clip" >
+        <Description hidden>
+        Get In Touch Form
+        </Description>
         <ContactForm setOpen={setOpen} className="px-0" />
       </DialogContent>
     </Dialog>
