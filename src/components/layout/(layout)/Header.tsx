@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
@@ -15,8 +15,29 @@ const NAV_ITEMS = [
 ];
 
 export default function Header() {
+  const [hasScrolled, setHasScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 0) {
+        setHasScrolled(true);
+      } else {
+        setHasScrolled(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   return (
-    <nav className="sticky top-0 left-0 w-full bg-white/95 z-50">
+    <nav
+      className={`sticky top-0 left-0 w-full bg-white z-50 transition-shadow ${
+        hasScrolled ? "shadow-md" : ""
+      }`}
+    >
       <div className="container mx-auto flex justify-between items-center py-4 px-5 xl:px-0 max-w-7xl">
         {/* Logo and Mobile Menu Toggle */}
         <div className="flex justify-between items-center space-x-2">

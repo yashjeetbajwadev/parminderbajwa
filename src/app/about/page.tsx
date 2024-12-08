@@ -103,7 +103,7 @@ export default function AboutMe() {
               <CardTitle>Services</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="flex flex-wrap gap-2 text-gray-700">
+              <div className="flex flex-wrap gap-2 ">
                 <Badge variant="secondary">First-time buyer support</Badge>
                 <Badge variant="secondary">Property valuation</Badge>
                 <Badge variant="secondary">
