@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import BackButtonBreadcrumb from "@/components/custom/BreadCrumb";
 import { formatSinglePage, validDate } from "@/lib/utils";
 import { BlogsResponse } from "@/types/pocketbase";
@@ -9,14 +9,17 @@ export function BlogPost({ data }: { data: BlogsResponse }) {
   const BreadcrumbItems = [
     { href: "/", label: "Home" },
     { href: "/blogs", label: "Blogs" },
-    { href: `/${formatSinglePage("blogs", data.id, data.title)}`, label: data.title },
+    {
+      href: `/${formatSinglePage("blogs", data.id, data.title)}`,
+      label: data.title,
+    },
   ];
   return (
     <React.Fragment>
       <BackButtonBreadcrumb items={BreadcrumbItems} />
       <article className="container w-full max-w-7xl mx-auto py-8">
         <header className="mb-8">
-          <h1 className="text-3xl font-bold mb-2">{data.title}</h1>
+          <h1 className="text-2xl md:text-3xl font-bold mb-2">{data.title}</h1>
           <div className="text-sm text-gray-500">
             <span>By {data.author}</span>
             <span className="mx-2">•</span>
@@ -27,7 +30,9 @@ export function BlogPost({ data }: { data: BlogsResponse }) {
         </header>
         <div className="prose max-w-none">
           {data.body?.split("\n").map((paragraph, index) => (
-            <div key={index} className="mb-4 prose max-w-none"
+            <div
+              key={index}
+              className="mb-4 prose max-w-none"
               dangerouslySetInnerHTML={{ __html: paragraph }}
             />
           ))}
@@ -42,6 +47,5 @@ export function BlogPost({ data }: { data: BlogsResponse }) {
         </footer>
       </article>
     </React.Fragment>
-
   );
 }

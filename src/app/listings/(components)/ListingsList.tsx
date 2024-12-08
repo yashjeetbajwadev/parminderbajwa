@@ -43,10 +43,10 @@ export function ListingsList({
   }, [currentPage, router]);
 
   return (
-    <div className="container mx-auto py-8 max-w-7xl">
-      <h1 className="text-3xl font-bold mb-8">My Listings</h1>
+    <div className="container mx-auto py-8 max-w-7xl px-5 xl:px-0">
+      <h1 className="text-2xl md:text-3xl font-bold mb-8">My Listings</h1>
       <div className="mb-8 flex justify-between items-center">
-        <p className="text-muted-foreground">
+        <p className="text-muted-foreground text-sm md:text-base">
           Showing {data.items.length} of {data.totalItems} listings
         </p>
         <div className="flex gap-2">

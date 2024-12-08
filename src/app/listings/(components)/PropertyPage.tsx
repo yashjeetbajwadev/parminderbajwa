@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import ListingListImageCarousel from "@/app/listings/(components)/ListingListImageCarousel";
 import BackButtonBreadcrumb from "@/components/custom/BreadCrumb";
 import { Badge } from "@/components/ui/badge";
@@ -13,17 +13,18 @@ import {
 } from "@/components/ui/card";
 import { formatDate, formatSinglePage, validDate } from "@/lib/utils";
 import { ListingsResponse, UsersRecord } from "@/types/pocketbase";
-import {
-  BathIcon,
-  BedIcon,
-  CarIcon,
-  RulerIcon,
-} from "lucide-react";
+import { BathIcon, BedIcon, CarIcon, RulerIcon } from "lucide-react";
 import { ListResult } from "pocketbase";
 import React from "react";
 import ListingsSwiper from "./ListingSwiper";
 
-export function PropertyPage({ data, listingList }: { data: ListingsResponse, listingList: ListResult<ListingsResponse> }): JSX.Element {
+export function PropertyPage({
+  data,
+  listingList,
+}: {
+  data: ListingsResponse;
+  listingList: ListResult<ListingsResponse>;
+}): JSX.Element {
   if (!data) return <div>No data available</div>;
   const expand = data?.expand as { agent: UsersRecord };
   const agent = expand?.agent ?? { name: "Unknown" };
@@ -32,8 +33,11 @@ export function PropertyPage({ data, listingList }: { data: ListingsResponse, li
     return [
       { href: "/", label: "Home" },
       { href: "/listings", label: "Properties" },
-      { href: `/${formatSinglePage("listings", data.id, data.title)}`, label: data.title ?? "Property" },
-    ]
+      {
+        href: `/${formatSinglePage("listings", data.id, data.title)}`,
+        label: data.title ?? "Property",
+      },
+    ];
   };
 
   return (
@@ -44,16 +48,15 @@ export function PropertyPage({ data, listingList }: { data: ListingsResponse, li
           <CardHeader>
             <div className="flex justify-between items-start">
               <div>
-                <CardTitle className="text-3xl font-bold">
+                <CardTitle className="text-2xl md:text-3xl font-bold">
                   {data.title}
                 </CardTitle>
                 <CardDescription className="text-lg">
-                  {data.address}, {data.city}, {data.state}{" "}
-                  {data.zip}
+                  {data.address}, {data.city}, {data.state} {data.zip}
                 </CardDescription>
               </div>
               <div className="text-right">
-                <p className="text-3xl font-bold">
+                <p className="text-2xl md:text-3xl font-bold">
                   ${data.price.toLocaleString()}
                 </p>
                 {data.priceByNegotiation && (
@@ -64,7 +67,11 @@ export function PropertyPage({ data, listingList }: { data: ListingsResponse, li
           </CardHeader>
           <CardContent>
             <div className=" w-full h-full">
-              <ListingListImageCarousel record={data} ImageClassName={"w-full h-full"} openDialogOnClick />
+              <ListingListImageCarousel
+                record={data}
+                ImageClassName={"w-full h-full"}
+                openDialogOnClick
+              />
             </div>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 my-6">
               <div className="flex items-center">
@@ -95,19 +102,19 @@ export function PropertyPage({ data, listingList }: { data: ListingsResponse, li
                   <p>
                     <strong>Lot Size:</strong> {data.landSquareFt} sq ft
                   </p>
-                  {data.yearBuilt && validDate(data.yearBuilt) &&
+                  {data.yearBuilt && validDate(data.yearBuilt) && (
                     <p>
                       <strong>Year Built:</strong> {formatDate(data.yearBuilt)}
                     </p>
-                  }
+                  )}
                 </div>
                 <div>
-                  {data.listingDate && validDate(data.listingDate) &&
+                  {data.listingDate && validDate(data.listingDate) && (
                     <p>
                       <strong>Listing Date:</strong>{" "}
                       {formatDate(data.listingDate)}
                     </p>
-                  }
+                  )}
                   <p>
                     <strong>Status:</strong> {data.status}
                   </p>
@@ -133,10 +140,7 @@ export function PropertyPage({ data, listingList }: { data: ListingsResponse, li
             <Button>Schedule Viewing</Button>
           </CardFooter>
         </Card>
-        {
-          listingList.items.length > 0 &&
-          <ListingsSwiper data={listingList} />
-        }
+        {listingList.items.length > 0 && <ListingsSwiper data={listingList} />}
       </div>
     </React.Fragment>
   );

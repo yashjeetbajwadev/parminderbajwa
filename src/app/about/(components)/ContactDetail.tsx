@@ -24,7 +24,12 @@ function ContactDetail({ className }: { className?: string }) {
   };
 
   return (
-    <div className={cn("grid justify-center text-gray-700", className)}>
+    <div
+      className={cn(
+        "grid justify-center text-sm md:text-base text-gray-700",
+        className
+      )}
+    >
       {/* Phone Section */}
       <div
         className="flex items-center space-x-2 cursor-pointer"

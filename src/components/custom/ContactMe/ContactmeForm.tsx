@@ -85,15 +85,15 @@ export function ContactForm({ setOpen }: Readonly<ContactFormProps>) {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center text-gray-700 p-4 ">
-      <h1 className="text-3xl font-bold mb-4">Get in Touch</h1>
+    <div className="flex flex-col justify-center items-center text-gray-700 px-5 xl:px-0">
+      <h1 className="text-2xl md:text-3xl font-bold mb-4">Get in Touch</h1>
       <p className="text-gray-600 mb-8 w-full max-w-lg text-center">
         I can&apos;t wait to hear from you! Please fill out the form below and
         I&apos;ll get back to you as soon as possible.
       </p>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="bg-white p-8 rounded-lg shadow-lg w-full max-w-lg space-y-4"
+        className="bg-white p-8 rounded-lg shadow-lg border-2 w-full max-w-lg space-y-4"
       >
         <ContactDetail className="justify-start pb-2" />
         <div>
@@ -140,10 +140,10 @@ export function ContactForm({ setOpen }: Readonly<ContactFormProps>) {
             </p>
           )}
         </div>
-        <ReCAPTCHA
+        {/* <ReCAPTCHA
           sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY ?? ""}
           onChange={(value) => setRecaptchaValue(value)}
-        />
+        /> */}
 
         {submitError && (
           <div
