@@ -11,6 +11,13 @@ import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { useAlert } from "../Alert";
 import { cn } from "@/lib/utils";
+import { Resend } from "resend";
+import EmailTemplate from "@/components/EmailTemplate";
+
+type ContactFormProps = {
+  setOpen?: Function;
+  className?: string;
+};
 
 const formSchema = z.object({
   name: z.string().min(2, { message: "Name must be at least 2 characters." }),
@@ -22,15 +29,12 @@ const formSchema = z.object({
 });
 
 type FormData = z.infer<typeof formSchema>;
-type ContactFormProps = {
-  setOpen?: Function;
-  className?: string;
-};
 
 export function ContactForm({
   setOpen,
   className,
 }: Readonly<ContactFormProps>) {
+  const resend = new Resend("re_g9eTxwtD_EaduP9oRBLCYqwoFMcqFDcwW");
   const recaptchaRef = React.createRef<ReCAPTCHA>();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
@@ -45,7 +49,7 @@ export function ContactForm({
   const { callAlert } = useAlert();
 
   const onSubmit = async (data: FormData) => {
-    recaptchaRef.current?.executeAsync().then((token) => {
+    recaptchaRef.current?.executeAsync().then(async (token) => {
       setIsSubmitting(true);
       setSubmitError(null);
       try {
@@ -53,31 +57,45 @@ export function ContactForm({
           reset();
         };
 
-        fetch("/api/post?custom=true&json=true&route=contactme", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ ...data, recaptchaValue: token }),
-        }).then((response) => {
-          resetForm();
-          if (!response.ok) {
-            callAlert("Error", "Failed to submit the form");
-            throw new Error("Failed to submit the form");
+        const response = await fetch(
+          "/api/post?custom=true&json=true&route=contactme",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ ...data, recaptchaValue: token }),
           }
-          callAlert(
-            "Message Sent!",
-            "Thank you for your message. We'll get back to you soon."
-          );
-          setOpen?.(false);
-        });
+        );
+
+        if (!response.ok) {
+          callAlert("Error", "Failed to submit the form");
+          throw new Error("Failed to submit the form");
+        }
+
+        const { data: resendData, error: resendError } =
+          await resend.emails.send({
+            from: data.email,
+            to: ["yashjeetbajwa8@gmail.com"],
+            subject: "Hello world",
+            react: EmailTemplate({ firstName: data.name }),
+          });
+
+        if (resendError) {
+          throw new Error(resendError.message);
+        }
+
+        callAlert(
+          "Message Sent!",
+          "Thank you for your message. We'll get back to you soon."
+        );
+        setOpen?.(false);
+        resetForm();
       } catch (error) {
         setSubmitError("Failed to submit the form. Please try again.");
       } finally {
         setIsSubmitting(false);
       }
-
-      reset();
     });
   };
 
