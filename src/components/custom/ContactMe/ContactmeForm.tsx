@@ -96,14 +96,14 @@ export function ContactForm({
         className
       )}
     >
-      <h1 className="text-2xl md:text-3xl font-bold mb-4">Get in Touch</h1>
-      <p className="text-gray-600 mb-8 w-full max-w-lg text-center">
+      <h1 className="mb-4 text-2xl font-bold md:text-3xl">Get in Touch</h1>
+      <p className="w-full max-w-lg mb-8 text-center text-gray-600">
         I can&apos;t wait to hear from you! Please fill out the form below and
         I&apos;ll get back to you as soon as possible.
       </p>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="bg-white p-8 rounded-lg shadow-lg border-2 w-full max-w-lg space-y-4"
+        className="w-full max-w-lg p-8 space-y-4 bg-white border-2 rounded-lg shadow-lg"
       >
         <ContactDetail className="justify-start pb-2" />
         <div>
@@ -113,7 +113,7 @@ export function ContactForm({
             aria-invalid={errors.name ? "true" : "false"}
           />
           {errors.name && (
-            <p className="text-sm text-red-500 mt-1">{errors.name.message}</p>
+            <p className="mt-1 text-sm text-red-500">{errors.name.message}</p>
           )}
         </div>
         <div>
@@ -124,7 +124,7 @@ export function ContactForm({
             aria-invalid={errors.email ? "true" : "false"}
           />
           {errors.email && (
-            <p className="text-sm text-red-500 mt-1">{errors.email.message}</p>
+            <p className="mt-1 text-sm text-red-500">{errors.email.message}</p>
           )}
         </div>
         <div>
@@ -135,7 +135,7 @@ export function ContactForm({
             aria-invalid={errors.phone ? "true" : "false"}
           />
           {errors.phone && (
-            <p className="text-sm text-red-500 mt-1">{errors.phone.message}</p>
+            <p className="mt-1 text-sm text-red-500">{errors.phone.message}</p>
           )}
         </div>
         <div>
@@ -145,19 +145,20 @@ export function ContactForm({
             aria-invalid={errors.message ? "true" : "false"}
           />
           {errors.message && (
-            <p className="text-sm text-red-500 mt-1">
+            <p className="mt-1 text-sm text-red-500">
               {errors.message.message}
             </p>
           )}
         </div>
         <ReCAPTCHA
+          size="invisible"
           sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY ?? ""}
           onChange={(value) => setRecaptchaValue(value)}
         />
 
         {submitError && (
           <div
-            className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
+            className="relative px-4 py-3 text-red-700 bg-red-100 border border-red-400 rounded"
             role="alert"
           >
             <span className="block sm:inline">{submitError}</span>
@@ -166,7 +167,7 @@ export function ContactForm({
         <Button
           type="submit"
           disabled={isSubmitting}
-          className="bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-md w-full"
+          className="w-full px-4 py-2 font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600"
         >
           {isSubmitting ? "Sending..." : "Send Message"}
         </Button>
