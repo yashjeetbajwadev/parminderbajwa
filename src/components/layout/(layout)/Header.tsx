@@ -43,7 +43,7 @@ export default function Header() {
         <div className="flex justify-between items-center space-x-2">
           <Link
             href="/"
-            className="text-2xl font-bold text-primary hover:text-primary/80 transition-colors"
+            className="text-2xl font-bold text-blue-900 hover:text-blue-900/80 transition-colors"
           >
             <span className="block md:hidden">pb</span>
             <span className="hidden md:block">Parminder Bajwa</span>

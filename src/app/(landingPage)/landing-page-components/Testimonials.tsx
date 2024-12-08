@@ -12,7 +12,7 @@ import Image from "next/image";
 
 function Testimonials() {
   return (
-    <div className="mx-auto mt-32 max-w-7xl sm:mt-56 sm:px-6 lg:px-8">
+    <div className="mx-auto mt-32 max-w-7xl sm:mt-56 p-6 md:p-8">
       <div className="relative rounded-xl bg-blue-400/20 sm:left-5 lg:-m-4 lg:ring-1 lg:ring-blue-500/50">
         <div className="relative bg-gray-900 px-8 pt-8 shadow-xl dark:bg-boxdark sm:right-5 sm:top-5 sm:rounded-xl sm:px-10 sm:pt-16 md:px-12 lg:px-20">
           <h2 className="text-center text-3xl font-semibold leading-7 tracking-wide text-white dark:text-white md:text-left">
@@ -48,9 +48,6 @@ function Testimonials() {
                   </CarouselItem>
                 ))}
               </CarouselContent>
-
-              <CarouselPrevious className="text-white" />
-              <CarouselNext className="text-white" />
             </Carousel>
             <div className="mt-10 text-center text-[18px] font-normal italic leading-normal text-white">
               <p>
