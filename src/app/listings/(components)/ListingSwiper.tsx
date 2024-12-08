@@ -26,64 +26,71 @@ export default function ListingsCarousel({
   data: ListResult<ListingsResponse>;
 }) {
   return (
-    <div className="container px-5 xl:px-0 mx-auto my-[60px] md:my-[100px]">
-      <Card className="container text-gray-700 bg-white">
-        <CardHeader>
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-2xl font-bold md:text-3xl">
-              Featured Listings
-            </h2>
-            <Link href="/listings">
-              <Button className="blue-500" variant="outline">
-                View all
-              </Button>
-            </Link>
-          </div>
-        </CardHeader>
-        <CardContent>
-          <Carousel className="w-full">
-            <CarouselContent>
-              {data?.items?.map((listing: ListingsResponse) => (
-                <CarouselItem
-                  key={listing.id}
-                  className="md:basis-1/2 lg:basis-1/3"
+    <section className="py-16 md:py-24">
+      <div className="container px-5 mx-auto xl:px-0">
+        <Card className="overflow-hidden bg-white shadow-xl dark:bg-gray-800 rounded-2xl">
+          <CardHeader className="p-6 border-b border-gray-200 md:p-8 dark:border-gray-700">
+            <div className="flex items-center justify-between">
+              <h2 className="text-2xl font-bold text-gray-700 md:text-3xl dark:text-gray-100">
+                Featured Listings
+              </h2>
+              <Link href="/listings" passHref>
+                <Button
+                  variant="outline"
+                  className="text-blue-500 transition-colors duration-300 border-blue-500 hover:bg-blue-600 hover:text-white"
                 >
-                  <Card className="flex flex-col h-full">
-                    <CardHeader>
-                      <CardTitle className="text-lg">{listing.title}</CardTitle>
-                    </CardHeader>
-                    <CardContent className="flex items-center justify-center flex-grow">
-                      <ListingListImageCarousel
-                        record={listing}
-                        ImageClassName="w-full h-full rounded-xl"
-                      />
-                    </CardContent>
-                    <CardFooter className="flex flex-col gap-2 p-4">
-                      <p className="font-semibold">
-                        {formatPrice(listing.price)}
-                      </p>
-                      <Button
-                        className="w-full m-0"
-                        onClick={() => {
-                          window.location.href = formatSinglePage(
-                            "listings",
-                            listing.id,
-                            listing.title
-                          );
-                        }}
-                      >
-                        View Details
-                      </Button>
-                    </CardFooter>
-                  </Card>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-            <CarouselPrevious className="hidden md:flex" />
-            <CarouselNext className="hidden md:flex" />
-          </Carousel>
-        </CardContent>
-      </Card>
-    </div>
+                  View all
+                </Button>
+              </Link>
+            </div>
+          </CardHeader>
+          <CardContent className="p-6 md:p-8">
+            <Carousel className="w-full" opts={{ loop: true }}>
+              <CarouselContent>
+                {data?.items?.map((listing: ListingsResponse) => (
+                  <CarouselItem
+                    key={listing.id}
+                    className="pl-4 md:basis-1/2 lg:basis-1/3"
+                  >
+                    <Card className="flex flex-col h-full transition-shadow duration-300 shadow-md hover:shadow-xl">
+                      <CardHeader className="p-4">
+                        <CardTitle className="text-xl font-semibold text-gray-800 dark:text-gray-200 line-clamp-1">
+                          {listing.title}
+                        </CardTitle>
+                      </CardHeader>
+                      <CardContent className="flex-grow p-0">
+                        <ListingListImageCarousel
+                          record={listing}
+                          ImageClassName="w-full h-48 object-cover rounded-t-xl"
+                        />
+                      </CardContent>
+                      <CardFooter className="flex flex-col gap-3 p-4 bg-gray-50 dark:bg-gray-700">
+                        <p className="text-2xl font-bold text-blue-500">
+                          {formatPrice(listing.price)}
+                        </p>
+                        <Button
+                          className="w-full text-white transition-colors duration-300 bg-blue-500 hover:bg-blue-600"
+                          onClick={() => {
+                            window.location.href = formatSinglePage(
+                              "listings",
+                              listing.id,
+                              listing.title
+                            );
+                          }}
+                        >
+                          View Details
+                        </Button>
+                      </CardFooter>
+                    </Card>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious className="hidden md:flex left-4" />
+              <CarouselNext className="hidden md:flex right-4" />
+            </Carousel>
+          </CardContent>
+        </Card>
+      </div>
+    </section>
   );
 }

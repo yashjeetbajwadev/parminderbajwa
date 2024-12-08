@@ -43,10 +43,9 @@ export function ListingsList({
   }, [currentPage, router]);
 
   return (
-    <div className="container mx-auto py-8 max-w-7xl px-5 xl:px-0">
-      <h1 className="text-2xl md:text-3xl font-bold mb-8">My Listings</h1>
-      <div className="mb-8 flex justify-between items-center">
-        <p className="text-muted-foreground text-sm md:text-base">
+    <div className="container px-5 py-8 mx-auto max-w-7xl xl:px-0">
+      <div className="flex items-center justify-between mb-8">
+        <p className="text-sm text-muted-foreground md:text-base">
           Showing {data.items.length} of {data.totalItems} listings
         </p>
         <div className="flex gap-2">
@@ -66,9 +65,9 @@ export function ListingsList({
           </Button>
         </div>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
         {data?.items?.map((listing: ListingsResponse) => (
-          <Card key={listing.id} className="overflow-hidden grid">
+          <Card key={listing.id} className="grid overflow-hidden">
             <CardHeader className="p-0">
               <ListingListImageCarousel
                 record={listing}
@@ -76,9 +75,9 @@ export function ListingsList({
               />
             </CardHeader>
             <CardContent className="p-4">
-              <CardTitle className="text-xl mb-2">{listing.title}</CardTitle>
-              <p className="text-muted-foreground mb-2">{`${listing.address}, ${listing.city}, ${listing.state} ${listing.zip}`}</p>
-              <div className="flex justify-between items-center mb-4">
+              <CardTitle className="mb-2 text-xl">{listing.title}</CardTitle>
+              <p className="mb-2 text-muted-foreground">{`${listing.address}, ${listing.city}, ${listing.state} ${listing.zip}`}</p>
+              <div className="flex items-center justify-between mb-4">
                 <span className="text-2xl font-bold">
                   {formatPrice(listing.price)}
                 </span>
@@ -120,7 +119,7 @@ export function ListingsList({
                 )}
               </div>
               {listing.listingDate && validDate(listing.listingDate) && (
-                <p className="text-sm text-muted-foreground mb-2">
+                <p className="mb-2 text-sm text-muted-foreground">
                   Listed on {formatDate(listing.listingDate)}
                 </p>
               )}
@@ -135,7 +134,7 @@ export function ListingsList({
                 </p>
               )}
             </CardContent>
-            <CardFooter className="bg-muted p-4 self-end">
+            <CardFooter className="self-end p-4 bg-muted">
               <Button
                 className="w-full m-0"
                 onClick={() => {

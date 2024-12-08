@@ -134,7 +134,7 @@ function Hero() {
               className="max-w-[500px] bg-blue-500 text-white flex-grow rounded-xl p-6 text-[16px] hover:bg-blue-600 md:flex-grow-0"
             />
             <Button
-              className="max-w-[500px] flex-grow rounded-xl p-6 text-[16px] text-gray-700 hover:bg-gray-100 md:flex-grow-0"
+              className="max-w-[500px] flex-grow rounded-xl p-6 text-[16px] text-blue-500 transition-colors duration-300 border-blue-500 hover:bg-blue-600 hover:text-white md:flex-grow-0"
               type="button"
               variant="outline"
               onClick={() => {
