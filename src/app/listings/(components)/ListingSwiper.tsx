@@ -26,11 +26,11 @@ export default function ListingsCarousel({
   data: ListResult<ListingsResponse>;
 }) {
   return (
-    <div className="container px-5 xl:px-0 mx-auto my-8 ">
+    <div className="container px-5 xl:px-0 mx-auto my-[60px] md:my-[100px]">
       <Card className="container text-gray-700 bg-white">
         <CardHeader>
-          <div className="flex justify-between items-center mb-4">
-            <h2 className="text-2xl md:text-3xl font-bold">
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-2xl font-bold md:text-3xl">
               Featured Listings
             </h2>
             <Link href="/listings">
@@ -48,11 +48,11 @@ export default function ListingsCarousel({
                   key={listing.id}
                   className="md:basis-1/2 lg:basis-1/3"
                 >
-                  <Card className="h-full flex flex-col">
+                  <Card className="flex flex-col h-full">
                     <CardHeader>
                       <CardTitle className="text-lg">{listing.title}</CardTitle>
                     </CardHeader>
-                    <CardContent className="flex flex-grow justify-center items-center">
+                    <CardContent className="flex items-center justify-center flex-grow">
                       <ListingListImageCarousel
                         record={listing}
                         ImageClassName="w-full h-full rounded-xl"

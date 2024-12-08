@@ -6,24 +6,24 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-primary/5 sticky text-gray-600 py-8 px-5 xl:px-0">
+    <footer className="sticky px-5 py-8 text-gray-600 bg-primary/5 xl:px-0">
       <div className="container mx-auto max-w-7xl">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 gap-8 text-center md:grid-cols-2 lg:grid-cols-4 md:text-left">
           {/* Contact Information */}
           <div>
-            <h3 className="font-semibold text-lg md:text-xl mb-4">
+            <h3 className="mb-4 text-lg font-semibold md:text-xl">
               Contact Information
             </h3>
             <ul className="space-y-2">
-              <li className="flex items-center">
+              <li className="flex items-center justify-center md:justify-start">
                 <Phone className="w-5 h-5 mr-2" />
                 <span className="text-sm md:text-base">(+64) 210 249 6278</span>
               </li>
-              <li className="flex items-center">
+              <li className="flex items-center justify-center md:justify-start">
                 <Mail className="w-5 h-5 mr-2" />
                 <a
                   href="mailto:p.bajwa@barfoot.co.nz"
-                  className="hover:text-gray-900 text-sm md:text-base"
+                  className="text-sm hover:text-gray-900 md:text-base"
                 >
                   p.bajwa@barfoot.co.nz
                 </a>
@@ -33,14 +33,14 @@ export default function Footer() {
 
           {/* Quick Navigation */}
           <div>
-            <h3 className="font-semibold text-lg md:text-xl mb-4">
+            <h3 className="mb-4 text-lg font-semibold md:text-xl">
               Quick Navigation
             </h3>
             <ul className="space-y-2">
               <li>
                 <Link
                   href="/"
-                  className="hover:text-gray-900 text-sm md:text-base"
+                  className="text-sm hover:text-gray-900 md:text-base"
                 >
                   Home
                 </Link>
@@ -48,7 +48,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/listings"
-                  className="hover:text-gray-900 text-sm md:text-base"
+                  className="text-sm hover:text-gray-900 md:text-base"
                 >
                   Listings
                 </Link>
@@ -56,7 +56,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/blogs"
-                  className="hover:text-gray-900 text-sm md:text-base"
+                  className="text-sm hover:text-gray-900 md:text-base"
                 >
                   Blogs
                 </Link>
@@ -64,7 +64,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/about"
-                  className="hover:text-gray-900 text-sm md:text-base"
+                  className="text-sm hover:text-gray-900 md:text-base"
                 >
                   About
                 </Link>
@@ -74,12 +74,12 @@ export default function Footer() {
 
           {/* Legal */}
           <div>
-            <h3 className="font-semibold text-lg md:text-xl mb-4">Legal</h3>
+            <h3 className="mb-4 text-lg font-semibold md:text-xl">Legal</h3>
             <ul className="space-y-2">
               <li>
                 <Link
                   href="https://www.barfoot.co.nz/global/legal-documents/privacy-statement"
-                  className="hover:text-gray-900 text-sm md:text-base"
+                  className="text-sm hover:text-gray-900 md:text-base"
                 >
                   Privacy Policy
                 </Link>
@@ -87,7 +87,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="https://www.barfoot.co.nz/global/legal-documents/terms-of-use"
-                  className="hover:text-gray-900 text-sm md:text-base"
+                  className="text-sm hover:text-gray-900 md:text-base"
                 >
                   Terms of Service
                 </Link>
@@ -97,10 +97,10 @@ export default function Footer() {
 
           {/* Social Media */}
           <div>
-            <h3 className="font-semibold text-lg md:text-xl mb-4">
+            <h3 className="mb-4 text-lg font-semibold md:text-xl">
               Social Media
             </h3>
-            <div className="flex space-x-4">
+            <div className="flex justify-center space-x-4 md:justify-start">
               <a
                 href="https://www.facebook.com/profile.php?id=100075699308387"
                 target="_blank"
@@ -134,7 +134,7 @@ export default function Footer() {
         </div>
 
         {/* Copyright */}
-        <div className="mt-8 pt-8 border-t border-gray-200 text-center">
+        <div className="pt-8 mt-8 text-center border-t border-gray-200">
           <p className="text-sm md:text-base">
             &copy; {currentYear} Parminder Bajwa. All rights reserved.
           </p>

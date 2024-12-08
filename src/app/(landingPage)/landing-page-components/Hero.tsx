@@ -88,7 +88,7 @@ function Hero() {
       <div className="my-[60px] md:my-[100px]">
         <div className="relative mx-[20px] mb-[32px] flex flex-col lg:mx-[32px] lg:mb-[0px] lg:flex-row lg:flex-wrap lg:justify-center lg:pt-[60px]">
           <div
-            className={`relative z-40 grid items-center justify-items-center text-center lg:w-[850.57px] lg:justify-items-end`}
+            className={`relative z-40 grid items-center justify-items-center text-center lg:w-[850.58px] lg:justify-items-end`}
           >
             <h2
               className={`relative col-start-1 col-end-auto row-start-1 row-end-auto mb-2 text-[clamp(32px,15vw,62px)] leading-none lg:text-[80px] ${textColour} ${animation} font-bold sm:h-14 md:h-auto sm:bottom-12 md:bottom-auto sm:w-[90%] md:w-auto `}
@@ -98,7 +98,7 @@ function Hero() {
           </div>
           <div className="z-40 xsm:mb-5 xsm:mt-1 lg:order-1 lg:mb-20 lg:basis-full lg:text-center">
             <div className="inline-block w-full lg:relative lg:inline">
-              <p className="break-normal text-center text-base font-normal leading-normal text-gray-900 dark:text-white lg:inline">
+              <p className="text-base font-normal leading-normal text-center text-gray-900 break-normal dark:text-white lg:inline">
                 <span className="text-[clamp(32px,12vw,62px)] font-bold leading-none lg:text-[80px]">
                   with Parminder Bajwa
                 </span>
@@ -128,7 +128,7 @@ function Hero() {
               expert real estate services.
             </p>
           </div>
-          <div className="flex items-center justify-center gap-4 flex-wrap">
+          <div className="flex flex-wrap items-center justify-center gap-4">
             <ContactMe
               openInModal
               className="max-w-[500px] bg-blue-500 text-white flex-grow rounded-xl p-6 text-[16px] hover:bg-blue-600 md:flex-grow-0"

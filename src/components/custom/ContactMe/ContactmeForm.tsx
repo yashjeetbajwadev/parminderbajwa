@@ -53,17 +53,13 @@ export function ContactForm({
           reset();
         };
 
-        fetch(
-          "/api/post?custom=true&json=true&route=contactme",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ ...data, recaptchaValue: token }),
-          }
-        ).then((response) => {
-
+        fetch("/api/post?custom=true&json=true&route=contactme", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ ...data, recaptchaValue: token }),
+        }).then((response) => {
           resetForm();
           if (!response.ok) {
             callAlert("Error", "Failed to submit the form");

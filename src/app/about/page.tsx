@@ -16,11 +16,11 @@ export default function AboutMe() {
     <React.Fragment>
       <ButtonBreadcrumb items={BreadcrumbItems} />
 
-      <div className="container mx-auto px-5 xl:px-0 py-8 max-w-7xl">
-        <div className="flex flex-col md:flex-row gap-6 text-gray-700">
+      <div className="container px-5 py-8 mx-auto xl:px-0 max-w-7xl">
+        <div className="flex flex-col gap-6 text-gray-700 md:flex-row">
           <div className="md:w-1/3">
             <Card className="w-full">
-              <CardContent className="p-4 md:-6 space-y-4">
+              <CardContent className="p-4 space-y-4 md:-6">
                 <Image
                   src="/parminderbajwa.webp"
                   alt="Parminder Bajwa"
@@ -28,10 +28,10 @@ export default function AboutMe() {
                   height={400}
                   className="w-full h-auto rounded-lg shadow-lg"
                 />
-                <h2 className="mt-4 text-lg md:text-xl font-semibold text-gray-700">
+                <h2 className="mt-4 text-lg font-semibold text-gray-700 md:text-xl">
                   Parminder Bajwa
                 </h2>
-                <p className="text-base md:text-lg text-gray-700">
+                <p className="text-base text-gray-700 md:text-lg">
                   Real Estate Specialist | Barfoot & Thompson
                 </p>
                 <ContactDetail className="justify-start mt-2" />
@@ -39,7 +39,7 @@ export default function AboutMe() {
             </Card>
           </div>
 
-          <div className="md:w-2/3 space-y-6">
+          <div className="space-y-6 md:w-2/3">
             <Card>
               <CardHeader className="p-4 md:p-6">
                 <CardTitle className="text-lg md:text-xl">
@@ -65,7 +65,7 @@ export default function AboutMe() {
               <CardContent className="px-4 md:px-6">
                 <ul className="space-y-2">
                   <li className="flex items-start">
-                    <CheckCircle className="h-5 w-5 text-green-500 mr-2 mt-1" />
+                    <CheckCircle className="w-5 h-5 mt-1 mr-2 text-green-500" />
                     <div className="text-base md:text-lg">
                       <span className="font-semibold">
                         Strategic Expertise:
@@ -75,7 +75,7 @@ export default function AboutMe() {
                     </div>
                   </li>
                   <li className="flex items-start">
-                    <CheckCircle className="h-5 w-5 text-green-500 mr-2 mt-1" />
+                    <CheckCircle className="w-5 h-5 mt-1 mr-2 text-green-500" />
                     <div className="text-base md:text-lg">
                       <span className="font-semibold">
                         Client-First Philosophy:
@@ -85,7 +85,7 @@ export default function AboutMe() {
                     </div>
                   </li>
                   <li className="flex items-start">
-                    <CheckCircle className="h-5 w-5 text-green-500 mr-2 mt-1" />
+                    <CheckCircle className="w-5 h-5 mt-1 mr-2 text-green-500" />
                     <div className="text-base md:text-lg">
                       <span className="font-semibold">Extensive Network:</span>{" "}
                       Connected with key industry professionals to maximize your
@@ -93,7 +93,7 @@ export default function AboutMe() {
                     </div>
                   </li>
                   <li className="flex items-start">
-                    <CheckCircle className="h-5 w-5 text-green-500 mr-2 mt-1" />
+                    <CheckCircle className="w-5 h-5 mt-1 mr-2 text-green-500" />
                     <div className="text-base md:text-lg">
                       <span className="font-semibold">
                         Transparent Communication:
@@ -151,7 +151,7 @@ export default function AboutMe() {
                 </CardTitle>
               </CardHeader>
               <CardContent className="px-4 md:px-6">
-                <p className="text-base md:text-lg text-gray-700">
+                <p className="text-base text-gray-700 md:text-lg">
                   Your property goals deserve a dedicated, knowledgeable, and
                   results-driven professional. Let&apos;s turn your real estate
                   dreams into reality.

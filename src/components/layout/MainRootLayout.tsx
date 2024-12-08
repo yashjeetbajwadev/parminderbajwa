@@ -9,11 +9,11 @@ export default function MainRootLayout({
   return (
     <html lang="en">
       <body>
-        <div className="min-h-screen dark:bg-boxdark-2 dark:text-white text-gray-700">
+        <main className="min-h-screen text-gray-700 dark:bg-boxdark-2 dark:text-white">
           <div className="scroll-smooth">
             <div className="bg-white">
               <AlertProvider>
-                <div className="flex flex-col h-screen justify-between">
+                <div className="flex flex-col justify-between h-screen">
                   <div>
                     <Header />
                     {children}
@@ -23,7 +23,7 @@ export default function MainRootLayout({
               </AlertProvider>
             </div>
           </div>
-        </div>
+        </main>
       </body>
     </html>
   );
