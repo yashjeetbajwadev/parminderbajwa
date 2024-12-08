@@ -15,7 +15,7 @@ export default function AboutMe() {
   return (
     <React.Fragment>
       <ButtonBreadcrumb items={BreadcrumbItems} />
-      <div className="flex flex-col md:flex-row gap-6 max-w-7xl mx-auto mt-2">
+      <div className="flex flex-col md:flex-row gap-6 max-w-7xl mx-auto mt-2 text-gray-700">
         <div className="md:w-1/3">
           <Card className="w-full">
             <CardContent className="p-6">
@@ -26,10 +26,10 @@ export default function AboutMe() {
                 height={400}
                 className="w-full h-auto rounded-lg shadow-lg"
               />
-              <h2 className="mt-4 text-xl font-semibold text-gray-900">
+              <h2 className="mt-4 text-xl font-semibold text-gray-700">
                 Parminder Bajwa
               </h2>
-              <p className="text-gray-600">
+              <p className="text-gray-700">
                 Real Estate Specialist | Barfoot & Thompson
               </p>
               <ContactDetail className="justify-start mt-2" />
@@ -43,7 +43,7 @@ export default function AboutMe() {
               <CardTitle>Professional Profile</CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-gray-700">
+              <p>
                 With a proven track record of successful property transactions,
                 I transform real estate challenges into opportunities. My
                 commitment is to deliver exceptional results tailored to your
@@ -103,7 +103,7 @@ export default function AboutMe() {
               <CardTitle>Services</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap gap-2 text-gray-700">
                 <Badge variant="secondary">First-time buyer support</Badge>
                 <Badge variant="secondary">Property valuation</Badge>
                 <Badge variant="secondary">

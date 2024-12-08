@@ -20,14 +20,14 @@ export function ContactModal({ className }: ContactMeFormProps) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="default" className={cn("bg-blue-500", className)}>
+        <Button
+          variant="default"
+          className={cn("bg-blue-500 hover:bg-blue-600", className)}
+        >
           Get In Touch
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px] bg-white">
-        <DialogHeader>
-          <DialogTitle>Contact Me</DialogTitle>
-        </DialogHeader>
         <ContactForm setOpen={setOpen} />
       </DialogContent>
     </Dialog>

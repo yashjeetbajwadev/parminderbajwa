@@ -26,10 +26,10 @@ export default function ListingsCarousel({
   data: ListResult<ListingsResponse>;
 }) {
   return (
-    <Card className="container mx-auto my-8 bg-white">
+    <Card className="container text-gray-700 mx-auto my-8 bg-white">
       <CardHeader>
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-2xl font-bold">Featured Listings</h2>
+          <h2 className="text-3xl font-bold">Featured Listings</h2>
           <Link href="/listings">
             <Button className="blue-500" variant="outline">
               View all
