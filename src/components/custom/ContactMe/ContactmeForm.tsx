@@ -12,7 +12,6 @@ import * as z from "zod";
 import { useAlert } from "../Alert";
 import { cn } from "@/lib/utils";
 import { Resend } from "resend";
-import EmailTemplate from "@/components/EmailTemplate";
 
 type ContactFormProps = {
   setOpen?: Function;
@@ -57,45 +56,31 @@ export function ContactForm({
           reset();
         };
 
-        const response = await fetch(
-          "/api/post?custom=true&json=true&route=contactme",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ ...data, recaptchaValue: token }),
+        fetch("/api/post?custom=true&json=true&route=contactme", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ ...data, recaptchaValue: token }),
+        }).then((response) => {
+          resetForm();
+          if (!response.ok) {
+            callAlert("Error", "Failed to submit the form");
+            throw new Error("Failed to submit the form");
           }
-        );
-
-        if (!response.ok) {
-          callAlert("Error", "Failed to submit the form");
-          throw new Error("Failed to submit the form");
-        }
-
-        const { data: resendData, error: resendError } =
-          await resend.emails.send({
-            from: data.email,
-            to: ["yashjeetbajwa8@gmail.com"],
-            subject: "Hello world",
-            react: EmailTemplate({ firstName: data.name }),
-          });
-
-        if (resendError) {
-          throw new Error(resendError.message);
-        }
-
-        callAlert(
-          "Message Sent!",
-          "Thank you for your message. We'll get back to you soon."
-        );
-        setOpen?.(false);
-        resetForm();
+          callAlert(
+            "Message Sent!",
+            "Thank you for your message. We'll get back to you soon."
+          );
+          setOpen?.(false);
+        });
       } catch (error) {
         setSubmitError("Failed to submit the form. Please try again.");
       } finally {
         setIsSubmitting(false);
       }
+
+      reset();
     });
   };
 
