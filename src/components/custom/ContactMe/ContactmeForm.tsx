@@ -11,7 +11,6 @@ import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { useAlert } from "../Alert";
 import { cn } from "@/lib/utils";
-import { Resend } from "resend";
 
 type ContactFormProps = {
   setOpen?: Function;
