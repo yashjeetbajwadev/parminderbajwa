@@ -12,7 +12,6 @@ import * as z from "zod";
 import { useAlert } from "../Alert";
 
 const formSchema = z.object({
-<<<<<<< HEAD
   name: z.string().min(2, { message: "Name must be at least 2 characters." }),
   email: z.string().email({ message: "Please enter a valid email address." }),
   phone: z.string().min(7, { message: "Please enter a valid phone number." }),
@@ -20,13 +19,6 @@ const formSchema = z.object({
     .string()
     .min(2, { message: "Message must be at least 2 characters." }),
 });
-=======
-    FName: z.string().min(2, { message: 'Name must be at least 2 characters.' }),
-    email: z.string().email({ message: 'Please enter a valid email address.' }),
-    phone: z.string().min(7,{ message: 'Please enter a valid Phone Number.' }),
-    message: z.string().min(2, { message: 'Message must be at least 2 characters.' }),
-})
->>>>>>> 284e8c868bdf5c3f4f4b1c67fd5e8b1e3c5dd756
 
 type FormData = z.infer<typeof formSchema>;
 type ContactFormProps = {
