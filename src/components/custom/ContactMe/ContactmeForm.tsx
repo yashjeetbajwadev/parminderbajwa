@@ -33,7 +33,6 @@ export function ContactForm({
   setOpen,
   className,
 }: Readonly<ContactFormProps>) {
-  const resend = new Resend("re_g9eTxwtD_EaduP9oRBLCYqwoFMcqFDcwW");
   const recaptchaRef = React.createRef<ReCAPTCHA>();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
