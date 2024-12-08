@@ -18,7 +18,7 @@ type ContactFormProps = {
 };
 
 const formSchema = z.object({
-  name: z.string().min(2, { message: "Name must be at least 2 characters." }),
+  FName: z.string().min(2, { message: "Name must be at least 2 characters." }),
   email: z.string().email({ message: "Please enter a valid email address." }),
   phone: z.string().min(7, { message: "Please enter a valid phone number." }),
   message: z
@@ -46,39 +46,36 @@ export function ContactForm({
   const { callAlert } = useAlert();
 
   const onSubmit = async (data: FormData) => {
+    setIsSubmitting(true);
     recaptchaRef.current?.executeAsync().then(async (token) => {
-      setIsSubmitting(true);
       setSubmitError(null);
-      try {
-        const resetForm = () => {
-          reset();
-        };
+      const resetForm = () => {
+        reset();
+      };
 
-        fetch("/api/post?custom=true&json=true&route=contactme", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ ...data, recaptchaValue: token }),
-        }).then((response) => {
-          resetForm();
-          if (!response.ok) {
-            callAlert("Error", "Failed to submit the form");
-            throw new Error("Failed to submit the form");
-          }
-          callAlert(
-            "Message Sent!",
-            "Thank you for your message. We'll get back to you soon."
-          );
-          setOpen?.(false);
-        });
-      } catch (error) {
+      fetch("/api/post?custom=true&json=true&route=contactme", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ ...data, recaptchaValue: token }),
+      }).then((response) => {
+        resetForm();
+        if (!response.ok) {
+          callAlert("Error", "Failed to submit the form");
+          throw new Error("Failed to submit the form");
+        }
+        callAlert(
+          "Message Sent!",
+          "Thank you for your message. We'll get back to you soon."
+        );
+        setOpen?.(false);
+      }).catch((error) => {
         setSubmitError("Failed to submit the form. Please try again.");
-      } finally {
+      }).finally(() => {
         setIsSubmitting(false);
-      }
-
-      reset();
+        reset();
+      });
     });
   };
 
@@ -102,11 +99,11 @@ export function ContactForm({
         <div>
           <Input
             placeholder="Your Name"
-            {...register("name")}
-            aria-invalid={errors.name ? "true" : "false"}
+            {...register("FName")}
+            aria-invalid={errors.FName ? "true" : "false"}
           />
-          {errors.name && (
-            <p className="mt-1 text-sm text-red-500">{errors.name.message}</p>
+          {errors.FName && (
+            <p className="mt-1 text-sm text-red-500">{errors.FName.message}</p>
           )}
         </div>
         <div>
