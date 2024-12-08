@@ -28,7 +28,7 @@ export function ContactModal({ className }: ContactMeFormProps) {
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px] bg-white">
-        <ContactForm setOpen={setOpen} />
+        <ContactForm setOpen={setOpen} className="p-0" />
       </DialogContent>
     </Dialog>
   );

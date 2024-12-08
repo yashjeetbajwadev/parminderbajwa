@@ -10,6 +10,7 @@ import ReCAPTCHA from "react-google-recaptcha";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { useAlert } from "../Alert";
+import { cn } from "@/lib/utils";
 
 const formSchema = z.object({
   name: z.string().min(2, { message: "Name must be at least 2 characters." }),
@@ -23,9 +24,13 @@ const formSchema = z.object({
 type FormData = z.infer<typeof formSchema>;
 type ContactFormProps = {
   setOpen?: Function;
+  className?: string;
 };
 
-export function ContactForm({ setOpen }: Readonly<ContactFormProps>) {
+export function ContactForm({
+  setOpen,
+  className,
+}: Readonly<ContactFormProps>) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [recaptchaValue, setRecaptchaValue] = useState<string | null>(null);
   const [submitError, setSubmitError] = useState<string | null>(null);
@@ -85,7 +90,12 @@ export function ContactForm({ setOpen }: Readonly<ContactFormProps>) {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center text-gray-700 px-5 xl:px-0">
+    <div
+      className={cn(
+        "flex flex-col justify-center items-center text-gray-700 px-5 xl:px-0",
+        className
+      )}
+    >
       <h1 className="text-2xl md:text-3xl font-bold mb-4">Get in Touch</h1>
       <p className="text-gray-600 mb-8 w-full max-w-lg text-center">
         I can&apos;t wait to hear from you! Please fill out the form below and
@@ -140,10 +150,10 @@ export function ContactForm({ setOpen }: Readonly<ContactFormProps>) {
             </p>
           )}
         </div>
-        {/* <ReCAPTCHA
+        <ReCAPTCHA
           sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY ?? ""}
           onChange={(value) => setRecaptchaValue(value)}
-        /> */}
+        />
 
         {submitError && (
           <div
