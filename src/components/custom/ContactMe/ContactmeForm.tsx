@@ -88,8 +88,8 @@ export function ContactForm({ setOpen }: Readonly<ContactFormProps>) {
     <div className="flex flex-col justify-center items-center text-gray-700 ">
       <h1 className="text-3xl font-bold mb-4">Get in Touch</h1>
       <p className="text-gray-600 mb-8 w-full max-w-lg text-pretty">
-        I can't wait to hear from you! Please fill out the form below and I'll
-        get back to you as soon as possible.
+        I can`&apos;`t wait to hear from you! Please fill out the form below and
+        I`&apos;`ll get back to you as soon as possible.
       </p>
       <form
         onSubmit={handleSubmit(onSubmit)}
