@@ -149,7 +149,7 @@ export default function AboutMe() {
               <CardContent className="p-6">
                 <p className="text-lg leading-relaxed text-gray-600 dark:text-gray-300">
                   Your property goals deserve a dedicated, knowledgeable, and
-                  results-driven professional. Let's turn your real estate
+                  results-driven professional. Let&apos;s turn your real estate
                   dreams into reality.
                 </p>
               </CardContent>
