@@ -16,14 +16,19 @@ export function BlogList({ data }: { data: ListResult<BlogsResponse> }) {
     <div className="container px-5 py-8 mx-auto xl:px-0 max-w-7xl">
       <div className="grid grid-cols-2 gap-6">
         {data.items.map((post: BlogsResponse) => (
-          <Card key={post.id} className="flex flex-col">
+          <Card
+            key={post.id}
+            className="flex flex-col h-full hover:shadow-lg transition-shadow duration-300"
+          >
             <CardHeader>
-              <CardTitle>{post.title}</CardTitle>
-            </CardHeader>
-            <CardContent className="flex-grow">
-              <p className="mb-2 text-sm text-muted-foreground">
+              <CardTitle className="line-clamp-2 leading-relaxed">
+                {post.title}
+              </CardTitle>
+              <p className="text-sm text-muted-foreground mt-2">
                 By {post.author}
               </p>
+            </CardHeader>
+            <CardContent className="flex-grow">
               <div
                 className="prose line-clamp-3 max-w-none"
                 dangerouslySetInnerHTML={{ __html: post.body }}
