@@ -28,7 +28,7 @@ export function BlogPost({ data }: { data: BlogsResponse }) {
   return (
     <React.Fragment>
       <BackButtonBreadcrumb items={BreadcrumbItems} />
-      <Card className="container w-full max-w-4xl mx-auto my-8 shadow-lg">
+      <Card className="container w-full max-w-7xl mx-auto my-8 shadow-lg  text-gray-800">
         <CardHeader className="space-y-4">
           <div className="space-y-2">
             <h1 className="text-3xl md:text-4xl font-bold tracking-tight">
@@ -54,16 +54,11 @@ export function BlogPost({ data }: { data: BlogsResponse }) {
           </div>
         </CardHeader>
         <CardContent>
-          <div className="prose prose-lg dark:prose-invert max-w-none">
-            {data.body
-              ?.split("\n")
-              .map((paragraph, index) => (
-                <div
-                  key={index}
-                  className="mb-4"
-                  dangerouslySetInnerHTML={{ __html: paragraph }}
-                />
-              ))}
+          <div className="prose prose-lg dark:prose-invert text-gray-800 max-w-none">
+            <div
+              className="mb-4 prose max-w-none  text-gray-800"
+              dangerouslySetInnerHTML={{ __html: data.body }}
+            />
           </div>
         </CardContent>
         <Separator className="my-4" />

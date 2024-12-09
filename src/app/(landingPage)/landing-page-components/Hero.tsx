@@ -122,7 +122,7 @@ function Hero() {
           </div>
         </div>
         <div className="mx-[28px] sm:mx-[40px] lg:mx-[72px]">
-          <div className="relative z-30 mb-[36px] text-center text-gray-700">
+          <div className="relative z-30 mb-[36px] text-center text-gray-800">
             <p className="text-[18px] font-normal leading-normal dark:text-white">
               Find your dream home effortlessly with Parminder Bajwa and our
               expert real estate services.

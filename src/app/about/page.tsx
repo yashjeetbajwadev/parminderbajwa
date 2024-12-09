@@ -49,7 +49,7 @@ export default function AboutMe() {
       <ButtonBreadcrumb items={BreadcrumbItems} />
 
       <div className="container px-5 py-8 mx-auto xl:px-0 max-w-7xl">
-        <div className="flex flex-col gap-6 text-gray-700 md:flex-row">
+        <div className="flex flex-col gap-6 text-gray-800 md:flex-row">
           <div className="md:w-1/3">
             <Card className="w-full max-w-md mx-auto overflow-hidden transition-all duration-300 shadow-lg rounded-xl hover:shadow-xl">
               <CardContent className="p-0">

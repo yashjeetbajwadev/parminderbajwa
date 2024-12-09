@@ -59,30 +59,33 @@ export function ContactForm({
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ ...data, recaptchaValue: token }),
-      }).then((response) => {
-        resetForm();
-        if (!response.ok) {
-          callAlert("Error", "Failed to submit the form");
-          throw new Error("Failed to submit the form");
-        }
-        callAlert(
-          "Message Sent!",
-          "Thank you for your message. We'll get back to you soon."
-        );
-        setOpen?.(false);
-      }).catch((error) => {
-        setSubmitError("Failed to submit the form. Please try again.");
-      }).finally(() => {
-        setIsSubmitting(false);
-        reset();
-      });
+      })
+        .then((response) => {
+          resetForm();
+          if (!response.ok) {
+            callAlert("Error", "Failed to submit the form");
+            throw new Error("Failed to submit the form");
+          }
+          callAlert(
+            "Message Sent!",
+            "Thank you for your message. We'll get back to you soon."
+          );
+          setOpen?.(false);
+        })
+        .catch((error) => {
+          setSubmitError("Failed to submit the form. Please try again.");
+        })
+        .finally(() => {
+          setIsSubmitting(false);
+          reset();
+        });
     });
   };
 
   return (
     <div
       className={cn(
-        "flex flex-col justify-center items-center text-gray-700 px-5 xl:px-0 overflow-clip",
+        "flex flex-col justify-center items-center text-gray-800 px-5 xl:px-0 overflow-clip",
         className
       )}
     >

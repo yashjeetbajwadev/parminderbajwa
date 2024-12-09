@@ -59,7 +59,7 @@ export default function Header() {
               </SheetTrigger>
               <SheetContent side="left" className="w-[300px] flex flex-col p-8">
                 {/* Navigation Links */}
-                <div className="flex flex-col mt-12 mb-8 space-y-6 text-gray-700">
+                <div className="flex flex-col mt-12 mb-8 space-y-6 text-gray-800">
                   {NAV_ITEMS.map((item) => (
                     <SheetTrigger asChild key={item.href}>
                       <Link

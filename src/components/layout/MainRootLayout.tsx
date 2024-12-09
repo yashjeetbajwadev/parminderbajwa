@@ -9,7 +9,7 @@ export default function MainRootLayout({
   return (
     <html lang="en">
       <body>
-        <main className="min-h-screen text-gray-700 dark:bg-boxdark-2 dark:text-white">
+        <main className="min-h-screen text-gray-800 dark:bg-boxdark-2 dark:text-white">
           <div className="scroll-smooth">
             <div className="bg-white">
               <AlertProvider>

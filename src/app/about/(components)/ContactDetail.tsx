@@ -27,7 +27,7 @@ function ContactDetail({ className }: { className?: string }) {
   return (
     <div
       className={cn(
-        "grid justify-center text-sm md:text-base text-gray-700",
+        "grid justify-center text-sm md:text-base text-gray-800",
         className
       )}
     >
@@ -40,7 +40,7 @@ function ContactDetail({ className }: { className?: string }) {
           className="p-0 m-0 h-min"
           onClick={(e) => {
             e.preventDefault();
-            handleCopy("02102496278", "Phone number copied to clipboard")
+            handleCopy("02102496278", "Phone number copied to clipboard");
           }}
         >
           <Copy className="h-4 w-4" />
@@ -55,7 +55,7 @@ function ContactDetail({ className }: { className?: string }) {
           className="p-0 m-0 h-min"
           onClick={(e) => {
             e.preventDefault();
-            handleCopy("p.bajwa@barfoot.co.nz", "Email copied to clipboard")
+            handleCopy("p.bajwa@barfoot.co.nz", "Email copied to clipboard");
           }}
         >
           <Copy className="h-4 w-4" />

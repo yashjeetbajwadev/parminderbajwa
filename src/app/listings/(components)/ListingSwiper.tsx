@@ -31,7 +31,7 @@ export default function ListingsCarousel({
         <Card className="overflow-hidden bg-white shadow-xl dark:bg-gray-800 rounded-2xl">
           <CardHeader className="p-6 border-b border-gray-200 md:p-8 dark:border-gray-700">
             <div className="flex items-center justify-between">
-              <h2 className="text-2xl font-bold text-gray-700 md:text-3xl dark:text-gray-100">
+              <h2 className="text-2xl font-bold text-gray-800 md:text-3xl dark:text-gray-100">
                 Featured Listings
               </h2>
               <Link href="/listings" passHref>

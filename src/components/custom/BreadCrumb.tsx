@@ -23,7 +23,7 @@ const ButtonBreadcrumb: React.FC<BackButtonBreadcrumbProps> = ({ items }) => {
               {index > 0 && <ChevronRight className="h-4 w-4 text-gray-400" />}
               <li>
                 {index === items.length - 1 ? (
-                  <span className="text-gray-700">{item.label}</span>
+                  <span className="text-gray-800">{item.label}</span>
                 ) : (
                   <Link
                     href={item.href}
