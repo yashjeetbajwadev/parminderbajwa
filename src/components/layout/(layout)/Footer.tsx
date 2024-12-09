@@ -108,7 +108,7 @@ export default function Footer() {
                 className="hover:text-gray-900"
               >
                 <Image
-                  src="icons/facebook.svg"
+                  src="/icons/facebook.svg"
                   alt="facebook logo"
                   width={24}
                   height={24}
@@ -122,7 +122,7 @@ export default function Footer() {
                 className="hover:text-gray-900"
               >
                 <Image
-                  src="icons/tiktok.svg"
+                  src="/icons/tiktok.svg"
                   alt="tiktok Logo"
                   width={24}
                   height={24}

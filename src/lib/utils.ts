@@ -17,14 +17,12 @@ export function formatPrice(price: number) {
     maximumFractionDigits: 0,
   }).format(price);
 }
-const isVercel = process.env.VERCEL === '1';
 
 const defaultListCollectionOptions: ListOptions = {
   limit: 10,
   page: 1,
   sort: "-created",
   order: "desc",
-  requestKey: isVercel? Date.now().toString() + Math.floor(Math.random() * 1000): undefined,
 };
 
 export async function getCollectionData<T extends keyof CollectionRecords>({
