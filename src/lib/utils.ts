@@ -23,6 +23,7 @@ const defaultListCollectionOptions: ListOptions = {
   page: 1,
   sort: "-created",
   order: "desc",
+  requestKey: Date.now().toString() + Math.floor(Math.random() * 1000)
 };
 
 export async function getCollectionData<T extends keyof CollectionRecords>({
