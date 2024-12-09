@@ -28,12 +28,10 @@ export function BlogPost({ data }: { data: BlogsResponse }) {
   return (
     <React.Fragment>
       <BackButtonBreadcrumb items={BreadcrumbItems} />
-      <Card className="container w-full max-w-7xl mx-auto my-8 shadow-lg  text-gray-800">
+      <Card className="container w-full max-w-7xl mx-auto my-8 shadow-lg text-gray-800">
         <CardHeader className="space-y-4">
           <div className="space-y-2">
-            <h1 className="text-3xl md:text-4xl font-bold tracking-tight">
-              {data.title}
-            </h1>
+            <h1 className="text-3xl md:text-4xl font-bold">{data.title}</h1>
             <div className="flex items-center space-x-2 text-muted-foreground">
               <span>{data.author}</span>
             </div>
