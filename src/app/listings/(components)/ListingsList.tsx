@@ -67,7 +67,10 @@ export function ListingsList({
       </div>
       <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
         {data?.items?.map((listing: ListingsResponse) => (
-          <Card key={listing.id} className="grid overflow-hidden">
+          <Card
+            key={listing.id}
+            className="flex flex-col h-full transition-shadow duration-300 hover:shadow-lg"
+          >
             <CardHeader className="p-0">
               <ListingListImageCarousel
                 record={listing}
