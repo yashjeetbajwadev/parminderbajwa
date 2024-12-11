@@ -38,20 +38,18 @@ const ListingListImageCarousel = ({
         <CarouselContent>
           {record.images.map((image: string, index: number) => (
             <CarouselItem key={index}>
-              <div
-                onClick={() => handleImageClick(index)}
-                className="relative w-full h-full"
-                style={{ aspectRatio: "16 / 9" }}
-              >
+              <button
+                onClick={() => handleImageClick(index)}>
                 <PocketBaseImage
                   record={record}
                   filename={image}
-                  className={cn("object-cover", ImageClassName)}
+                  className={cn(ImageClassName)}
                   width={isServer() ? 1920 : window.innerWidth}
                   height={isServer() ? 1080 : window.innerWidth}
                   alt={`${record.title} - Image ${index + 1}`}
+                  style={{ aspectRatio: "16 / 9" }}
                 />
-              </div>
+              </button>
             </CarouselItem>
           ))}
         </CarouselContent>

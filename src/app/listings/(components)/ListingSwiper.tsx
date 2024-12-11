@@ -36,9 +36,9 @@ import {
 
 export default function ListingsCarousel({
   data,
-}: {
+}: Readonly<{
   data: ListResult<ListingsResponse>;
-}) {
+}>) {
   const featuredListings =
     data?.items?.filter(
       (listing) => listing.featuredOnHomePage && listing.featuredOnHomePage > 0
@@ -90,7 +90,7 @@ export default function ListingsCarousel({
                         <CardHeader className="p-0">
                           <ListingListImageCarousel
                             record={listing}
-                            ImageClassName="h-48 sm:h-56 md:h-64 w-full object-cover"
+                            ImageClassName="h-48 sm:h-56 md:h-64"
                           />
                         </CardHeader>
                         <CardContent className="flex-grow p-3 sm:p-4">

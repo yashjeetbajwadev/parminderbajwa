@@ -15,8 +15,12 @@ export default function PocketBaseImage({
   thumb,
   ...props
 }: PocketBaseImageProps) {
-  const [imageUrl, setImageUrl] = useState("/placeholder.png")
   const [isOpen, setIsOpen] = useState(false)
+  let url = `/api/image?recordId=${record.id}&collectionId=${record.collectionId}&filename=${encodeURIComponent(filename)}`
+  if (thumb) {
+    url += `&thumb=${encodeURIComponent(thumb)}`
+  }
+  const [imageUrl, setImageUrl] = useState(url ?? "/placeholder.png")
 
   useEffect(() => {
     const fetchImage = async () => {
@@ -26,11 +30,6 @@ export default function PocketBaseImage({
       }
 
       try {
-        let url = `/api/image?recordId=${record.id}&collectionId=${record.collectionId}&filename=${encodeURIComponent(filename)}`
-        if (thumb) {
-          url += `&thumb=${encodeURIComponent(thumb)}`
-        }
-
         const response = await fetch(url)
         if (response.ok) {
           const blob = await response.blob()
@@ -45,7 +44,8 @@ export default function PocketBaseImage({
     }
 
     fetchImage()
-  }, [record, filename, thumb])
+  }, [record, filename, thumb, url])
+
 
   return (
     <Image
@@ -53,7 +53,7 @@ export default function PocketBaseImage({
       src={imageUrl}
       alt={props.alt || `${record.id}_${filename}`}
       onClick={() => setIsOpen(true)}
-      className={cn("cursor-pointer", props.className)}
+      className={cn("cursor-pointer object-contain h-full w-full md:object-scale-down", props.className)}
     />
   )
 }

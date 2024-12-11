@@ -60,7 +60,6 @@ export default function AboutMe() {
                     alt="Parminder Bajwa"
                     width={400}
                     height={500}
-                    className="object-cover w-full h-auto"
                   />
                 </div>
                 <div className="p-6 space-y-4 bg-gradient-to-b from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
