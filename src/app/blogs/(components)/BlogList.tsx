@@ -1,5 +1,6 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -10,11 +11,45 @@ import {
 import { formatSinglePage } from "@/lib/utils";
 import { BlogsResponse } from "@/types/pocketbase";
 import { formatDistanceToNow } from "date-fns";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { ListResult } from "pocketbase";
+import { useState, useEffect } from "react";
 
 export function BlogList({ data }: { data: ListResult<BlogsResponse> }) {
+  const router = useRouter();
+  const [currentPage, setCurrentPage] = useState(data?.page);
+  const pathname = usePathname()
+  const searchParams = useSearchParams()
+  useEffect(() => {
+    let newSearch = new URLSearchParams(searchParams)
+    newSearch.set('page', currentPage.toString())
+    let newUrl = new URL(pathname, window.location.origin);
+    newUrl.search = newSearch.toString();
+    router.push(newUrl.toString())
+  }, [currentPage, pathname, router, searchParams]);
   return (
     <div className="container px-4 py-6 mx-auto xl:px-0 max-w-7xl sm:px-6 sm:py-8">
+      <div className="flex items-center justify-between mb-8">
+        <p className="text-sm text-muted-foreground md:text-base">
+          Showing {data.items.length} of {data.totalItems} Blogs
+        </p>
+        <div className="flex gap-2">
+          <Button
+            variant="outline"
+            disabled={currentPage === 1}
+            onClick={() => setCurrentPage(currentPage - 1)}
+          >
+            Previous
+          </Button>
+          <Button
+            variant="outline"
+            disabled={currentPage === data.totalPages}
+            onClick={() => setCurrentPage(currentPage + 1)}
+          >
+            Next
+          </Button>
+        </div>
+      </div>
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
         {data.items.map((post: BlogsResponse) => (
           <Card

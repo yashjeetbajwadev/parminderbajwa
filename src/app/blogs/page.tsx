@@ -5,7 +5,13 @@ import { BlogsResponse } from "@/types/pocketbase";
 import { getCollectionData } from "@/lib/utils";
 import { ListResult } from "pocketbase";
 
-async function page() {
+async function page({
+  params,
+  searchParams,
+}: Readonly<{
+  params: { slug: string };
+  searchParams?: { [key: string]: string | string[] | undefined };
+}>) {
   const BreadcrumbItems = [
     { href: "/", label: "Home" },
     { href: "/blogs", label: "Blogs" },
@@ -13,7 +19,8 @@ async function page() {
   const blogs: ListResult<BlogsResponse> = await getCollectionData({
     collectionName: "blogs", options: {
       fields: "id,title,description,created,updated,author,images,body:excerpt(135,true)",
-      filter: "active=true"
+      filter: "active=true",
+      page: Number(searchParams?.page ?? 1),
     }
   });
   return (

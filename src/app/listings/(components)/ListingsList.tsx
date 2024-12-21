@@ -22,11 +22,10 @@ import {
   HomeIcon,
   RulerIcon,
 } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { ListResult } from "pocketbase";
-import { useEffect, useState } from "react";
+import { useEffect, useState, Fragment } from "react";
 import { ListingListImageCarousel } from "./ListingListImageCarousel";
-import React from "react";
 
 export function ListingsList({
   data,
@@ -37,18 +36,21 @@ export function ListingsList({
 }>): JSX.Element {
   const router = useRouter();
   const [currentPage, setCurrentPage] = useState(data?.page);
-
+  const pathname = usePathname()
+  const searchParams = useSearchParams()
   useEffect(() => {
-    if (currentPage > 1) {
-      router.push("/listings?page=" + currentPage);
-    }
-  }, [currentPage, router]);
+    let newSearch = new URLSearchParams(searchParams);
+    newSearch.set(sold ? 'soldPage' : 'page', currentPage.toString());
+    let newUrl = new URL(pathname, window.location.origin);
+    newUrl.search = newSearch.toString();
+    router.push(newUrl.toString());
+  }, [currentPage, pathname, router, searchParams, sold]);
 
   return (
     <div className="container px-5 py-8 xl:px-0">
       <div className="flex items-center justify-between mb-8">
         <p className="text-sm text-muted-foreground md:text-base">
-          Showing {data.items.length} of {data.totalItems} {sold? "Sold listings": "Active listings"}
+          Showing {data.items.length} of {data.totalItems} {sold ? "Sold listings" : "Active listings"}
         </p>
         <div className="flex gap-2">
           <Button
@@ -81,7 +83,7 @@ export function ListingsList({
             </CardHeader>
             <CardContent className="p-4 flex-grow">
               <CardTitle className="mb-2 text-xl">{listing.title}</CardTitle>
-                <p className="mb-2 text-muted-foreground">
+              <p className="mb-2 text-muted-foreground">
                 {(() => {
                   const addressParts = [listing.address];
                   if (listing.city) addressParts.push(listing.city);
@@ -89,11 +91,11 @@ export function ListingsList({
                   if (listing.zip) addressParts.push(listing.zip.toString());
                   return addressParts.join(", ");
                 })()}
-                </p>
+              </p>
               <div className="flex items-center justify-between mb-4">
                 <span className="text-2xl font-bold">
                   {!sold && (
-                    <React.Fragment>
+                    <Fragment>
                       {listing.price > 0 ? (
                         <p className="text-2xl md:text-3xl font-bold">
                           ${listing.price.toLocaleString()}
@@ -101,7 +103,7 @@ export function ListingsList({
                       ) : (
                         <Badge variant="secondary">Price by Negotiation</Badge>
                       )}
-                    </React.Fragment>
+                    </Fragment>
                   )}
                 </span>
                 <Badge

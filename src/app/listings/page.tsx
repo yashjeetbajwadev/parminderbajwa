@@ -1,7 +1,5 @@
 import BackButtonBreadcrumb from "@/components/custom/BreadCrumb";
 import { getCollectionData } from "@/lib/utils";
-import { ListingsResponse } from "@/types/pocketbase";
-import { ListResult } from "pocketbase";
 import React from "react";
 import { ListingsTabList } from "./(components)/ListingsTab";
 
@@ -12,21 +10,24 @@ export default async function Page({
   params: { slug: string };
   searchParams?: { [key: string]: string | string[] | undefined };
 }>) {
+
   const BreadcrumbItems = [
     { href: "/", label: "Home" },
     { href: "/listings", label: "Properties" },
   ];
-  const listings: ListResult<ListingsResponse> = await getCollectionData({
-    collectionName: "listings",
-    options: { filter: "" },
-  });
+
+  const [activeListings, soldListings] = await Promise.all([
+    getCollectionData({
+      collectionName: "listings",
+      options: { filter: "status='active'", page: Number(searchParams?.page ?? 1) },
+    }),
+    getCollectionData({
+      collectionName: "listings",
+      options: { filter: "status='sold'", page: Number(searchParams?.soldPage ?? 1) },
+    }),
+  ]);
+
   let defaultTab = "active";
-  let activeListings: ListResult<ListingsResponse> = { ...listings };
-  activeListings.items = listings.items.filter((d) => d.status == 'active');
-  activeListings.totalItems = activeListings.items.length;
-  let soldListings: ListResult<ListingsResponse> = { ...listings };
-  soldListings.items = listings.items.filter((d) => d.status == 'sold');
-  soldListings.totalItems = soldListings.items.length;
   if (searchParams?.tab === "active") {
     defaultTab = "sold";
   }

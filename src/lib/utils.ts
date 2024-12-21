@@ -20,6 +20,7 @@ export function formatPrice(price: number) {
 
 const defaultListCollectionOptions: ListOptions = {
   limit: 10,
+  perPage: 10,
   page: 1,
   sort: "-created",
   order: "desc",

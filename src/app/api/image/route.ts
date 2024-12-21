@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getPocketBaseInstance } from "@/lib/pocketbase";
+import path from "path";
+import fs from "fs";
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
@@ -33,10 +35,16 @@ export async function GET(request: NextRequest) {
 
     if (!fileResponse.ok) {
       console.error("Failed to fetch image:", JSON.stringify(fileResponse));
-      return NextResponse.json(
-        { error: "Failed to fetch image" },
-        { status: 500 }
+      const placeholderPath = path.join(
+        process.cwd(),
+        "public",
+        "placeholder.png"
       );
+      const placeholderBuffer = fs.readFileSync(placeholderPath);
+
+      return new NextResponse(placeholderBuffer, {
+        headers: { "Content-Type": "image/png" },
+      });
     }
 
     const imageData = await fileResponse.arrayBuffer();
