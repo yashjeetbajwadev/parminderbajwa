@@ -1,8 +1,8 @@
 "use client";
-import ListingListImageCarousel from "@/app/listings/(components)/ListingListImageCarousel";
+import { ListingListImageCarousel } from "@/app/listings/(components)/ListingListImageCarousel";
 import BackButtonBreadcrumb from "@/components/custom/BreadCrumb";
+import { ContactMe } from "@/components/custom/ContactMe/ContactMe";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -17,15 +17,14 @@ import { BathIcon, BedIcon, CarIcon, RulerIcon } from "lucide-react";
 import { ListResult } from "pocketbase";
 import React from "react";
 import ListingsSwiper from "./ListingSwiper";
-import { ContactMe } from "@/components/custom/ContactMe/ContactMe";
 
 export function PropertyPage({
   data,
   listingList,
-}: {
+}: Readonly<{
   data: ListingsResponse;
   listingList: ListResult<ListingsResponse>;
-}): JSX.Element {
+}>): JSX.Element {
   if (!data) return <div>No data available</div>;
   const expand = data?.expand as { agent: UsersRecord };
   const agent = expand?.agent ?? { name: "Unknown" };
@@ -150,7 +149,7 @@ export function PropertyPage({
             </div>
           </CardContent>
           <CardFooter className="flex justify-between">
-            <ContactMe openInModal/>
+            <ContactMe openInModal />
           </CardFooter>
         </Card>
         {listingList.items.length > 0 && <ListingsSwiper data={listingList} />}

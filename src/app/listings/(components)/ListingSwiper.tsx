@@ -1,5 +1,6 @@
 "use client";
 
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -8,10 +9,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import Link from "next/link";
-import { ListingsResponse } from "@/types/pocketbase";
-import { ListResult } from "pocketbase";
-import ListingListImageCarousel from "./ListingListImageCarousel";
 import {
   Carousel,
   CarouselContent,
@@ -21,10 +18,10 @@ import {
 } from "@/components/ui/carousel";
 import {
   formatDate,
-  formatPrice,
   formatSinglePage,
-  validDate,
+  validDate
 } from "@/lib/utils";
+import { ListingsResponse } from "@/types/pocketbase";
 import {
   BathIcon,
   BedDoubleIcon,
@@ -33,7 +30,9 @@ import {
   HomeIcon,
   RulerIcon,
 } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
+import Link from "next/link";
+import { ListResult } from "pocketbase";
+import { ListingListImageCarousel } from "./ListingListImageCarousel";
 
 export default function ListingsCarousel({
   data,
@@ -53,7 +52,7 @@ export default function ListingsCarousel({
 
   return (
     <section className="py-8 md:py-16 dark:bg-gray-900">
-      <div className="container px-4 mx-auto max-w-7xl xl:px-0">
+      <div className="container px-4 xl:px-0">
         <Card className="flex flex-col h-full transition-shadow duration-300 hover:shadow-lg">
           <CardHeader className="p-4 border-b border-gray-200 md:p-6 dark:border-gray-700">
             <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
@@ -87,11 +86,14 @@ export default function ListingsCarousel({
                       key={listing.id}
                       className="pl-4 basis-full md:basis-1/2 lg:basis-1/3"
                     >
-                      <Card className="grid h-full overflow-hidden">
+                      <Card
+                        key={"Card" + listing.id}
+                        className="flex flex-col h-full transition-shadow duration-300 hover:shadow-lg"
+                      >
                         <CardHeader className="p-0">
                           <ListingListImageCarousel
                             record={listing}
-                            ImageClassName="h-48 sm:h-56 md:h-64"
+                            ImageClassName="h-full"
                           />
                         </CardHeader>
                         <CardContent className="flex-grow p-3 sm:p-4">
@@ -114,32 +116,32 @@ export default function ListingsCarousel({
                           <div className="grid grid-cols-2 gap-2 mb-3 text-sm sm:grid-cols-3">
                             {Boolean(listing.bedroom) && (
                               <div className="flex items-center">
-                              <BedDoubleIcon className="w-4 h-4 mr-1" />
-                              <span>{listing.bedroom} bd</span>
+                                <BedDoubleIcon className="w-4 h-4 mr-1" />
+                                <span>{listing.bedroom} bd</span>
                               </div>
                             )}
                             {Boolean(listing.bathroom) && (
                               <div className="flex items-center">
-                              <BathIcon className="w-4 h-4 mr-1" />
-                              <span>{listing.bathroom} ba</span>
+                                <BathIcon className="w-4 h-4 mr-1" />
+                                <span>{listing.bathroom} ba</span>
                               </div>
                             )}
                             {Boolean(listing.parking) && (
                               <div className="flex items-center">
-                              <CarIcon className="w-4 h-4 mr-1" />
-                              <span>{listing.parking} pkg</span>
+                                <CarIcon className="w-4 h-4 mr-1" />
+                                <span>{listing.parking} pkg</span>
                               </div>
                             )}
                             {Boolean(listing.floorSquareFt) && (
                               <div className="flex items-center">
-                              <HomeIcon className="w-4 h-4 mr-1" />
-                              <span>{listing.floorSquareFt} sqft</span>
+                                <HomeIcon className="w-4 h-4 mr-1" />
+                                <span>{listing.floorSquareFt} sqft</span>
                               </div>
                             )}
                             {Boolean(listing.landSquareFt) && (
                               <div className="flex items-center">
-                              <RulerIcon className="w-4 h-4 mr-1" />
-                              <span>{listing.landSquareFt} sqft</span>
+                                <RulerIcon className="w-4 h-4 mr-1" />
+                                <span>{listing.landSquareFt} sqft</span>
                               </div>
                             )}
                             {listing.yearBuilt && (

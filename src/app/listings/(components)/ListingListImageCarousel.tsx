@@ -11,15 +11,33 @@ import PocketBaseImage from "@/components/PocketBaseImage";
 import { cn, isServer } from "@/lib/utils";
 import { imageRecordType } from "@/types/types";
 
-const ListingListImageCarousel = ({
-  record,
-  ImageClassName,
-  openDialogOnClick = false,
-}: {
+type ListingListImageCarouselProps = {
   record: imageRecordType;
   ImageClassName?: string;
   openDialogOnClick?: boolean;
-}) => {
+};
+
+type CarouselComponentProps = {
+  record: imageRecordType;
+  handleImageClick: (index: number) => void;
+  ImageClassName?: string;
+  startIndex?: number;
+  id: string;
+};
+
+type CarouselContentComponentProps = {
+  record: imageRecordType;
+  handleImageClick: (index: number) => void;
+  ImageClassName?: string;
+  curentSlide: number;
+  id: string;
+};
+
+export const ListingListImageCarousel = ({
+  record,
+  ImageClassName,
+  openDialogOnClick = false,
+}: ListingListImageCarouselProps) => {
   const [openDialog, setOpenDialog] = useState(false);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
 
@@ -34,66 +52,22 @@ const ListingListImageCarousel = ({
 
   return (
     <React.Fragment>
-      <Carousel className={cn("w-full")} opts={{ loop: true }}>
-        <CarouselContent>
-          {record.images.map((image: string, index: number) => (
-            <CarouselItem key={index}>
-              <button className="w-full h-full flex"
-                onClick={() => handleImageClick(index)}>
-                <PocketBaseImage
-                  record={record}
-                  filename={image}
-                  className={cn("justify-center",ImageClassName)}
-                  width={isServer() ? 1920 : window.innerWidth}
-                  height={isServer() ? 1080 : window.innerWidth}
-                  alt={`${record.title} - Image ${index + 1}`}
-                  style={{ aspectRatio: "16 / 9" }}
-                />
-              </button>
-            </CarouselItem>
-          ))}
-        </CarouselContent>
-        {record.images.length > 1 && (
-          <>
-            <CarouselPrevious className="absolute left-2 top-1/2 transform -translate-y-1/2" />
-            <CarouselNext className="absolute right-2 top-1/2 transform -translate-y-1/2" />
-          </>
-        )}
-      </Carousel>
+      <CarouselComponent
+        record={record}
+        handleImageClick={handleImageClick}
+        ImageClassName={ImageClassName}
+        id={"ListingListImageCarousel" + record.id}
+      />
       {openDialogOnClick && (
         <Dialog open={openDialog} onOpenChange={setOpenDialog}>
           <DialogContent className="max-w-[90vw] max-h-[90vh] p-4 flex items-center justify-center overflow-hidden bg-white">
-            <Carousel
-              className="w-full h-full"
-              opts={{ startIndex: selectedImageIndex }}
-            >
-              <CarouselContent className="w-full h-full">
-                {record.images.map((image: string, index: number) => (
-                  <CarouselItem
-                    key={index}
-                    className="w-full h-full flex items-center justify-center"
-                  >
-                    <div className="w-full h-full p-10 my-10">
-                      <div
-                        className="relative w-full h-full"
-                        style={{ aspectRatio: "16 / 9" }}
-                      >
-                        <PocketBaseImage
-                          record={record}
-                          filename={image}
-                          fill
-                          className="object-contain max-w-full max-h-full"
-                          sizes="(max-width: 768px) 90vw, (max-width: 1200px) 80vw, 70vw"
-                          alt={`${record.title} - Image ${index + 1}`}
-                        />
-                      </div>
-                    </div>
-                  </CarouselItem>
-                ))}
-              </CarouselContent>
-              <CarouselPrevious className="absolute left-2 top-1/2 transform -translate-y-1/2" />
-              <CarouselNext className="absolute right-2 top-1/2 transform -translate-y-1/2" />
-            </Carousel>
+            <CarouselComponent
+              record={record}
+              handleImageClick={handleImageClick}
+              ImageClassName={ImageClassName}
+              startIndex={selectedImageIndex}
+              id={"ListingListImageCarouselDialog" + record.id}
+            />
           </DialogContent>
         </Dialog>
       )}
@@ -101,4 +75,67 @@ const ListingListImageCarousel = ({
   );
 };
 
-export default ListingListImageCarousel;
+const CarouselComponent = ({
+  record,
+  handleImageClick,
+  ImageClassName,
+  startIndex = 0,
+  id
+}: CarouselComponentProps) => {
+  // current slude 
+  const [currentSlide, setCurrentSlide] = useState(startIndex ?? 0);
+  return (
+    <Carousel className="w-full h-full" opts={{ startIndex }}>
+      <CarouselContentComponent
+        record={record}
+        handleImageClick={handleImageClick}
+        ImageClassName={ImageClassName}
+        curentSlide={currentSlide}
+        id={id + "CarouselComponent" + record.id}
+      />
+      {record.images.length > 1 && (
+        <React.Fragment>
+          <CarouselPrevious className="absolute left-2 top-1/2 transform -translate-y-1/2"
+            handleClick={() => { setCurrentSlide(currentSlide - 1 % record.images.length) }} />
+          <CarouselNext className="absolute right-2 top-1/2 transform -translate-y-1/2"
+            handleClick={() => setCurrentSlide(currentSlide + 1 % record.images.length)} />
+        </React.Fragment>
+      )}
+    </Carousel>
+  )
+};
+
+const CarouselContentComponent = ({
+  record,
+  handleImageClick,
+  ImageClassName,
+  curentSlide
+}: CarouselContentComponentProps) => {
+  return (
+    <CarouselContent>
+      {record.images.map((image: string, index: number) => (
+        <CarouselItem key={"item" + index} id={record.id + "item" + index} data-index={curentSlide}>
+          {Math.abs(index - curentSlide) < 1 ? (
+            <button type="button"
+              className="w-full h-full flex"
+              onClick={() => handleImageClick(index)}
+            >
+              <PocketBaseImage
+                record={record}
+                filename={image}
+                className={cn("justify-center", ImageClassName)}
+                width={isServer() ? 1920 : window.innerWidth}
+                height={isServer() ? 1080 : window.innerWidth}
+                alt={`${record.title} - Image ${index + 1}`}
+                style={{ aspectRatio: "16 / 9" }}
+              />
+            </button>
+          ) : null
+          }
+        </CarouselItem>
+      ))}
+    </CarouselContent>
+  );
+};
+
+export { CarouselContentComponent };

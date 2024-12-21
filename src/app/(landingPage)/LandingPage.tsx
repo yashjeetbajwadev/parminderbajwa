@@ -27,7 +27,7 @@ export default async function LandingPage() {
         <meta name="description" content={websiteName} />
       </Head>
       <Incentive />
-      <main className="isolate mx-auto max-w-7xl dark:bg-boxdark-2">
+      <main className="isolate dark:bg-boxdark-2">
         <Hero />
         <ListingsSwiper data={listingsList} />
         <Testimonials />

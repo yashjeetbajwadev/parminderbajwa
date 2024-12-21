@@ -164,15 +164,22 @@ const CarouselItem = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLD
   }
 );
 CarouselItem.displayName = 'CarouselItem';
-
-const CarouselPrevious = React.forwardRef<HTMLButtonElement, React.ComponentProps<typeof Button>>(
-  ({ className, variant = 'outline', size = 'icon', ...props }, ref) => {
+const CarouselPrevious = React.forwardRef<HTMLButtonElement, React.ComponentProps<typeof Button> & { handleClick?: () => void }>(
+  ({ className, variant = 'outline', size = 'icon', handleClick, ...props }, ref) => {
     const { orientation, scrollPrev, canScrollPrev } = useCarousel();
+
+    const handlePrevClick = () => {
+      if (handleClick) {
+        handleClick();
+      }
+      scrollPrev();
+    };
 
     return (
       <Button
         ref={ref}
         variant={variant}
+        type='button'
         size={size}
         className={cn(
           'absolute h-8 w-8 rounded-full',
@@ -182,7 +189,7 @@ const CarouselPrevious = React.forwardRef<HTMLButtonElement, React.ComponentProp
           className
         )}
         disabled={!canScrollPrev}
-        onClick={scrollPrev}
+        onClick={handlePrevClick}
         {...props}
       >
         <ArrowLeft className='h-4 w-4' />
@@ -192,16 +199,23 @@ const CarouselPrevious = React.forwardRef<HTMLButtonElement, React.ComponentProp
   }
 );
 CarouselPrevious.displayName = 'CarouselPrevious';
-
-const CarouselNext = React.forwardRef<HTMLButtonElement, React.ComponentProps<typeof Button>>(
-  ({ className, variant = 'outline', size = 'icon', ...props }, ref) => {
+const CarouselNext = React.forwardRef<HTMLButtonElement, React.ComponentProps<typeof Button> & { handleClick?: () => void }>(
+  ({ className, variant = 'outline', size = 'icon', handleClick, ...props }, ref) => {
     const { orientation, scrollNext, canScrollNext } = useCarousel();
+
+    const handleNextClick = () => {
+      if (handleClick) {
+        handleClick();
+      }
+      scrollNext();
+    };
 
     return (
       <Button
         ref={ref}
         variant={variant}
         size={size}
+        type='button'
         className={cn(
           'absolute h-8 w-8 rounded-full',
           orientation === 'horizontal'
@@ -210,7 +224,7 @@ const CarouselNext = React.forwardRef<HTMLButtonElement, React.ComponentProps<ty
           className
         )}
         disabled={!canScrollNext}
-        onClick={scrollNext}
+        onClick={handleNextClick}
         {...props}
       >
         <ArrowRight className='h-4 w-4' />
