@@ -17,6 +17,7 @@ import { BathIcon, BedIcon, CarIcon, RulerIcon } from "lucide-react";
 import { ListResult } from "pocketbase";
 import React from "react";
 import ListingsSwiper from "./ListingSwiper";
+import { ContactMe } from "@/components/custom/ContactMe/ContactMe";
 
 export function PropertyPage({
   data,
@@ -149,8 +150,7 @@ export function PropertyPage({
             </div>
           </CardContent>
           <CardFooter className="flex justify-between">
-            <Button variant="outline">Contact Agent</Button>
-            <Button>Schedule Viewing</Button>
+            <ContactMe openInModal/>
           </CardFooter>
         </Card>
         {listingList.items.length > 0 && <ListingsSwiper data={listingList} />}
