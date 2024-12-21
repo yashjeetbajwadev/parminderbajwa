@@ -56,12 +56,17 @@ export function PropertyPage({
                 </CardDescription>
               </div>
               <div className="text-right">
-                <p className="text-2xl md:text-3xl font-bold">
-                  ${data.price.toLocaleString()}
-                </p>
-                {data.priceByNegotiation && (
-                  <Badge variant="secondary">Price by Negotiation</Badge>
-                )}
+                {
+                  data.price > 0 ? (
+                    <p className="text-2xl md:text-3xl font-bold">
+                      ${data.price.toLocaleString()}
+                    </p>
+                  ) :
+                    (
+                      <Badge variant="secondary">Price by Negotiation</Badge>
+                    )
+                }
+
               </div>
             </div>
           </CardHeader>
@@ -74,22 +79,30 @@ export function PropertyPage({
               />
             </div>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 my-6">
-              <div className="flex items-center">
-                <BedIcon className="mr-2" />
-                <span>{data.bedroom} Bedrooms</span>
-              </div>
-              <div className="flex items-center">
-                <BathIcon className="mr-2" />
-                <span>{data.bathroom} Bathrooms</span>
-              </div>
-              <div className="flex items-center">
-                <CarIcon className="mr-2" />
-                <span>{data.parking} Parking Spaces</span>
-              </div>
-              <div className="flex items-center">
-                <RulerIcon className="mr-2" />
-                <span>{data.floorSquareFt} sq ft</span>
-              </div>
+              {data.bedroom > 0 && (
+                <div className="flex items-center">
+                  <BedIcon className="mr-2" />
+                  <span>{data.bedroom} Bedrooms</span>
+                </div>
+              )}
+              {data.bathroom > 0 && (
+                <div className="flex items-center">
+                  <BathIcon className="mr-2" />
+                  <span>{data.bathroom} Bathrooms</span>
+                </div>
+              )}
+              {data.parking > 0 && (
+                <div className="flex items-center">
+                  <CarIcon className="mr-2" />
+                  <span>{data.parking} Parking Spaces</span>
+                </div>
+              )}
+              {data.floorSquareFt > 0 && (
+                <div className="flex items-center">
+                  <RulerIcon className="mr-2" />
+                  <span>{data.floorSquareFt} sq ft</span>
+                </div>
+              )}
             </div>
 
             <div className="space-y-4">
@@ -123,15 +136,15 @@ export function PropertyPage({
                   </p>
                 </div>
               </div>
-
-              <div>
-                <h3 className="text-xl font-semibold">Amenities</h3>
-                <p>{data.amenities}</p>
-              </div>
-
+              {data.amenities && (
+                <div>
+                  <h3 className="text-xl font-semibold">Amenities</h3>
+                  <p>{data.amenities}</p>
+                </div>
+              )}
               <div>
                 <h3 className="text-xl font-semibold">Description</h3>
-                <p>{data.additionalInfo}</p>
+                <div dangerouslySetInnerHTML={{ __html: data.additionalInfo }} />
               </div>
             </div>
           </CardContent>

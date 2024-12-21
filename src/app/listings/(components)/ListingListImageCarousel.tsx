@@ -38,12 +38,12 @@ const ListingListImageCarousel = ({
         <CarouselContent>
           {record.images.map((image: string, index: number) => (
             <CarouselItem key={index}>
-              <button
+              <button className="w-full h-full flex"
                 onClick={() => handleImageClick(index)}>
                 <PocketBaseImage
                   record={record}
                   filename={image}
-                  className={cn(ImageClassName)}
+                  className={cn("justify-center",ImageClassName)}
                   width={isServer() ? 1920 : window.innerWidth}
                   height={isServer() ? 1080 : window.innerWidth}
                   alt={`${record.title} - Image ${index + 1}`}

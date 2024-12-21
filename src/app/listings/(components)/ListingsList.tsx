@@ -82,7 +82,16 @@ export function ListingsList({
               <p className="mb-2 text-muted-foreground">{`${listing.address}, ${listing.city}, ${listing.state} ${listing.zip}`}</p>
               <div className="flex items-center justify-between mb-4">
                 <span className="text-2xl font-bold">
-                  {formatPrice(listing.price)}
+                  {
+                    listing.price > 0 ? (
+                      <p className="text-2xl md:text-3xl font-bold">
+                        ${listing.price.toLocaleString()}
+                      </p>
+                    ) :
+                      (
+                        <Badge variant="secondary">Price by Negotiation</Badge>
+                      )
+                  }
                 </span>
                 <Badge
                   variant={
@@ -94,26 +103,36 @@ export function ListingsList({
                 </Badge>
               </div>
               <div className="grid grid-cols-3 gap-2 mb-4">
-                <div className="flex items-center">
+                {Boolean(listing.bedroom) && (
+                  <div className="flex items-center">
                   <BedDoubleIcon className="w-4 h-4 mr-1" />
                   <span>{listing.bedroom} bd</span>
-                </div>
-                <div className="flex items-center">
+                  </div>
+                )}
+                {Boolean(listing.bathroom) && (
+                  <div className="flex items-center">
                   <BathIcon className="w-4 h-4 mr-1" />
                   <span>{listing.bathroom} ba</span>
-                </div>
-                <div className="flex items-center">
+                  </div>
+                )}
+                {Boolean(listing.parking) && (
+                  <div className="flex items-center">
                   <CarIcon className="w-4 h-4 mr-1" />
                   <span>{listing.parking} pkg</span>
-                </div>
-                <div className="flex items-center">
+                  </div>
+                )}
+                {Boolean(listing.floorSquareFt) && (
+                  <div className="flex items-center">
                   <HomeIcon className="w-4 h-4 mr-1" />
                   <span>{listing.floorSquareFt} sqft</span>
-                </div>
-                <div className="flex items-center">
+                  </div>
+                )}
+                {Boolean(listing.landSquareFt) && (
+                  <div className="flex items-center">
                   <RulerIcon className="w-4 h-4 mr-1" />
                   <span>{listing.landSquareFt} sqft</span>
-                </div>
+                  </div>
+                )}
                 {listing.yearBuilt && (
                   <div className="flex items-center">
                     <CalendarIcon className="w-4 h-4 mr-1" />
