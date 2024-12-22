@@ -24,7 +24,7 @@ import {
 } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { ListResult } from "pocketbase";
-import { useState, Fragment } from "react";
+import { useState, Fragment, use, useEffect, useCallback } from "react";
 import { ListingListImageCarousel } from "./ListingListImageCarousel";
 import Link from "next/link";
 
@@ -36,17 +36,20 @@ export function ListingsList({
   sold?: boolean;
 }>): JSX.Element {
   const router = useRouter();
-  const [currentPage, setCurrentPage] = useState(data?.page);
+  const [currentPage, setCurrentPage] = useState(data?.page ?? 0);
   const pathname = usePathname()
   const searchParams = useSearchParams()
 
-  const setParams = () => {
+  const setParams = useCallback((thisCurrentPage?: number) => {
     let newSearch = new URLSearchParams(searchParams)
-    newSearch.set(sold ? 'soldPage' : 'page', currentPage.toString());
+    newSearch.set(sold ? 'soldPage' : 'page', thisCurrentPage?.toString() ?? currentPage.toString())
     let newUrl = new URL(pathname, window.location.origin);
     newUrl.search = newSearch.toString();
     router.push(newUrl.toString())
-  }
+  }, [searchParams, sold, currentPage, pathname, router])
+  useEffect(() => {
+    setParams()
+  }, [setParams]);
   return (
     <div className="container px-5 py-8 xl:px-0">
       <div className="flex items-center justify-between mb-8">
@@ -58,7 +61,14 @@ export function ListingsList({
             buttonevent="Listings Previous Page"
             variant="outline"
             disabled={currentPage === 1}
-            onClick={() => { setCurrentPage(currentPage - 1); setParams() }}
+            onClick={() => {
+              let thisCurrentPage = (sold ? Number(searchParams.get('soldPage')) : Number(searchParams.get('page'))) ?? 1;
+              if (thisCurrentPage > 1) {
+                setCurrentPage(thisCurrentPage - 1);
+                setParams(thisCurrentPage)
+              }
+            }
+            }
           >
             Previous
           </Button>
@@ -66,7 +76,14 @@ export function ListingsList({
             buttonevent="Listings Next Page"
             variant="outline"
             disabled={currentPage === data.totalPages}
-            onClick={() => { setCurrentPage(currentPage + 1); setParams() }}
+            onClick={() => { 
+              let thisCurrentPage = (sold ? Number(searchParams.get('soldPage')) : Number(searchParams.get('page'))) ?? 1;
+              if (thisCurrentPage < data.totalPages) {
+                
+                setCurrentPage(thisCurrentPage + 1);
+                setParams(thisCurrentPage)
+              }
+             }}
           >
             Next
           </Button>

@@ -40,7 +40,8 @@ export function BlogList({ data }: { data: ListResult<BlogsResponse> }) {
             buttonevent="Click Previous Blog Page"
             variant="outline"
             disabled={currentPage === 1}
-            onClick={() => { setCurrentPage(currentPage - 1); setParams() }}
+            onClick={() => {
+              setCurrentPage(currentPage - 1); setParams() }}
           >
             Previous
           </Button>
