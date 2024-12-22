@@ -8,27 +8,30 @@ export default async function Page({
   searchParams,
 }: Readonly<{
   params: { slug: string };
-  searchParams?: { [key: string]: string | string[] | undefined };
+  searchParams?: Promise<{ [key: string]: string }>;
 }>) {
 
   const BreadcrumbItems = [
     { href: "/", label: "Home" },
     { href: "/listings", label: "Properties" },
   ];
-
+  const resolvedSearchParams = await searchParams;
+  const page = resolvedSearchParams?.page ?? "1";
+  const soldPage = resolvedSearchParams?.soldPage ?? "1";
+  const tab = resolvedSearchParams?.tab ?? "active";
   const [activeListings, soldListings] = await Promise.all([
     getCollectionData({
       collectionName: "listings",
-      options: { filter: "status='active'", page: Number(searchParams?.page ?? 1) },
+      options: { filter: "status='active'", page: Number(page ?? 1) },
     }),
     getCollectionData({
       collectionName: "listings",
-      options: { filter: "status='sold'", page: Number(searchParams?.soldPage ?? 1) },
+      options: { filter: "status='sold'", page: Number(soldPage ?? 1) },
     }),
   ]);
 
   let defaultTab = "active";
-  if (searchParams?.tab === "active") {
+  if (tab === "sold") {
     defaultTab = "sold";
   }
 

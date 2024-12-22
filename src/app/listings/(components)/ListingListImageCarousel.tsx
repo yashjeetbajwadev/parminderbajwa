@@ -10,6 +10,7 @@ import { Dialog, DialogContent } from "@/components/ui/dialog";
 import PocketBaseImage from "@/components/PocketBaseImage";
 import { cn, isServer } from "@/lib/utils";
 import { imageRecordType } from "@/types/types";
+import { Button } from "@/components/ui/button";
 
 type ListingListImageCarouselProps = {
   record: imageRecordType;
@@ -104,8 +105,11 @@ const CarouselComponent = ({
       {record.images.length > 1 && (
         <React.Fragment>
           <CarouselPrevious className="absolute left-2 top-1/2 transform -translate-y-1/2"
+            buttonevent="Listing Image Carousel Previous"
             handleClick={() => { setCurrentSlide(currentSlide - 1 % record.images.length) }} />
-          <CarouselNext className="absolute right-2 top-1/2 transform -translate-y-1/2"
+          <CarouselNext
+            buttonevent="Listing Image Carousel Next"
+            className="absolute right-2 top-1/2 transform -translate-y-1/2"
             handleClick={() => setCurrentSlide(currentSlide + 1 % record.images.length)} />
         </React.Fragment>
       )}
@@ -128,23 +132,25 @@ const CarouselContentComponent = ({
     <CarouselContent>
       {record.images.map((image: string, index: number) => (
         <CarouselItem key={"item" + index} id={record.id + "item" + index} data-index={curentSlide}>
-          {Math.abs(index - curentSlide) < 1 ? (
-            <button type="button"
-              className="w-full h-full flex"
+          {Math.abs(index - curentSlide) < 1 || curentSlide > 0 ? (
+            <Button
+              type="button"
+              buttonevent="Listing Image Click"
+              className="w-full h-full flex bg-inherit hover:bg-inherit"
               onClick={() => handleImageClick(index)}
             >
               <PocketBaseImage
                 record={record}
                 filename={image}
                 className={cn("justify-center", ImageClassName)}
-                width={isServer() ? 1920 : window.innerWidth}
-                height={isServer() ? 1080 : window.innerWidth}
+                width={1920}
+                height={1080}
                 alt={`${record.title} - Image ${index + 1}`}
                 style={{ aspectRatio: "16 / 9" }}
                 urlProps={urlProps}
 
               />
-            </button>
+            </Button>
           ) : null
           }
         </CarouselItem>

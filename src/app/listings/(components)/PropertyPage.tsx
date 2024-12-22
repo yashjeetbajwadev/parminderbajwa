@@ -52,7 +52,7 @@ export function PropertyPage({
                   {data.title}
                 </CardTitle>
                 <CardDescription className="text-lg">
-                  {data.address}, {data.city}, {data.state} {data.zip}
+                  {data.address}
                 </CardDescription>
               </div>
               <div className="text-right">

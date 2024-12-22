@@ -33,13 +33,15 @@ function ListingsTab({ text, value }: Readonly<{ text: string; value: string }>)
   const router = useRouter();
   const pathname = usePathname()
   const searchParams = useSearchParams()
+  const setParams = () => {
+    let newSearch = new URLSearchParams(searchParams)
+    newSearch.set('tab', value);
+    let newUrl = new URL(pathname, window.location.origin);
+    newUrl.search = newSearch.toString();
+    router.push(newUrl.toString())
+  }
   return (
-    <TabsTrigger value={value} onClick={()=>{
-        let newSearch = new URLSearchParams(searchParams)
-        newSearch.set('tab', value)
-        let newUrl = new URL(pathname, window.location.origin);
-        router.push(newUrl.toString())
-    }}>
+    <TabsTrigger value={value} onClick={()=>setParams()}>
         {text}
     </TabsTrigger>
     )

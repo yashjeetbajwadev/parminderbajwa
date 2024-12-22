@@ -10,17 +10,20 @@ async function page({
   searchParams,
 }: Readonly<{
   params: { slug: string };
-  searchParams?: { [key: string]: string | string[] | undefined };
+  searchParams?: Promise<{ [key: string]: string }>;
 }>) {
   const BreadcrumbItems = [
     { href: "/", label: "Home" },
     { href: "/blogs", label: "Blogs" },
   ];
+  const resolvedSearchParams = await searchParams;
+  const page = resolvedSearchParams?.page ?? "1";
+
   const blogs: ListResult<BlogsResponse> = await getCollectionData({
     collectionName: "blogs", options: {
       fields: "id,title,description,created,updated,author,images,body:excerpt(135,true)",
       filter: "active=true",
-      page: Number(searchParams?.page ?? 1),
+      page: Number(page ?? 1),
     }
   });
   return (

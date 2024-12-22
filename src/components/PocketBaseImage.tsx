@@ -53,6 +53,8 @@ export default function PocketBaseImage({
       src={imageUrl}
       alt={props.alt || `${record.id}_${filename}`}
       onClick={() => setIsOpen(true)}
+      loading="lazy"
+      decoding="async"
       className={cn("cursor-pointer object-contain h-full w-full md:object-scale-down", props.className)}
     />
   )

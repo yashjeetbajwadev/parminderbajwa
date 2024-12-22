@@ -1,4 +1,3 @@
-import { BLOG_URL, DOCS_URL } from '@/lib/constants';
 import { testimonialImages } from '@/../public/testimonials';
 
 export const testimonials = [
@@ -35,15 +34,3 @@ export const testimonials = [
 ];
 
 export const websiteName = 'Parminder Bajwa'
-
-export const footerNavigation = {
-  app: [
-    { name: 'Documentation', href: DOCS_URL },
-    { name: 'Blog', href: BLOG_URL },
-  ],
-  company: [
-    { name: 'About', href: 'https://wasp-lang.dev' },
-    { name: 'Privacy', href: '#' },
-    { name: 'Terms of Service', href: '#' },
-  ],
-};

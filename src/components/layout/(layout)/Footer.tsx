@@ -112,6 +112,8 @@ export default function Footer() {
                   alt="facebook logo"
                   width={24}
                   height={24}
+                  loading="lazy"
+                  decoding="async"
                 />
                 <span className="sr-only">Facebook</span>
               </a>
@@ -126,6 +128,8 @@ export default function Footer() {
                   alt="tiktok Logo"
                   width={24}
                   height={24}
+                  loading="lazy"
+                  decoding="async"
                 />
                 <span className="sr-only">TikTok</span>
               </a>

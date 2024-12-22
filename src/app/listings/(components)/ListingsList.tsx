@@ -24,7 +24,7 @@ import {
 } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { ListResult } from "pocketbase";
-import { useEffect, useState, Fragment } from "react";
+import { useState, Fragment } from "react";
 import { ListingListImageCarousel } from "./ListingListImageCarousel";
 
 export function ListingsList({
@@ -38,32 +38,34 @@ export function ListingsList({
   const [currentPage, setCurrentPage] = useState(data?.page);
   const pathname = usePathname()
   const searchParams = useSearchParams()
-  useEffect(() => {
-    let newSearch = new URLSearchParams(searchParams);
+
+  const setParams = () => {
+    let newSearch = new URLSearchParams(searchParams)
     newSearch.set(sold ? 'soldPage' : 'page', currentPage.toString());
     let newUrl = new URL(pathname, window.location.origin);
     newUrl.search = newSearch.toString();
-    router.push(newUrl.toString());
-  }, [currentPage, pathname, router, searchParams, sold]);
-
+    router.push(newUrl.toString())
+  }
   return (
     <div className="container px-5 py-8 xl:px-0">
       <div className="flex items-center justify-between mb-8">
-        <p className="text-sm text-muted-foreground md:text-base">
+        <p className="text-sm text-muted-foreground md:text-base mr-4">
           Showing {data.items.length} of {data.totalItems} {sold ? "Sold listings" : "Active listings"}
         </p>
         <div className="flex gap-2">
           <Button
+            buttonevent="Listings Previous Page"
             variant="outline"
             disabled={currentPage === 1}
-            onClick={() => setCurrentPage(currentPage - 1)}
+            onClick={() => { setCurrentPage(currentPage - 1); setParams() }}
           >
             Previous
           </Button>
           <Button
+            buttonevent="Listings Next Page"
             variant="outline"
             disabled={currentPage === data.totalPages}
-            onClick={() => setCurrentPage(currentPage + 1)}
+            onClick={() => { setCurrentPage(currentPage + 1); setParams() }}
           >
             Next
           </Button>
@@ -87,9 +89,6 @@ export function ListingsList({
               <p className="mb-2 text-muted-foreground">
                 {(() => {
                   const addressParts = [listing.address];
-                  if (listing.city) addressParts.push(listing.city);
-                  if (listing.state) addressParts.push(listing.state);
-                  if (listing.zip) addressParts.push(listing.zip.toString());
                   return addressParts.join(", ");
                 })()}
               </p>
@@ -174,7 +173,9 @@ export function ListingsList({
             <CardFooter className="self-end p-4 bg-muted">
               {!sold && (
                 <Button
+                  buttonevent="View Listing"
                   className="w-full m-0"
+                  variant={"secondary"}
                   onClick={() => {
                     window.location.href = formatSinglePage(
                       "listings",

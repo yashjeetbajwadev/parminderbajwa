@@ -22,6 +22,7 @@ export function ContactModal({ className }: ContactMeFormProps) {
       <DialogTitle hidden>Get In Touch</DialogTitle>
       <DialogTrigger asChild>
         <Button
+          buttonevent="Contact Me"
           variant="default"
           className={cn("bg-blue-500 rounded-xl hover:bg-blue-600", className)}
         >
