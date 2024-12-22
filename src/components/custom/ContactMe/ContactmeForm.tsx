@@ -158,6 +158,7 @@ export function ContactForm({
           </div>
         )}
         <Button
+          buttonevent="contact form submit"
           type="submit"
           disabled={isSubmitting}
           className="w-full px-4 py-2 font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600"

@@ -53,7 +53,9 @@ export default function Header() {
           <div className="md:hidden">
             <Sheet>
               <SheetTrigger asChild>
-                <Button variant="ghost" size="icon" className="mr-2">
+                <Button
+                  buttonevent="header open mobile menu"
+                 variant="ghost" size="icon" className="mr-2">
                   <HamburgerMenuIcon />
                 </Button>
               </SheetTrigger>

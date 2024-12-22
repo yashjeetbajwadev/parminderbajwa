@@ -1,11 +1,17 @@
 import { BlogPost } from "@/app/blogs/(components)/BlogPost";
-import { getCollectionDataWithId, getSearchParams } from "@/lib/utils";
+import { getCollectionDataWithId } from "@/lib/utils";
 import { BlogsResponse } from "@/types/pocketbase";
-import { serverSearchParamType } from "@/types/types";
 import { redirect } from 'next/navigation';
 
-async function Page({ searchParams }: { searchParams: serverSearchParamType; }) {
-  const id = getSearchParams(searchParams, "object");
+export default async function page({
+  params,
+  searchParams,
+}: Readonly<{
+  params: Promise<{ slug: string }>;
+  searchParams?: Promise<{ [key: string]: string }>;
+}>) {
+  const resolvedSearchParams = await searchParams;
+  const id = resolvedSearchParams?.id;
   if (!id) {
     redirect('/blogs');
   }
@@ -20,5 +26,3 @@ async function Page({ searchParams }: { searchParams: serverSearchParamType; }) 
     <BlogPost data={blog} />
   );
 }
-
-export default Page;

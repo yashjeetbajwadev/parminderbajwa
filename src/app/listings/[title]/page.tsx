@@ -1,12 +1,18 @@
 import { PropertyPage } from "@/app/listings/(components)/PropertyPage";
-import { getCollectionData, getCollectionDataWithId, getSearchParams } from "@/lib/utils";
+import { getCollectionData, getCollectionDataWithId } from "@/lib/utils";
 import { ListingsResponse } from "@/types/pocketbase";
-import { serverSearchParamType } from "@/types/types";
 import { redirect } from "next/navigation";
 import { ListResult } from "pocketbase";
 
-async function Page({ searchParams }: { searchParams: serverSearchParamType; }) {
-  const id = getSearchParams(searchParams, "object");
+export default async function page({
+  params,
+  searchParams,
+}: Readonly<{
+  params: Promise<{ slug: string }>;
+  searchParams?: Promise<{ [key: string]: string }>;
+}>) {
+  const resolvedSearchParams = await searchParams;
+  const id = resolvedSearchParams?.id;
   if (!id) {
     redirect('/listings');
   }
@@ -33,5 +39,3 @@ async function Page({ searchParams }: { searchParams: serverSearchParamType; }) 
     <PropertyPage data={listing} listingList={listingsList} />
   );
 }
-
-export default Page;

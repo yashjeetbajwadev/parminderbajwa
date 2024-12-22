@@ -36,6 +36,7 @@ function ContactDetail({ className }: { className?: string }) {
         <Phone className="h-4 w-4" />
         <a href="tel:+642102496278">(+64) 21 024 96278</a>
         <Button
+          buttonevent="contact phone number"
           variant="ghost"
           className="p-0 m-0 h-min"
           onClick={(e) => {
@@ -51,6 +52,7 @@ function ContactDetail({ className }: { className?: string }) {
         <Mail className="h-4 w-4" />
         <a href="mailto:p.bajwa@barfoot.co.nz">p.bajwa@barfoot.co.nz</a>
         <Button
+          buttonevent="contact email"
           variant="ghost"
           className="p-0 m-0 h-min"
           onClick={(e) => {

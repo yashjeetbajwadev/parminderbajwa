@@ -19,11 +19,14 @@ export default function ErrorComponent({
         <h2 className="mt-2 text-xl font-semibold text-gray-900">{message}</h2>
         <div className="container text-gray-800 mt-2 space-x-2">
           {onRetry && (
-            <Button onClick={onRetry} className="mt-4">
+            <Button
+            buttonevent="error retry"
+             onClick={onRetry} className="mt-4">
               Try Again
             </Button>
           )}
           <Button
+            buttonevent="error go home"
             onClick={() => {
               router.push("/");
             }}

@@ -5,11 +5,11 @@ import { BlogsResponse } from "@/types/pocketbase";
 import { getCollectionData } from "@/lib/utils";
 import { ListResult } from "pocketbase";
 
-async function page({
+export default async function page({
   params,
   searchParams,
 }: Readonly<{
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
   searchParams?: Promise<{ [key: string]: string }>;
 }>) {
   const BreadcrumbItems = [
@@ -33,5 +33,3 @@ async function page({
     </React.Fragment>
   );
 }
-
-export default page;

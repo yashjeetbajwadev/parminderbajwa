@@ -3,14 +3,13 @@ import { getCollectionData } from "@/lib/utils";
 import React from "react";
 import { ListingsTabList } from "./(components)/ListingsTab";
 
-export default async function Page({
+export default async function page({
   params,
   searchParams,
 }: Readonly<{
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
   searchParams?: Promise<{ [key: string]: string }>;
 }>) {
-
   const BreadcrumbItems = [
     { href: "/", label: "Home" },
     { href: "/listings", label: "Properties" },
