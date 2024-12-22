@@ -174,7 +174,7 @@ export function ListingsList({
             <CardFooter className="self-end p-4 bg-muted">
               {!sold && (
                 <Link
-                  className="w-full m-0 bg-blue-500 hover:bg-blue-700 text-slate-100 font-bold py-2 px-4 rounded"
+                  className="w-full m-0 bg-blue-500 text-slate-50 hover:bg-blue-600 dark:bg-slate-50 dark:text-slate-900 dark:hover:bg-slate-50/90 p-2 rounded-xl"
                   href={formatSinglePage("listings", listing.id, listing.title)}
                 >
                   View Details

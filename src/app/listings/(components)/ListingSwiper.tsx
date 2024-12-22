@@ -61,7 +61,7 @@ export default function ListingsCarousel({
               </h2>
               <Link href="/listings" passHref>
                 <Button
-                buttonevent="featured view all listings"
+                  buttonevent="featured view all listings"
                   variant="outline"
                   className="w-full text-blue-500 transition-colors duration-300 border-blue-500 md:w-auto hover:bg-blue-600 hover:text-white"
                 >
@@ -169,19 +169,12 @@ export default function ListingsCarousel({
                             )}
                         </CardContent>
                         <CardFooter className="p-3 mt-auto sm:p-4 bg-muted">
-                          <Button
-                            buttonevent="listing view details"
-                            className="w-full m-0 text-sm"
-                            onClick={() => {
-                              window.location.href = formatSinglePage(
-                                "listings",
-                                listing.id,
-                                listing.title
-                              );
-                            }}
+                          <Link
+                            className="w-full m-0 text-sm text-center bg-blue-500 text-slate-50 hover:bg-blue-600 dark:bg-slate-50 dark:text-slate-900 dark:hover:bg-slate-50/90 p-4 rounded-xl"
+                            href={formatSinglePage("listings", listing.id, listing.title)}
                           >
                             View Details
-                          </Button>
+                          </Link>
                         </CardFooter>
                       </Card>
                     </CarouselItem>
