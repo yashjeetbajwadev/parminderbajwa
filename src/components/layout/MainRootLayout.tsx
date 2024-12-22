@@ -4,13 +4,7 @@ import Footer from "./(layout)/Footer";
 import "@/app/globals.css";
 import { AlertProvider } from "../custom/Alert";
 import { GoogleTagManager } from '@next/third-parties/google'
-import { websiteName } from "@/app/contentSections";
-import type { Metadata } from 'next';
 
-export const metadata: Metadata = {
-  title: websiteName,
-  description: "Experience seamless real estate transactions with Parminder Bajwa. Committed to integrity and respect, I prioritize your needs for successful outcomes.",
-}
 export default function MainRootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
