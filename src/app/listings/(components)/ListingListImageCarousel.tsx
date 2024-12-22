@@ -15,6 +15,7 @@ type ListingListImageCarouselProps = {
   record: imageRecordType;
   ImageClassName?: string;
   openDialogOnClick?: boolean;
+  thumbs?: string;
 };
 
 type CarouselComponentProps = {
@@ -23,6 +24,7 @@ type CarouselComponentProps = {
   ImageClassName?: string;
   startIndex?: number;
   id: string;
+  thumbs?: string;
 };
 
 type CarouselContentComponentProps = {
@@ -31,12 +33,14 @@ type CarouselContentComponentProps = {
   ImageClassName?: string;
   curentSlide: number;
   id: string;
+  thumbs?: string;
 };
 
 export const ListingListImageCarousel = ({
   record,
   ImageClassName,
   openDialogOnClick = false,
+  thumbs,
 }: ListingListImageCarouselProps) => {
   const [openDialog, setOpenDialog] = useState(false);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
@@ -57,6 +61,7 @@ export const ListingListImageCarousel = ({
         handleImageClick={handleImageClick}
         ImageClassName={ImageClassName}
         id={"ListingListImageCarousel" + record.id}
+        thumbs={thumbs}
       />
       {openDialogOnClick && (
         <Dialog open={openDialog} onOpenChange={setOpenDialog}>
@@ -67,6 +72,7 @@ export const ListingListImageCarousel = ({
               ImageClassName={ImageClassName}
               startIndex={selectedImageIndex}
               id={"ListingListImageCarouselDialog" + record.id}
+              thumbs={thumbs}
             />
           </DialogContent>
         </Dialog>
@@ -80,7 +86,8 @@ const CarouselComponent = ({
   handleImageClick,
   ImageClassName,
   startIndex = 0,
-  id
+  id,
+  thumbs
 }: CarouselComponentProps) => {
   // current slude 
   const [currentSlide, setCurrentSlide] = useState(startIndex ?? 0);
@@ -92,6 +99,7 @@ const CarouselComponent = ({
         ImageClassName={ImageClassName}
         curentSlide={currentSlide}
         id={id + "CarouselComponent" + record.id}
+        thumbs={thumbs}
       />
       {record.images.length > 1 && (
         <React.Fragment>
@@ -109,8 +117,13 @@ const CarouselContentComponent = ({
   record,
   handleImageClick,
   ImageClassName,
-  curentSlide
+  curentSlide,
+  thumbs
 }: CarouselContentComponentProps) => {
+  let urlProps: Record<string, string> = {};
+  if (thumbs) {
+    urlProps = { "thumb": thumbs };
+  }
   return (
     <CarouselContent>
       {record.images.map((image: string, index: number) => (
@@ -128,6 +141,8 @@ const CarouselContentComponent = ({
                 height={isServer() ? 1080 : window.innerWidth}
                 alt={`${record.title} - Image ${index + 1}`}
                 style={{ aspectRatio: "16 / 9" }}
+                urlProps={urlProps}
+
               />
             </button>
           ) : null

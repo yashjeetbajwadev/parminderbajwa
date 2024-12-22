@@ -94,6 +94,7 @@ export default function ListingsCarousel({
                           <ListingListImageCarousel
                             record={listing}
                             ImageClassName="h-full"
+                            thumbs="500x0"
                           />
                         </CardHeader>
                         <CardContent className="flex-grow p-3 sm:p-4">

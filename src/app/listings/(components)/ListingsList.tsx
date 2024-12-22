@@ -79,6 +79,7 @@ export function ListingsList({
               <ListingListImageCarousel
                 record={listing}
                 ImageClassName="h-full"
+                thumbs="500x0"
               />
             </CardHeader>
             <CardContent className="p-4 flex-grow">
@@ -92,8 +93,8 @@ export function ListingsList({
                   return addressParts.join(", ");
                 })()}
               </p>
-              <div className="flex items-center justify-between mb-4">
-                <span className="text-2xl font-bold">
+              <div className="flex items-center justify-between mb-4 ">
+                <span className="text-2xl font-bold flex justify-between items-center w-full">
                   {!sold && (
                     <Fragment>
                       {listing.price > 0 ? (
@@ -105,15 +106,16 @@ export function ListingsList({
                       )}
                     </Fragment>
                   )}
+                  <Badge
+                    variant={
+                      listing.status === "active" ? "default" : "secondary"
+                    }
+                  >
+                    {listing.status[0].toUpperCase() +
+                      listing.status.substring(1)}
+                  </Badge>
                 </span>
-                <Badge
-                  variant={
-                    listing.status === "active" ? "default" : "secondary"
-                  }
-                >
-                  {listing.status[0].toUpperCase() +
-                    listing.status.substring(1)}
-                </Badge>
+
               </div>
               <div className="grid grid-cols-3 gap-2 mb-4">
                 {Boolean(listing.bedroom) && (

@@ -6,19 +6,19 @@ import { useEffect, useState } from "react";
 interface PocketBaseImageProps extends Omit<ImageProps, 'src'> {
   record: BaseSystemFields
   filename: string
-  thumb?: string
+  urlProps?: Record<string, string>
 }
 
 export default function PocketBaseImage({
   record,
   filename,
-  thumb,
+  urlProps,
   ...props
 }: PocketBaseImageProps) {
   const [isOpen, setIsOpen] = useState(false)
   let url = `/api/image?recordId=${record.id}&collectionId=${record.collectionId}&filename=${encodeURIComponent(filename)}`
-  if (thumb) {
-    url += `&thumb=${encodeURIComponent(thumb)}`
+  if (urlProps) {
+    url += `&${new URLSearchParams(urlProps).toString()}`
   }
   const [imageUrl, setImageUrl] = useState(url ?? "/placeholder.png")
 
@@ -44,7 +44,7 @@ export default function PocketBaseImage({
     }
 
     fetchImage()
-  }, [record, filename, thumb, url])
+  }, [record, filename, url])
 
 
   return (
