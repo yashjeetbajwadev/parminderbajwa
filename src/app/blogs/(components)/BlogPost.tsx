@@ -2,7 +2,6 @@
 
 import React from "react";
 import { format } from "date-fns";
-import Image from "next/image";
 import { CalendarIcon, ClockIcon, UserIcon } from "lucide-react";
 import {
   Card,

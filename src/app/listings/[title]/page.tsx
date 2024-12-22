@@ -12,13 +12,13 @@ export default async function page({
   searchParams?: Promise<{ [key: string]: string }>;
 }>) {
   const resolvedSearchParams = await searchParams;
-  const id = resolvedSearchParams?.id;
-  if (!id) {
+  const object = resolvedSearchParams?.object;
+  if (!object) {
     redirect('/listings');
   }
   const listing: ListingsResponse = await getCollectionDataWithId({
     collectionName: "listings",
-    id: id,
+    id: object,
     options: {
       sort: '-featuredOnHomePage,-created,@random',
       filter: "status='active'",
@@ -31,7 +31,7 @@ export default async function page({
       expand: ['agent'],
       perPage: 5,
       sort: '-featuredOnHomePage,-created,@random',
-      filter: `status='active' && id!='${id}'`
+      filter: `status='active' && id!='${object}'`
     }
   });
 

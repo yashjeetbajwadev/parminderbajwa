@@ -11,12 +11,12 @@ export default async function page({
   searchParams?: Promise<{ [key: string]: string }>;
 }>) {
   const resolvedSearchParams = await searchParams;
-  const id = resolvedSearchParams?.id;
-  if (!id) {
+  const object = resolvedSearchParams?.object;
+  if (!object) {
     redirect('/blogs');
   }
   const blog: BlogsResponse = await getCollectionDataWithId({
-    collectionName: "blogs", id: id, options: {
+    collectionName: "blogs", id: object, options: {
       fields: "id,created,updated,title,author,body",
       filter: "active=true"
     }

@@ -11,6 +11,7 @@ import {
 import { formatSinglePage } from "@/lib/utils";
 import { BlogsResponse } from "@/types/pocketbase";
 import { formatDistanceToNow } from "date-fns";
+import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { ListResult } from "pocketbase";
 import { useState } from "react";
@@ -79,12 +80,12 @@ export function BlogList({ data }: { data: ListResult<BlogsResponse> }) {
                   addSuffix: true,
                 })}
               </p>
-              <a
+              <Link
                 href={formatSinglePage("blogs", post.id, post.title)}
                 className="text-primary text-sm sm:text-base hover:underline"
               >
                 Read more
-              </a>
+              </Link>
             </CardFooter>
           </Card>
         ))}

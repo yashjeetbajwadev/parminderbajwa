@@ -26,6 +26,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { ListResult } from "pocketbase";
 import { useState, Fragment } from "react";
 import { ListingListImageCarousel } from "./ListingListImageCarousel";
+import Link from "next/link";
 
 export function ListingsList({
   data,
@@ -172,20 +173,12 @@ export function ListingsList({
             </CardContent>
             <CardFooter className="self-end p-4 bg-muted">
               {!sold && (
-                <Button
-                  buttonevent="View Listing"
-                  className="w-full m-0"
-                  variant={"secondary"}
-                  onClick={() => {
-                    window.location.href = formatSinglePage(
-                      "listings",
-                      listing.id,
-                      listing.title
-                    );
-                  }}
+                <Link
+                  className="w-full m-0 bg-blue-500 hover:bg-blue-700 text-slate-100 font-bold py-2 px-4 rounded"
+                  href={formatSinglePage("listings", listing.id, listing.title)}
                 >
                   View Details
-                </Button>
+                </Link>
               )}
             </CardFooter>
           </Card>

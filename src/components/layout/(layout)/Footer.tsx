@@ -21,12 +21,12 @@ export default function Footer() {
               </li>
               <li className="flex items-center justify-center md:justify-start">
                 <Mail className="w-5 h-5 mr-2" />
-                <a
+                <Link
                   href="mailto:p.bajwa@barfoot.co.nz"
                   className="text-sm hover:text-gray-900 md:text-base"
                 >
                   p.bajwa@barfoot.co.nz
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -101,7 +101,7 @@ export default function Footer() {
               Social Media
             </h3>
             <div className="flex justify-center space-x-4 md:justify-start">
-              <a
+              <Link
                 href="https://www.facebook.com/profile.php?id=100075699308387"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -116,8 +116,8 @@ export default function Footer() {
                   decoding="async"
                 />
                 <span className="sr-only">Facebook</span>
-              </a>
-              <a
+              </Link>
+              <Link
                 href="https://www.tiktok.com/@parminderbajwabarfoot"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -132,7 +132,7 @@ export default function Footer() {
                   decoding="async"
                 />
                 <span className="sr-only">TikTok</span>
-              </a>
+              </Link>
             </div>
           </div>
         </div>
