@@ -1,22 +1,22 @@
+"use client";
 import Header from "./(layout)/Header";
 import Footer from "./(layout)/Footer";
 import "@/app/globals.css";
 import { AlertProvider } from "../custom/Alert";
-import Head from "next/head";
 import { GoogleTagManager } from '@next/third-parties/google'
 import { websiteName } from "@/app/contentSections";
-import { env } from "process";
- 
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: websiteName,
+  description: "Experience seamless real estate transactions with Parminder Bajwa. Committed to integrity and respect, I prioritize your needs for successful outcomes.",
+}
 export default function MainRootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <Head>
-        <title>{websiteName}</title>
-        <meta name="description" content="Experience seamless real estate transactions with Parminder Bajwa. Committed to integrity and respect, I prioritize your needs for successful outcomes." />
-        <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTM ?? ""} />
-      </Head>
+      <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTM ?? ""} />
       <body>
         <main className="min-h-screen text-gray-800 dark:bg-boxdark-2 dark:text-white">
           <div className="scroll-smooth">

@@ -6,11 +6,13 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogDescription } from "@/components/ui/dialog";
+import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import PocketBaseImage from "@/components/PocketBaseImage";
-import { cn, isServer } from "@/lib/utils";
+import { cn } from "@/lib/utils";
 import { imageRecordType } from "@/types/types";
 import { Button } from "@/components/ui/button";
+import { DialogTitle } from "@radix-ui/react-dialog";
 
 type ListingListImageCarouselProps = {
   record: imageRecordType;
@@ -67,6 +69,12 @@ export const ListingListImageCarousel = ({
       {openDialogOnClick && (
         <Dialog open={openDialog} onOpenChange={setOpenDialog}>
           <DialogContent className="max-w-[90vw] max-h-[90vh] p-4 flex items-center justify-center overflow-hidden bg-white">
+            <VisuallyHidden>
+              <DialogTitle >{record.title}</DialogTitle>
+              <DialogDescription >
+                {record.description}
+              </DialogDescription>
+            </VisuallyHidden>
             <CarouselComponent
               record={record}
               handleImageClick={handleImageClick}

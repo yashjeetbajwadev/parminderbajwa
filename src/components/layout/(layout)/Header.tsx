@@ -3,7 +3,8 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import { HamburgerMenuIcon } from "@radix-ui/react-icons";
 import { ContactMe } from "@/components/custom/ContactMe/ContactMe";
 
@@ -60,6 +61,10 @@ export default function Header() {
                 </Button>
               </SheetTrigger>
               <SheetContent side="left" className="w-[300px] flex flex-col p-8">
+                <VisuallyHidden>
+                <SheetTitle>Menu</SheetTitle>
+                <SheetDescription>Navigation Links</SheetDescription>
+                </VisuallyHidden>
                 {/* Navigation Links */}
                 <div className="flex flex-col mt-12 mb-8 space-y-6 text-gray-800">
                   {NAV_ITEMS.map((item) => (
