@@ -1,10 +1,11 @@
+"use client";
 import * as React from "react"
 import { Slot } from "@radix-ui/react-slot"
 import { cva, type VariantProps } from "class-variance-authority"
 
 import { cn } from "@/lib/utils"
 import { sendGTMEvent } from "@next/third-parties/google"
-import Link from "next/link"
+import { useRouter } from "next/navigation"
 
 const buttonVariants = cva(
   "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-950 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 dark:ring-offset-slate-950 dark:focus-visible:ring-slate-300",
@@ -68,13 +69,23 @@ Button.displayName = "Button"
 
 export { Button, buttonVariants }
 
-
 export const LinkButton = ({ href = "", buttonevent, linkclassname, children, ...props }: ButtonProps & React.AnchorHTMLAttributes<HTMLAnchorElement> & { linkclassname?: string }) => {
+  const router = useRouter();
+  const HandleOnClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    if (props.disabled) {
+      e.preventDefault()
+      e.stopPropagation()
+    } else {
+      // href
+      router.push(href);
+      props.onClick?.(e);
+    }
+  }
+
+
   return (
-    <Link href={href} className={cn("flex w-full", linkclassname)}>
-      <Button buttonevent={buttonevent} variant="default" {...props}>
-        {children}
-      </Button>
-    </Link>
+    <Button buttonevent={buttonevent} variant="default" {...props} onClick={HandleOnClick}>
+      {children}
+    </Button>
   )
 }

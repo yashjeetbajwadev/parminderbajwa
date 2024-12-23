@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { Button } from "@/components/ui/button";
+import { Button, LinkButton } from "@/components/ui/button";
 import ParminderBajwa from "@/../public/parminderbajwa.webp";
 import Image from "next/image";
 import React from "react";
@@ -133,17 +133,15 @@ function Hero() {
               openInModal
               className="max-w-[500px] bg-blue-500 text-white flex-grow rounded-xl p-6 text-[16px] hover:bg-blue-600 md:flex-grow-0"
             />
-            <Button
+            <LinkButton
+              href="/listings"
               buttonevent="hero view properties"
               className="max-w-[500px] flex-grow rounded-xl p-6 text-[16px] text-blue-500 transition-colors duration-300 border-blue-500 hover:bg-blue-600 hover:text-white md:flex-grow-0"
               type="button"
               variant="outline"
-              onClick={() => {
-                window.location.href = "/listings";
-              }}
             >
               View properties
-            </Button>
+            </LinkButton>
           </div>
         </div>
       </div>

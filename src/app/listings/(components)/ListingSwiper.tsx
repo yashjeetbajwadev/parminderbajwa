@@ -55,7 +55,7 @@ export default function ListingsCarousel({
       <div className="container px-4 xl:px-0">
         <Card className="flex flex-col h-full transition-shadow duration-300 hover:shadow-lg">
           <CardHeader className="p-4 border-b border-gray-200 md:p-6 dark:border-gray-700">
-            <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+            <div className="flex flex-row justify-center sm:justify-between flex-wrap gap-2">
               <h2 className="text-xl font-bold text-gray-800 md:text-2xl lg:text-3xl dark:text-gray-100">
                 Featured Listings
               </h2>
@@ -63,7 +63,7 @@ export default function ListingsCarousel({
                 href="/listings"
                 buttonevent="featured view all listings"
                 variant="outline"
-                className="w-full text-blue-500 transition-colors duration-300 border-blue-500 md:w-auto hover:bg-blue-600 hover:text-white"
+                className="text-blue-500 transition-colors duration-300 border-blue-500 md:w-auto hover:bg-blue-600 hover:text-white"
               >
                 View all listings
               </LinkButton>
