@@ -45,7 +45,7 @@ export default function Header() {
             buttonevent="header home"
             variant={"link"}
             href="/"
-            className="text-2xl font-bold text-blue-900 transition-colors hover:text-blue-900/80"
+            className="p-0 text-2xl font-bold text-blue-900 transition-colors hover:text-blue-900/80"
           >
             <span className="block md:hidden">pb</span>
             <span className="hidden md:block">Parminder Bajwa</span>
