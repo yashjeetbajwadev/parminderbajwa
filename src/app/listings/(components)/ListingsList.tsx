@@ -24,9 +24,8 @@ import {
 } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { ListResult } from "pocketbase";
-import { useState, Fragment, use, useEffect, useCallback } from "react";
+import { Fragment, useCallback, useEffect, useState } from "react";
 import { ListingListImageCarousel } from "./ListingListImageCarousel";
-import Link from "next/link";
 
 export function ListingsList({
   data,
@@ -36,7 +35,7 @@ export function ListingsList({
   sold?: boolean;
 }>): JSX.Element {
   const router = useRouter();
-  const [currentPage, setCurrentPage] = useState(data?.page ?? 0);
+  const [currentPage, setCurrentPage] = useState(data?.page ?? 1);
   const pathname = usePathname()
   const searchParams = useSearchParams()
 
@@ -199,6 +198,43 @@ export function ListingsList({
             </CardFooter>
           </Card>
         ))}
+      </div>
+      <div className="flex items-center justify-between my-8">
+        <p className="text-sm text-muted-foreground md:text-base mr-4">
+          Showing {data.items.length} of {data.totalItems} {sold ? "Sold listings" : "Active listings"}
+        </p>
+        <div className="flex gap-2">
+          <Button
+            buttonevent="Listings Previous Page"
+            variant="outline"
+            disabled={currentPage === 1}
+            onClick={() => {
+              let thisCurrentPage = (sold ? Number(searchParams.get('soldPage')) : Number(searchParams.get('page'))) ?? 1;
+              if (thisCurrentPage > 1) {
+                setCurrentPage(thisCurrentPage - 1);
+                setParams(thisCurrentPage)
+              }
+            }
+            }
+          >
+            Previous
+          </Button>
+          <Button
+            buttonevent="Listings Next Page"
+            variant="outline"
+            disabled={currentPage === data.totalPages}
+            onClick={() => {
+              let thisCurrentPage = (sold ? Number(searchParams.get('soldPage')) : Number(searchParams.get('page'))) ?? 1;
+              if (thisCurrentPage < data.totalPages) {
+
+                setCurrentPage(thisCurrentPage + 1);
+                setParams(thisCurrentPage)
+              }
+            }}
+          >
+            Next
+          </Button>
+        </div>
       </div>
     </div>
   );

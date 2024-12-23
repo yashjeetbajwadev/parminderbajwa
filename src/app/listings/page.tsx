@@ -25,7 +25,7 @@ export default async function page({
     }),
     getCollectionData({
       collectionName: "listings",
-      options: { filter: "status='sold'", page: Number(soldPage ?? 1) },
+      options: { filter: "status='sold'", page: Number(soldPage ?? 1), perPage: 50},
     }),
   ]);
 
