@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
 import { Copy, Mail, MapPin, Phone } from "lucide-react";
 import { useAlert } from "@/components/custom/Alert";
-import { Button } from "@/components/ui/button";
+import { Button, LinkButton } from "@/components/ui/button";
 import Link from "next/link";
 
 function ContactDetail({ className }: { className?: string }) {
@@ -35,7 +35,13 @@ function ContactDetail({ className }: { className?: string }) {
       {/* Phone Section */}
       <div className="flex items-center space-x-2">
         <Phone className="h-4 w-4" />
-        <Link href="tel:+642102496278">(+64) 21 024 96278</Link>
+        <LinkButton
+          className="px-1 m-0 h-0"
+          variant={"link"}
+          href="tel:+642102496278"
+          buttonevent="contact phone number">
+          (+64) 21 024 96278
+        </LinkButton>
         <Button
           buttonevent="contact phone number"
           variant="ghost"
@@ -49,9 +55,15 @@ function ContactDetail({ className }: { className?: string }) {
         </Button>
       </div>
       {/* Email Section */}
-      <div className="flex items-center gap-2">
+      <div className="flex items-center space-x-2">
         <Mail className="h-4 w-4" />
-        <Link href="mailto:p.bajwa@barfoot.co.nz">p.bajwa@barfoot.co.nz</Link>
+        <LinkButton
+          className="p-1"
+          variant={"link"}
+          href="mailto:p.bajwa@barfoot.co.nz"
+          buttonevent="contact email">
+          p.bajwa@barfoot.co.nz
+        </LinkButton>
         <Button
           buttonevent="contact email"
           variant="ghost"

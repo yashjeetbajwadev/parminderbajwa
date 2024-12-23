@@ -1,7 +1,7 @@
 "use client";
 
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import { Button, LinkButton } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -59,15 +59,14 @@ export default function ListingsCarousel({
               <h2 className="text-xl font-bold text-gray-800 md:text-2xl lg:text-3xl dark:text-gray-100">
                 Featured Listings
               </h2>
-              <Link href="/listings" passHref>
-                <Button
-                  buttonevent="featured view all listings"
-                  variant="outline"
-                  className="w-full text-blue-500 transition-colors duration-300 border-blue-500 md:w-auto hover:bg-blue-600 hover:text-white"
-                >
-                  View all listings
-                </Button>
-              </Link>
+              <LinkButton
+                href="/listings"
+                buttonevent="featured view all listings"
+                variant="outline"
+                className="w-full text-blue-500 transition-colors duration-300 border-blue-500 md:w-auto hover:bg-blue-600 hover:text-white"
+              >
+                View all listings
+              </LinkButton>
             </div>
           </CardHeader>
           <CardContent className="p-4 md:p-6">
@@ -169,12 +168,11 @@ export default function ListingsCarousel({
                             )}
                         </CardContent>
                         <CardFooter className="p-3 mt-auto sm:p-4 bg-muted">
-                          <Link
-                            className="w-full m-0 text-sm text-center bg-blue-500 text-slate-50 hover:bg-blue-600 dark:bg-slate-50 dark:text-slate-900 dark:hover:bg-slate-50/90 p-4 rounded-xl"
+                          <LinkButton
+                            buttonevent="View Listing Details"
                             href={formatSinglePage("listings", listing.id, listing.title)}
-                          >
-                            View Details
-                          </Link>
+                            className="w-full text-sm"
+                          >View Details</LinkButton>
                         </CardFooter>
                       </Card>
                     </CarouselItem>

@@ -3,6 +3,7 @@ import React from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
+import { LinkButton } from "../ui/button";
 
 interface BreadcrumbItem {
   href: string;
@@ -25,12 +26,14 @@ const ButtonBreadcrumb: React.FC<BackButtonBreadcrumbProps> = ({ items }) => {
                 {index === items.length - 1 ? (
                   <span className="text-gray-800">{item.label}</span>
                 ) : (
-                  <Link
+                  <LinkButton
+                    buttonevent="breadcrumb"
                     href={item.href}
                     className="text-blue-600 hover:underline"
+                    variant={"link"}
                   >
                     {item.label}
-                  </Link>
+                  </LinkButton>
                 )}
               </li>
             </React.Fragment>

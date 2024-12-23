@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
+import { Button, LinkButton } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -41,7 +41,8 @@ export function BlogList({ data }: { data: ListResult<BlogsResponse> }) {
             variant="outline"
             disabled={currentPage === 1}
             onClick={() => {
-              setCurrentPage(currentPage - 1); setParams() }}
+              setCurrentPage(currentPage - 1); setParams()
+            }}
           >
             Previous
           </Button>
@@ -81,12 +82,9 @@ export function BlogList({ data }: { data: ListResult<BlogsResponse> }) {
                   addSuffix: true,
                 })}
               </p>
-              <Link
-                href={formatSinglePage("blogs", post.id, post.title)}
-                className="text-primary text-sm sm:text-base hover:underline"
-              >
-                Read more
-              </Link>
+              <LinkButton href={formatSinglePage("blogs", post.id, post.title)} buttonevent="Click Read More Blog" className="justify-end" linkclassname="w-auto">
+                <span className="text-sm">Read more</span>
+              </LinkButton>
             </CardFooter>
           </Card>
         ))}

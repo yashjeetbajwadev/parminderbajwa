@@ -1,6 +1,6 @@
 "use client";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import { Button, LinkButton } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -76,14 +76,14 @@ export function ListingsList({
             buttonevent="Listings Next Page"
             variant="outline"
             disabled={currentPage === data.totalPages}
-            onClick={() => { 
+            onClick={() => {
               let thisCurrentPage = (sold ? Number(searchParams.get('soldPage')) : Number(searchParams.get('page'))) ?? 1;
               if (thisCurrentPage < data.totalPages) {
-                
+
                 setCurrentPage(thisCurrentPage + 1);
                 setParams(thisCurrentPage)
               }
-             }}
+            }}
           >
             Next
           </Button>
@@ -190,12 +190,11 @@ export function ListingsList({
             </CardContent>
             <CardFooter className="self-end p-4 bg-muted">
               {!sold && (
-                <Link
-                  className="w-full m-0 bg-blue-500 text-slate-50 hover:bg-blue-600 dark:bg-slate-50 dark:text-slate-900 dark:hover:bg-slate-50/90 p-2 rounded-xl"
-                  href={formatSinglePage("listings", listing.id, listing.title)}
-                >
-                  View Details
-                </Link>
+                <LinkButton buttonevent="View Listing Details" href={formatSinglePage("listings", listing.id, listing.title)}>
+                  <span className="text-sm">
+                    View Details
+                  </ span>
+                </LinkButton>
               )}
             </CardFooter>
           </Card>

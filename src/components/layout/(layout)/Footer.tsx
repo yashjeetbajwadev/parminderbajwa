@@ -1,3 +1,4 @@
+import { LinkButton } from "@/components/ui/button";
 import { Mail, Phone } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -17,16 +18,25 @@ export default function Footer() {
             <ul className="space-y-2">
               <li className="flex items-center justify-center md:justify-start">
                 <Phone className="w-5 h-5 mr-2" />
-                <span className="text-sm md:text-base">(+64) 210 249 6278</span>
+                <LinkButton
+                  variant={"link"}
+                  buttonevent="phone"
+                  href="tel:+642102496278"
+                  className="text-sm hover:text-gray-900 md:text-base p-0"
+                >
+                  (+64) 210 249 6278
+                </LinkButton>
               </li>
               <li className="flex items-center justify-center md:justify-start">
                 <Mail className="w-5 h-5 mr-2" />
-                <Link
+                <LinkButton
+                  variant={"link"}
+                  buttonevent="email"
                   href="mailto:p.bajwa@barfoot.co.nz"
-                  className="text-sm hover:text-gray-900 md:text-base"
+                  className="text-sm hover:text-gray-900 md:text-base p-0"
                 >
                   p.bajwa@barfoot.co.nz
-                </Link>
+                </LinkButton>
               </li>
             </ul>
           </div>
@@ -38,36 +48,44 @@ export default function Footer() {
             </h3>
             <ul className="space-y-2">
               <li>
-                <Link
+                <LinkButton
+                  variant={"link"}
+                  buttonevent="home"
                   href="/"
-                  className="text-sm hover:text-gray-900 md:text-base"
+                  className="text-sm hover:text-gray-900 md:text-base p-0"
                 >
                   Home
-                </Link>
+                </LinkButton>
               </li>
               <li>
-                <Link
+                <LinkButton
+                  variant={"link"}
+                  buttonevent="listings"
                   href="/listings"
-                  className="text-sm hover:text-gray-900 md:text-base"
+                  className="text-sm hover:text-gray-900 md:text-base p-0"
                 >
                   Listings
-                </Link>
+                </LinkButton>
               </li>
               <li>
-                <Link
+                <LinkButton
+                  variant={"link"}
+                  buttonevent="blogs"
                   href="/blogs"
-                  className="text-sm hover:text-gray-900 md:text-base"
+                  className="text-sm hover:text-gray-900 md:text-base p-0"
                 >
                   Blogs
-                </Link>
+                </LinkButton>
               </li>
               <li>
-                <Link
+                <LinkButton
+                  variant={"link"}
+                  buttonevent="about"
                   href="/about"
-                  className="text-sm hover:text-gray-900 md:text-base"
+                  className="text-sm hover:text-gray-900 md:text-base p-0"
                 >
                   About
-                </Link>
+                </LinkButton>
               </li>
             </ul>
           </div>
@@ -77,20 +95,24 @@ export default function Footer() {
             <h3 className="mb-4 text-lg font-semibold md:text-xl">Legal</h3>
             <ul className="space-y-2">
               <li>
-                <Link
+                <LinkButton
+                  buttonevent="privacy"
+                  variant={"link"}
                   href="https://www.barfoot.co.nz/global/legal-documents/privacy-statement"
-                  className="text-sm hover:text-gray-900 md:text-base"
+                  className="text-sm hover:text-gray-900 md:text-base p-0"
                 >
                   Privacy Policy
-                </Link>
+                </LinkButton>
               </li>
               <li>
-                <Link
+                <LinkButton
+                  buttonevent="terms"
+                  variant={"link"}
                   href="https://www.barfoot.co.nz/global/legal-documents/terms-of-use"
-                  className="text-sm hover:text-gray-900 md:text-base"
+                  className="text-sm hover:text-gray-900 md:text-base p-0"
                 >
                   Terms of Service
-                </Link>
+                </LinkButton>
               </li>
             </ul>
           </div>
