@@ -114,7 +114,7 @@ const CarouselComponent = ({
       {record.images.length > 1 && (
         <React.Fragment>
           <CarouselPrevious
-            className="absolute left-2 top-1/2 transform -translate-y-1/2"
+            className="absolute transform -translate-y-1/2 left-2 top-1/2"
             buttonevent="Listing Image Carousel Previous"
             handleClick={() => {
               setCurrentSlide(
@@ -124,7 +124,7 @@ const CarouselComponent = ({
           />
           <CarouselNext
             buttonevent="Listing Image Carousel Next"
-            className="absolute right-2 top-1/2 transform -translate-y-1/2"
+            className="absolute transform -translate-y-1/2 right-2 top-1/2"
             handleClick={() =>
               setCurrentSlide((currentSlide + 1) % record.images.length)
             }
@@ -158,7 +158,7 @@ const CarouselContentComponent = ({
             <Button
               type="button"
               buttonevent="Listing Image Click"
-              className="w-full h-full flex bg-inherit hover:bg-inherit p-0 overflow-hidden rounded-lg"
+              className="flex w-full h-full p-0 overflow-hidden rounded-lg bg-inherit hover:bg-inherit"
               onClick={() => handleImageClick(index)}
             >
               <PocketBaseImage
