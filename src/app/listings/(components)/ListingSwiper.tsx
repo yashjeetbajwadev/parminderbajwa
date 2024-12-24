@@ -77,8 +77,7 @@ export default function ListingsCarousel({
               }}
               plugins={[
                 Autoplay({
-                  delay: 3000,
-                  stopOnInteraction: true,
+                  delay: 5000,
                   stopOnMouseEnter: true,
                 })
 
@@ -107,7 +106,7 @@ export default function ListingsCarousel({
                           <CardTitle className="mb-2 text-lg sm:text-xl">
                             {listing.title}
                           </CardTitle>
-                          <p className="mb-2 text-sm text-muted-foreground">{`${listing.address}, ${listing.city}, ${listing.state} ${listing.zip}`}</p>
+                          <p className="mb-2 text-sm text-muted-foreground">{`${listing.address}`}</p>
                           <div className="flex items-center justify-between mb-3">
                             {listing.price > 0 ? (
                               <p className="text-2xl font-bold md:text-3xl">
