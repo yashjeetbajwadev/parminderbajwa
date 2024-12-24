@@ -165,7 +165,7 @@ const CarouselContentComponent = ({
                 record={record}
                 filename={image}
                 className={cn(
-                  "justify-center object-cover rounded-lg transition-transform duration-300 ease-in-out hover:scale-105",
+                  "justify-center h-full w-full object-cover rounded-lg transition-transform duration-300 ease-in-out hover:scale-105",
                   ImageClassName
                 )}
                 width={1920}
