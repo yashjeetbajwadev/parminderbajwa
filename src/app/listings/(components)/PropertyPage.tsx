@@ -46,23 +46,17 @@ export function PropertyPage({
       <BackButtonBreadcrumb items={BreadcrumbItems()} />
       <div className="container px-4 py-6 sm:px-5 sm:py-8 xl:px-0">
         <Card className="w-full">
-          <CardHeader className="p-0">
-            <ListingListImageCarousel
-              record={data}
-              ImageClassName="h-full w-full"
-              thumbs="500x0"
-            />
-          </CardHeader>
-          <CardContent className="flex-grow p-4">
-            <CardTitle className="mb-2 text-xl">{data.title}</CardTitle>
-            <p className="mb-2 text-muted-foreground">
-              {(() => {
-                const addressParts = [data.address];
-                return addressParts.join(", ");
-              })()}
-            </p>
-            <div className="flex items-center justify-between mb-4">
-              <span className="flex items-center justify-between w-full text-2xl font-bold">
+          <CardHeader>
+            <div>
+              <CardTitle className="text-2xl font-bold md:text-3xl">
+                {data.title}
+              </CardTitle>
+              <CardDescription className="text-lg">
+                {data.address}
+              </CardDescription>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="flex items-center justify-between w-full mt-4 text-2xl font-bold">
                 {data.price > 0 ? (
                   <p className="text-2xl font-bold md:text-3xl">
                     ${data.price.toLocaleString()}
@@ -72,7 +66,14 @@ export function PropertyPage({
                 )}
               </span>
             </div>
-            <div className="grid grid-cols-2 gap-4 mb-6 sm:grid-cols-4">
+          </CardHeader>
+          <CardContent className="flex-grow p-4">
+            <ListingListImageCarousel
+              record={data}
+              ImageClassName="h-full w-full"
+              thumbs="500x0"
+            />
+            <div className="grid grid-cols-2 gap-4 mt-6 mb-6 sm:grid-cols-4">
               {Boolean(data.bedroom) && (
                 <div className="flex items-center">
                   <BedIcon className="w-4 h-4 mr-1" aria-hidden="true" />
