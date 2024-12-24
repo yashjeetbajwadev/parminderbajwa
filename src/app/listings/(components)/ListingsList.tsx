@@ -162,7 +162,7 @@ export function ListingsList({
                   <div className="flex items-center">
                     <CarIcon className="w-4 h-4 mr-1" />
                     <span className="text-sm sm:text-base">
-                      {listing.parking} Parking
+                      {listing.parking} parking
                     </span>
                   </div>
                 )}

@@ -67,7 +67,7 @@ export function PropertyPage({
               </span>
             </div>
           </CardHeader>
-          <CardContent className="flex-grow p-4">
+          <CardContent className="flex-grow px-6">
             <ListingListImageCarousel
               record={data}
               ImageClassName="h-full w-full"
