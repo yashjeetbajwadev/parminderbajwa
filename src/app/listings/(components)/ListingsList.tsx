@@ -139,7 +139,7 @@ export function ListingsList({
                   </Badge>
                 </span>
               </div>
-              <div className="grid grid-cols-2 gap-4 mb-6 sm:grid-cols-4">
+              <div className="grid grid-cols-[1fr_1fr] gap-4 mb-6">
                 {Boolean(listing.bedroom) && (
                   <div className="flex items-center">
                     <BedIcon className="w-4 h-4 mr-1" aria-hidden="true" />
