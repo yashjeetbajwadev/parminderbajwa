@@ -30,6 +30,7 @@ import {
 import Link from "next/link";
 import { ListResult } from "pocketbase";
 import { ListingListImageCarousel } from "./ListingListImageCarousel";
+import Autoplay from "embla-carousel-autoplay";
 
 export default function ListingsCarousel({
   data,
@@ -74,6 +75,14 @@ export default function ListingsCarousel({
                 align: "start",
                 slidesToScroll: 1,
               }}
+              plugins={[
+                Autoplay({
+                  delay: 3000,
+                  stopOnInteraction: true,
+                  stopOnMouseEnter: true,
+                })
+
+              ]}
             >
               <CarouselContent>
                 {featuredListings
@@ -110,7 +119,7 @@ export default function ListingsCarousel({
                               </Badge>
                             )}
                           </div>
-                          <div className="grid grid-cols-2 gap-4 mb-6 sm:grid-cols-4">
+                          <div className="grid grid-cols-[1fr_1fr] gap-4 mb-6">
                             {Boolean(listing.bedroom) && (
                               <div className="flex items-center">
                                 <BedIcon
@@ -211,6 +220,6 @@ export default function ListingsCarousel({
           </CardContent>
         </Card>
       </div>
-    </section>
+    </section >
   );
 }

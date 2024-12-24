@@ -46,17 +46,54 @@ export function PropertyPage({
       <BackButtonBreadcrumb items={BreadcrumbItems()} />
       <div className="container px-4 py-6 sm:px-5 sm:py-8 xl:px-0">
         <Card className="w-full">
-          <CardHeader>
+          <CardHeader className="flex flex-row justify-between flex-wrap">
             <div>
-              <CardTitle className="text-2xl font-bold md:text-3xl">
-                {data.title}
-              </CardTitle>
-              <CardDescription className="text-lg">
-                {data.address}
-              </CardDescription>
+              <div>
+                <CardTitle className="text-2xl font-bold md:text-3xl">
+                  {data.title}
+                </CardTitle>
+                <CardDescription className="text-lg">
+                  {data.address}
+                </CardDescription>
+              </div>
+              <div className="flex flex-row gap-x-4 flex-wrap justify-start">
+                {Boolean(data.bedroom) && (
+                  <div className="flex items-center">
+                    <BedIcon className="w-4 h-4 mr-1" aria-hidden="true" />
+                    <span className="text-sm sm:text-base">
+                      {data.bedroom} {data.bedroom > 1 ? "Bedrooms" : "Bedroom"}
+                    </span>
+                  </div>
+                )}
+                {Boolean(data.bathroom) && (
+                  <div className="flex items-center">
+                    <BathIcon className="w-4 h-4 mr-1" />
+                    <span className="text-sm sm:text-base">
+                      {data.bathroom}{" "}
+                      {data.bathroom > 1 ? "bathrooms" : "bathroom"}
+                    </span>
+                  </div>
+                )}
+                {Boolean(data.parking) && (
+                  <div className="flex items-center">
+                    <CarIcon className="w-4 h-4 mr-1" />
+                    <span className="text-sm sm:text-base">
+                      {data.parking} parking
+                    </span>
+                  </div>
+                )}
+                {Boolean(data.floorSquareFt) && (
+                  <div className="flex items-center">
+                    <HomeIcon className="w-4 h-4 mr-1" />
+                    <span className="text-sm sm:text-base">
+                      {data.floorSquareFt} sqft
+                    </span>
+                  </div>
+                )}
+              </div>
             </div>
             <div className="flex items-center justify-between">
-              <span className="flex items-center justify-between w-full mt-4 text-2xl font-bold">
+              <span className="flex items-center justify-between w-fulltext-2xl font-bold">
                 {data.price > 0 ? (
                   <p className="text-2xl font-bold md:text-3xl">
                     ${data.price.toLocaleString()}
@@ -66,51 +103,18 @@ export function PropertyPage({
                 )}
               </span>
             </div>
+
           </CardHeader>
+
           <CardContent className="flex-grow px-6">
             <ListingListImageCarousel
               record={data}
               ImageClassName="h-full w-full"
               thumbs="500x0"
             />
-            <div className="grid grid-cols-2 gap-4 mt-6 mb-6 sm:grid-cols-4">
-              {Boolean(data.bedroom) && (
-                <div className="flex items-center">
-                  <BedIcon className="w-4 h-4 mr-1" aria-hidden="true" />
-                  <span className="text-sm sm:text-base">
-                    {data.bedroom} {data.bedroom > 1 ? "Bedrooms" : "Bedroom"}
-                  </span>
-                </div>
-              )}
-              {Boolean(data.bathroom) && (
-                <div className="flex items-center">
-                  <BathIcon className="w-4 h-4 mr-1" />
-                  <span className="text-sm sm:text-base">
-                    {data.bathroom}{" "}
-                    {data.bathroom > 1 ? "bathrooms" : "bathroom"}
-                  </span>
-                </div>
-              )}
-              {Boolean(data.parking) && (
-                <div className="flex items-center">
-                  <CarIcon className="w-4 h-4 mr-1" />
-                  <span className="text-sm sm:text-base">
-                    {data.parking} parking
-                  </span>
-                </div>
-              )}
-              {Boolean(data.floorSquareFt) && (
-                <div className="flex items-center">
-                  <HomeIcon className="w-4 h-4 mr-1" />
-                  <span className="text-sm sm:text-base">
-                    {data.floorSquareFt} sqft
-                  </span>
-                </div>
-              )}
-            </div>
             <div className="space-y-8 bg-white">
               <section>
-                <h3 className="mb-4 text-lg font-semibold text-gray-900 border-b">
+                <h3 className="my-4 text-lg font-semibold text-gray-900 border-b">
                   Property Details
                 </h3>
                 {Boolean(data.type.length) && (
