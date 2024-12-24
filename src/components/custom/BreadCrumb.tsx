@@ -18,7 +18,7 @@ const ButtonBreadcrumb: React.FC<BackButtonBreadcrumbProps> = ({ items }) => {
   return (
     <div className="flex container items-center space-x-4 px-5 xl:px-0 m-0">
       <nav className="flex" aria-label="Breadcrumb">
-        <ol className="flex items-center space-x-2">
+        <ol className="flex items-center space-x-2 flex-wrap">
           {items.map((item, index) => (
             <React.Fragment key={item.href}>
               {index > 0 && <ChevronRight className="h-4 w-4 text-gray-400" />}

@@ -19,7 +19,7 @@ export default function MainRootLayout({
                 <div className="flex flex-col justify-between h-screen">
                   <div>
                     <Header />
-                    <div className="flex container items-center mx-auto max-w-7xl space-x-4 px-5 xl:px-0 m-0">
+                    <div className="flex container items-center mx-auto max-w-7xl space-x-4 px-0 m-0">
                       {children}
                     </div>
                   </div>

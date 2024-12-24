@@ -86,7 +86,7 @@ function Hero() {
   return (
     <div className="grid overflow-x-hidden">
       <div className="my-[60px] md:my-[100px]">
-        <div className="relative mx-[20px] mb-[32px] flex flex-col lg:mx-[32px] lg:mb-[0px] lg:flex-row lg:flex-wrap lg:justify-center lg:pt-[60px]">
+        <div className="p-0 relative mx-[20px] mb-[32px] flex flex-col lg:mx-[32px] lg:mb-[0px] lg:flex-row lg:flex-wrap lg:justify-center lg:pt-[60px]">
           <div
             className={`relative z-40 grid items-center justify-items-center text-center lg:w-[850.58px] lg:justify-items-end`}
           >
