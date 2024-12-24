@@ -154,7 +154,7 @@ const CarouselContentComponent = ({
           id={record.id + "item" + index}
           data-index={curentSlide}
         >
-          {Math.abs(index - curentSlide) < 1 || curentSlide > 0 ? (
+          {index < 2 || curentSlide > 0 ? (
             <Button
               type="button"
               buttonevent="Listing Image Click"
