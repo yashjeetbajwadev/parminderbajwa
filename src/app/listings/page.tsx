@@ -21,11 +21,11 @@ export default async function page({
   const [activeListings, soldListings] = await Promise.all([
     getCollectionData({
       collectionName: "listings",
-      options: { filter: "status='active'", page: Number(page ?? 1) },
+      options: { filter: "status='active'", page: Number(page ?? 1), sort: "-featuredOnHomePage,created"},
     }),
     getCollectionData({
       collectionName: "listings",
-      options: { filter: "status='sold'", page: Number(soldPage ?? 1), perPage: 50},
+      options: { filter: "status='sold'", page: Number(soldPage ?? 1), perPage: 50, sort: "-featuredOnHomePage,updated"},
     }),
   ]);
 
