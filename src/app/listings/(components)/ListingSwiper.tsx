@@ -16,15 +16,12 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import {
-  formatDate,
-  formatSinglePage,
-  validDate
-} from "@/lib/utils";
+import { formatDate, formatSinglePage, validDate } from "@/lib/utils";
 import { ListingsResponse } from "@/types/pocketbase";
 import {
   BathIcon,
   BedDoubleIcon,
+  BedIcon,
   CalendarIcon,
   CarIcon,
   HomeIcon,
@@ -55,7 +52,7 @@ export default function ListingsCarousel({
       <div className="container px-4 xl:px-0">
         <Card className="flex flex-col h-full transition-shadow duration-300 hover:shadow-lg">
           <CardHeader className="p-4 border-b border-gray-200 md:p-6 dark:border-gray-700">
-            <div className="flex flex-row justify-center sm:justify-between flex-wrap gap-2">
+            <div className="flex flex-row flex-wrap justify-center gap-2 sm:justify-between">
               <h2 className="text-xl font-bold text-gray-800 md:text-2xl lg:text-3xl dark:text-gray-100">
                 Featured Listings
               </h2>
@@ -103,46 +100,62 @@ export default function ListingsCarousel({
                           </CardTitle>
                           <p className="mb-2 text-sm text-muted-foreground">{`${listing.address}, ${listing.city}, ${listing.state} ${listing.zip}`}</p>
                           <div className="flex items-center justify-between mb-3">
-                            {
-                              listing.price > 0 ? (
-                                <p className="text-2xl md:text-3xl font-bold">
-                                  ${listing.price.toLocaleString()}
-                                </p>
-                              ) :
-                                (
-                                  <Badge variant="secondary">Price by Negotiation</Badge>
-                                )
-                            }
+                            {listing.price > 0 ? (
+                              <p className="text-2xl font-bold md:text-3xl">
+                                ${listing.price.toLocaleString()}
+                              </p>
+                            ) : (
+                              <Badge variant="secondary">
+                                Price by Negotiation
+                              </Badge>
+                            )}
                           </div>
-                          <div className="grid grid-cols-2 gap-2 mb-3 text-sm sm:grid-cols-3">
+                          <div className="grid grid-cols-2 gap-4 mb-6 sm:grid-cols-4">
                             {Boolean(listing.bedroom) && (
                               <div className="flex items-center">
-                                <BedDoubleIcon className="w-4 h-4 mr-1" />
-                                <span>{listing.bedroom} bd</span>
+                                <BedIcon
+                                  className="w-4 h-4 mr-1"
+                                  aria-hidden="true"
+                                />
+                                <span className="text-sm sm:text-base">
+                                  {listing.bedroom}{" "}
+                                  {listing.bedroom > 1 ? "Bedrooms" : "Bedroom"}
+                                </span>
                               </div>
                             )}
                             {Boolean(listing.bathroom) && (
                               <div className="flex items-center">
                                 <BathIcon className="w-4 h-4 mr-1" />
-                                <span>{listing.bathroom} ba</span>
+                                <span className="text-sm sm:text-base">
+                                  {listing.bathroom}{" "}
+                                  {listing.bathroom > 1
+                                    ? "bathrooms"
+                                    : "bathroom"}
+                                </span>
                               </div>
                             )}
                             {Boolean(listing.parking) && (
                               <div className="flex items-center">
                                 <CarIcon className="w-4 h-4 mr-1" />
-                                <span>{listing.parking} pkg</span>
+                                <span className="text-sm sm:text-base">
+                                  {listing.parking} parking
+                                </span>
                               </div>
                             )}
                             {Boolean(listing.floorSquareFt) && (
                               <div className="flex items-center">
                                 <HomeIcon className="w-4 h-4 mr-1" />
-                                <span>{listing.floorSquareFt} sqft</span>
+                                <span className="text-sm sm:text-base">
+                                  {listing.floorSquareFt} sqft
+                                </span>
                               </div>
                             )}
                             {Boolean(listing.landSquareFt) && (
                               <div className="flex items-center">
                                 <RulerIcon className="w-4 h-4 mr-1" />
-                                <span>{listing.landSquareFt} sqft</span>
+                                <span className="text-sm sm:text-base">
+                                  {listing.landSquareFt} sqft
+                                </span>
                               </div>
                             )}
                             {listing.yearBuilt && (
@@ -154,6 +167,7 @@ export default function ListingsCarousel({
                               </div>
                             )}
                           </div>
+
                           {listing.listingDate &&
                             validDate(listing.listingDate) && (
                               <p className="mb-1 text-xs text-muted-foreground">
@@ -170,17 +184,29 @@ export default function ListingsCarousel({
                         <CardFooter className="p-3 mt-auto sm:p-4 bg-muted">
                           <LinkButton
                             buttonevent="View Listing Details"
-                            href={formatSinglePage("listings", listing.id, listing.title)}
+                            href={formatSinglePage(
+                              "listings",
+                              listing.id,
+                              listing.title
+                            )}
                             className="w-full text-sm"
-                          >View Details</LinkButton>
+                          >
+                            View Details
+                          </LinkButton>
                         </CardFooter>
                       </Card>
                     </CarouselItem>
                   ))}
               </CarouselContent>
 
-              <CarouselPrevious buttonevent="featuredPrevious" className="absolute left-(-1) hidden -translate-x-1/2 -translate-y-1/2 top-1/2 lg:flex" />
-              <CarouselNext buttonevent="featuredNext" className="absolute right-(-1) hidden translate-x-1/2 -translate-y-1/2 top-1/2 lg:flex" />
+              <CarouselPrevious
+                buttonevent="featuredPrevious"
+                className="absolute left-(-1) hidden -translate-x-1/2 -translate-y-1/2 top-1/2 lg:flex"
+              />
+              <CarouselNext
+                buttonevent="featuredNext"
+                className="absolute right-(-1) hidden translate-x-1/2 -translate-y-1/2 top-1/2 lg:flex"
+              />
             </Carousel>
           </CardContent>
         </Card>

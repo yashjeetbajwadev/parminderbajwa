@@ -1,4 +1,5 @@
 "use client";
+
 import { ListingListImageCarousel } from "@/app/listings/(components)/ListingListImageCarousel";
 import BackButtonBreadcrumb from "@/components/custom/BreadCrumb";
 import { ContactMe } from "@/components/custom/ContactMe/ContactMe";
@@ -13,9 +14,9 @@ import {
 } from "@/components/ui/card";
 import { formatDate, formatSinglePage, validDate } from "@/lib/utils";
 import { ListingsResponse, UsersRecord } from "@/types/pocketbase";
-import { BathIcon, BedIcon, CarIcon, RulerIcon } from "lucide-react";
+import { BathIcon, BedIcon, CarIcon, HomeIcon, RulerIcon } from "lucide-react";
 import { ListResult } from "pocketbase";
-import React from "react";
+import React, { Fragment } from "react";
 import ListingsSwiper from "./ListingSwiper";
 
 export function PropertyPage({
@@ -43,112 +44,164 @@ export function PropertyPage({
   return (
     <React.Fragment>
       <BackButtonBreadcrumb items={BreadcrumbItems()} />
-      <div className="container mx-auto py-8 max-w-7xl">
+      <div className="container px-4 py-6 sm:px-5 sm:py-8 xl:px-0">
         <Card className="w-full">
-          <CardHeader>
-            <div className="flex justify-between items-start">
-              <div>
-                <CardTitle className="text-2xl md:text-3xl font-bold">
-                  {data.title}
-                </CardTitle>
-                <CardDescription className="text-lg">
-                  {data.address}
-                </CardDescription>
-              </div>
-              <div className="text-right">
-                {
-                  data.price > 0 ? (
-                    <p className="text-2xl md:text-3xl font-bold">
-                      ${data.price.toLocaleString()}
-                    </p>
-                  ) :
-                    (
-                      <Badge variant="secondary">Price by Negotiation</Badge>
-                    )
-                }
-
-              </div>
-            </div>
+          <CardHeader className="p-0">
+            <ListingListImageCarousel
+              record={data}
+              ImageClassName="h-full w-full"
+              thumbs="500x0"
+            />
           </CardHeader>
-          <CardContent>
-            <div className=" w-full h-full">
-              <ListingListImageCarousel
-                record={data}
-                ImageClassName={"w-full h-full"}
-                openDialogOnClick
-              />
+          <CardContent className="flex-grow p-4">
+            <CardTitle className="mb-2 text-xl">{data.title}</CardTitle>
+            <p className="mb-2 text-muted-foreground">
+              {(() => {
+                const addressParts = [data.address];
+                return addressParts.join(", ");
+              })()}
+            </p>
+            <div className="flex items-center justify-between mb-4">
+              <span className="flex items-center justify-between w-full text-2xl font-bold">
+                {data.price > 0 ? (
+                  <p className="text-2xl font-bold md:text-3xl">
+                    ${data.price.toLocaleString()}
+                  </p>
+                ) : (
+                  <Badge variant="secondary">Price by Negotiation</Badge>
+                )}
+              </span>
             </div>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 my-6">
-              {data.bedroom > 0 && (
+            <div className="grid grid-cols-2 gap-4 mb-6 sm:grid-cols-4">
+              {Boolean(data.bedroom) && (
                 <div className="flex items-center">
-                  <BedIcon className="mr-2" />
-                  <span>{data.bedroom} Bedrooms</span>
+                  <BedIcon className="w-4 h-4 mr-1" aria-hidden="true" />
+                  <span className="text-sm sm:text-base">
+                    {data.bedroom} {data.bedroom > 1 ? "Bedrooms" : "Bedroom"}
+                  </span>
                 </div>
               )}
-              {data.bathroom > 0 && (
+              {Boolean(data.bathroom) && (
                 <div className="flex items-center">
-                  <BathIcon className="mr-2" />
-                  <span>{data.bathroom} Bathrooms</span>
+                  <BathIcon className="w-4 h-4 mr-1" />
+                  <span className="text-sm sm:text-base">
+                    {data.bathroom}{" "}
+                    {data.bathroom > 1 ? "bathrooms" : "bathroom"}
+                  </span>
                 </div>
               )}
-              {data.parking > 0 && (
+              {Boolean(data.parking) && (
                 <div className="flex items-center">
-                  <CarIcon className="mr-2" />
-                  <span>{data.parking} Parking Spaces</span>
+                  <CarIcon className="w-4 h-4 mr-1" />
+                  <span className="text-sm sm:text-base">
+                    {data.parking} parking
+                  </span>
                 </div>
               )}
-              {data.floorSquareFt > 0 && (
+              {Boolean(data.floorSquareFt) && (
                 <div className="flex items-center">
-                  <RulerIcon className="mr-2" />
-                  <span>{data.floorSquareFt} sq ft</span>
+                  <HomeIcon className="w-4 h-4 mr-1" />
+                  <span className="text-sm sm:text-base">
+                    {data.floorSquareFt} sqft
+                  </span>
                 </div>
               )}
             </div>
+            <div className="space-y-8 bg-white">
+              <section>
+                <h3 className="mb-4 text-lg font-semibold text-gray-900 border-b">
+                  Property Details
+                </h3>
+                {Boolean(data.type.length) && (
+                  <div className="flex flex-col">
+                    <p className="text-sm sm:text-base">
+                      <span className="font-medium text-gray-900">Type:</span>{" "}
+                      <span className="text-gray-600">
+                        {data.type.join(", ")}
+                      </span>
+                    </p>
+                  </div>
+                )}
+                {Boolean(data.landSquareFt) && (
+                  <div className="flex flex-col">
+                    <p className="text-sm sm:text-base">
+                      <span className="font-medium text-gray-900">
+                        Lot Size:
+                      </span>{" "}
+                      <span className="text-gray-600">
+                        {data.landSquareFt} sq ft
+                      </span>
+                    </p>
+                  </div>
+                )}
+                {Boolean(data.yearBuilt) && validDate(data.yearBuilt) && (
+                  <div className="flex flex-col">
+                    <p className="text-sm sm:text-base">
+                      <span className="font-medium text-gray-900">
+                        Year Built:
+                      </span>{" "}
+                      <span className="text-gray-600">
+                        {formatDate(data.yearBuilt)}
+                      </span>
+                    </p>
+                  </div>
+                )}
+                {Boolean(data.listingDate) && validDate(data.listingDate) && (
+                  <div className="flex flex-col">
+                    <p className="text-sm sm:text-base">
+                      <span className="font-medium text-gray-900">
+                        Listing Date:
+                      </span>{" "}
+                      <span className="text-gray-600">
+                        {formatDate(data.listingDate)}
+                      </span>
+                    </p>
+                  </div>
+                )}
+                {Boolean(data.status) && (
+                  <div className="flex flex-col">
+                    <p className="text-sm sm:text-base">
+                      <span className="font-medium text-gray-900">Status:</span>{" "}
+                      <span className="text-gray-600">
+                        {data.status[0].toUpperCase() +
+                          data.status.substring(1)}
+                      </span>
+                    </p>
+                  </div>
+                )}
+                {Boolean(agent.name) && (
+                  <div className="flex flex-col">
+                    <p className="text-sm sm:text-base">
+                      <span className="font-medium text-gray-900">Agent:</span>{" "}
+                      <span className="text-gray-600">{agent.name}</span>
+                    </p>
+                  </div>
+                )}
+              </section>
 
-            <div className="space-y-4">
-              <h3 className="text-xl font-semibold">Property Details</h3>
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <p>
-                    <strong>Type:</strong> {data.type.join(", ")}
-                  </p>
-                  <p>
-                    <strong>Lot Size:</strong> {data.landSquareFt} sq ft
-                  </p>
-                  {data.yearBuilt && validDate(data.yearBuilt) && (
-                    <p>
-                      <strong>Year Built:</strong> {formatDate(data.yearBuilt)}
-                    </p>
-                  )}
-                </div>
-                <div>
-                  {data.listingDate && validDate(data.listingDate) && (
-                    <p>
-                      <strong>Listing Date:</strong>{" "}
-                      {formatDate(data.listingDate)}
-                    </p>
-                  )}
-                  <p>
-                    <strong>Status:</strong> {data.status}
-                  </p>
-                  <p>
-                    <strong>Agent:</strong> {agent.name}
-                  </p>
-                </div>
-              </div>
               {data.amenities && (
-                <div>
-                  <h3 className="text-xl font-semibold">Amenities</h3>
-                  <p>{data.amenities}</p>
-                </div>
+                <section>
+                  <h3 className="pb-2 mb-4 text-xl font-semibold text-gray-900 border-b">
+                    Amenities
+                  </h3>
+                  <p className="text-sm leading-relaxed text-gray-600 sm:text-base">
+                    {data.amenities}
+                  </p>
+                </section>
               )}
-              <div>
-                <h3 className="text-xl font-semibold">Description</h3>
-                <div dangerouslySetInnerHTML={{ __html: data.additionalInfo }} />
-              </div>
+
+              <section>
+                <h3 className="mb-4 text-lg font-semibold text-gray-900 border-b">
+                  Description
+                </h3>
+                <div
+                  className="text-sm leading-relaxed text-gray-600 sm:text-base"
+                  dangerouslySetInnerHTML={{ __html: data.additionalInfo }}
+                />
+              </section>
             </div>
           </CardContent>
-          <CardFooter className="flex justify-between">
+          <CardFooter className="flex justify-center sm:justify-between">
             <ContactMe openInModal />
           </CardFooter>
         </Card>
