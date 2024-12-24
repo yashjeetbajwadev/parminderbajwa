@@ -149,7 +149,7 @@ const CarouselContentComponent = ({
   return (
     <CarouselContent>
       {record.images.map((image: string, index: number) => (
-          <CarouselItem
+        <CarouselItem
           key={"item" + index}
           id={record.id + "item" + index}
           data-index={curentSlide}
