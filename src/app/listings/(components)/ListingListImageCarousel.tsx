@@ -6,7 +6,11 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { Dialog, DialogContent, DialogDescription } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+} from "@/components/ui/dialog";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import PocketBaseImage from "@/components/PocketBaseImage";
 import { cn } from "@/lib/utils";
@@ -70,10 +74,8 @@ export const ListingListImageCarousel = ({
         <Dialog open={openDialog} onOpenChange={setOpenDialog}>
           <DialogContent className="max-w-[90vw] max-h-[90vh] p-4 flex items-center justify-center overflow-hidden bg-white">
             <VisuallyHidden>
-              <DialogTitle >{record.title}</DialogTitle>
-              <DialogDescription >
-                {record.description}
-              </DialogDescription>
+              <DialogTitle>{record.title}</DialogTitle>
+              <DialogDescription>{record.description}</DialogDescription>
             </VisuallyHidden>
             <CarouselComponent
               record={record}
@@ -96,9 +98,8 @@ const CarouselComponent = ({
   ImageClassName,
   startIndex = 0,
   id,
-  thumbs
+  thumbs,
 }: CarouselComponentProps) => {
-  // current slude 
   const [currentSlide, setCurrentSlide] = useState(startIndex ?? 0);
   return (
     <Carousel className="w-full h-full" opts={{ startIndex }}>
@@ -112,17 +113,26 @@ const CarouselComponent = ({
       />
       {record.images.length > 1 && (
         <React.Fragment>
-          <CarouselPrevious className="absolute left-2 top-1/2 transform -translate-y-1/2"
+          <CarouselPrevious
+            className="absolute left-2 top-1/2 transform -translate-y-1/2"
             buttonevent="Listing Image Carousel Previous"
-            handleClick={() => { setCurrentSlide(currentSlide - 1 % record.images.length) }} />
+            handleClick={() => {
+              setCurrentSlide(
+                (currentSlide - 1 + record.images.length) % record.images.length
+              );
+            }}
+          />
           <CarouselNext
             buttonevent="Listing Image Carousel Next"
             className="absolute right-2 top-1/2 transform -translate-y-1/2"
-            handleClick={() => setCurrentSlide(currentSlide + 1 % record.images.length)} />
+            handleClick={() =>
+              setCurrentSlide((currentSlide + 1) % record.images.length)
+            }
+          />
         </React.Fragment>
       )}
     </Carousel>
-  )
+  );
 };
 
 const CarouselContentComponent = ({
@@ -130,37 +140,41 @@ const CarouselContentComponent = ({
   handleImageClick,
   ImageClassName,
   curentSlide,
-  thumbs
+  thumbs,
 }: CarouselContentComponentProps) => {
   let urlProps: Record<string, string> = {};
   if (thumbs) {
-    urlProps = { "thumb": thumbs };
+    urlProps = { thumb: thumbs };
   }
   return (
     <CarouselContent>
       {record.images.map((image: string, index: number) => (
-        <CarouselItem key={"item" + index} id={record.id + "item" + index} data-index={curentSlide}>
+        <CarouselItem
+          key={"item" + index}
+          id={record.id + "item" + index}
+          data-index={curentSlide}
+        >
           {Math.abs(index - curentSlide) < 1 || curentSlide > 0 ? (
             <Button
               type="button"
               buttonevent="Listing Image Click"
-              className="w-full h-full flex bg-inherit hover:bg-inherit"
+              className="w-full h-full flex bg-inherit hover:bg-inherit p-0 overflow-hidden rounded-lg"
               onClick={() => handleImageClick(index)}
             >
               <PocketBaseImage
                 record={record}
                 filename={image}
-                className={cn("justify-center", ImageClassName)}
+                className={cn(
+                  "justify-center object-cover rounded-lg transition-transform duration-300 ease-in-out hover:scale-105",
+                  ImageClassName
+                )}
                 width={1920}
                 height={1080}
                 alt={`${record.title} - Image ${index + 1}`}
-                style={{ aspectRatio: "16 / 9" }}
                 urlProps={urlProps}
-
               />
             </Button>
-          ) : null
-          }
+          ) : null}
         </CarouselItem>
       ))}
     </CarouselContent>
