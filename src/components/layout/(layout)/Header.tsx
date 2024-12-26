@@ -10,8 +10,8 @@ import { ContactMe } from "@/components/custom/ContactMe/ContactMe";
 
 const NAV_ITEMS = [
   { label: "Home", href: "/" },
-  { label: "Listings", href: "/listings" },
-  { label: "Blogs", href: "/blogs" },
+  { label: "Listings", href: "/listings/1" },
+  { label: "Blogs", href: "/blogs/1" },
   { label: "About", href: "/about" },
 ];
 
