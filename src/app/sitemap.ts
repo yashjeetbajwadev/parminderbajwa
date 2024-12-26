@@ -31,11 +31,10 @@ function page(
   changeFrequency?: string,
   priority?: number
 ) {
+  const endpoint = (endPoint.startsWith("/") ? endPoint : `/${endPoint}`) ?? "";
+  const formatedEndpoint = encodeURIComponent(endpoint);
   return {
-    url: encodeURIComponent(
-      url +
-        (endPoint ? (endPoint.startsWith("/") ? endPoint : `/${endPoint}`) : "")
-    ),
+    url: url + formatedEndpoint,
     lastModified: lastModified ?? new Date(),
     changeFrequency: changeFrequency ?? "yearly",
     priority: priority ?? 1,
