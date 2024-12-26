@@ -21,7 +21,7 @@ export async function SoldListingsPage({
   const { pageno } = await params;
   const [soldListings, activeListings] = await Promise.all([
     getCollectionData(SoldListingPageConfig(pageno)),
-    getCollectionData(ListingPageConfig(pageno)),
+    getCollectionData(ListingPageConfig(pageno, { fields: "id" })),
   ]);
 
   let defaultTab = "sold";

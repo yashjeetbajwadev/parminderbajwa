@@ -20,7 +20,7 @@ export async function ListingsPage({
   ];
   const { pageno } = await params;
   const [soldListings, activeListings] = await Promise.all([
-    getCollectionData(SoldListingPageConfig(pageno)),
+    getCollectionData(SoldListingPageConfig(pageno, { fields: "id" })),
     getCollectionData(ListingPageConfig(pageno)),
   ]);
 
