@@ -24,7 +24,7 @@ export async function ListingsPage({
     getCollectionData(ListingPageConfig(pageno)),
   ]);
 
-  let defaultTab = "listings";
+  let defaultTab = "listings/1";
 
   return (
     <React.Fragment>

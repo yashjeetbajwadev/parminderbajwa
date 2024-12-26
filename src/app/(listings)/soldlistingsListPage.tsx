@@ -22,7 +22,7 @@ export async function SoldListingsPage({
     getCollectionData(ListingPageConfig(pageno, { fields: "id" })),
   ]);
 
-  let defaultTab = "sold";
+  let defaultTab = "sold/1";
 
 
   return (

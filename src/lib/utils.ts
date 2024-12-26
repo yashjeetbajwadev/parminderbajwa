@@ -124,7 +124,7 @@ export function formatSinglePage(
   id: string,
   title: string
 ) {
-  return `/${collectionName}/${encodeURI(title)}/${encodeURI(id)}`;
+  return `/${collectionName}/${encodeURIComponent(title)}/${encodeURIComponent(id)}`;
 }
 export function validDate(date: string) {
   return new Date(date).toString() !== "Invalid Date";
@@ -151,7 +151,7 @@ export type CommonAPIProps<T extends keyof CollectionRecords> = {
 };
 export type CommonAPIPropsWithId<T extends keyof CollectionRecords> =
   CommonAPIProps<T> & { id: string };
-  
+
 export type APIResult<T extends keyof CollectionRecords> =
   | ListResult<CollectionResponses[T]>
   | ValueOf<CollectionResponses>;

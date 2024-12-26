@@ -16,14 +16,14 @@ export const ListingsTabList = ({ activeListings, soldListings, tab }: ListingsT
     return (
         <Tabs defaultValue={tab}>
             <TabsList className="flex justify-center items-center align-middle mt-10 space-x-4">
-                <ListingsTab text={`For Sale (${activeListings.totalItems})`} value="listings" />
-                <ListingsTab text={`Recently Sold (${soldListings.totalItems})`} value="sold" />
+                <ListingsTab text={`For Sale (${activeListings.totalItems})`} value="listings/1" />
+                <ListingsTab text={`Recently Sold (${soldListings.totalItems})`} value="sold/1" />
             </TabsList>
-            <TabsContent value="listings">
-                {tab === "listings" && <ListingsList data={activeListings} />}
+            <TabsContent value="listings/1">
+                {tab === "listings/1" && <ListingsList data={activeListings} />}
             </TabsContent>
-            <TabsContent value="sold">
-                {tab === "sold" && <ListingsList data={soldListings} sold />}
+            <TabsContent value="sold/1">
+                {tab === "sold/1" && <ListingsList data={soldListings} sold />}
             </TabsContent>
         </Tabs>
     );
