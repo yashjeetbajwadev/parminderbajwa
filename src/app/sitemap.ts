@@ -1,54 +1,78 @@
 import { formatSinglePage, getCollectionData } from "@/lib/utils";
 import type { MetadataRoute } from "next";
-import { BlogsListConfig } from "./blogs/settings";
-import { ListingPageConfig } from "./listings/settings";
+import { BlogsListConfig } from "./(blogs)/settings";
+import { ListingPageConfig } from "./(listings)/settings";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const [activeListings, blogs] = await Promise.all([
-    getCollectionData(ListingPageConfig("1", { perPage: 100 })),
-    getCollectionData(BlogsListConfig("1", { perPage: 100 })),
-  ]);
   let url = "https://parminderbajwa.co.nz";
-  function page(
-    endPoint: string,
-    lastModified?: Date,
-    changeFrequency?: string,
-    priority?: number
-  ) {
-    return {
-      url: url + (endPoint ? `/${endPoint}` : ""),
-      lastModified: lastModified ?? new Date(),
-      changeFrequency: changeFrequency ?? "yearly",
-      priority: priority ?? 1,
-    };
-  }
-
   const sitemap = [
-    page("", new Date(), "daily", 1),
-    page("about", new Date(), "monthly", 0.8),
-    page("blogs", new Date(), "daily", 0.9),
-    page("listings", new Date(), "daily", 0.9),
+    page(url, "", new Date(), "daily", 1),
+    page(url, "about", new Date(), "monthly", 0.8),
   ];
-  activeListings.items.forEach((listing) => {
-    sitemap.push(
-      page(
-        formatSinglePage("listings", listing.title, listing.id),
-        new Date(listing.updated),
-        "daily",
-        0.9
-      )
-    );
-  });
-  blogs.items.forEach((blog) => {
-    sitemap.push(
-      page(
-        formatSinglePage("blogs", blog.title, blog.id),
-        new Date(blog.updated),
-        "daily",
-        0.9
-      )
-    );
-  });
+
+  const [activeListings, blogs] = await Promise.all([
+    getCollectionData(ListingPageConfig("1", { perPage: 100, limit: 100 })),
+    getCollectionData(BlogsListConfig("1", { perPage: 100, limit: 100 })),
+  ]);
+
+  await addPaginatedPages(url, sitemap, ListingPageConfig, "listings");
+  await addPaginatedPages(url, sitemap, BlogsListConfig, "blogs");
+
+  addItemsToSitemap(url, sitemap, activeListings.items, "listings");
+  addItemsToSitemap(url, sitemap, blogs.items, "blogs");
 
   return sitemap as MetadataRoute.Sitemap;
+}
+
+function page(
+  url: string,
+  endPoint: string,
+  lastModified?: Date,
+  changeFrequency?: string,
+  priority?: number
+) {
+  return {
+    url: url + (endPoint ? `/${endPoint}` : ""),
+    lastModified: lastModified ?? new Date(),
+    changeFrequency: changeFrequency ?? "yearly",
+    priority: priority ?? 1,
+  };
+}
+function addItemsToSitemap(
+  url: string,
+  sitemap: any[],
+  items: any[],
+  endpoint: any
+) {
+  items.forEach((item) => {
+    sitemap.push(
+      page(
+        url,
+        formatSinglePage(endpoint, item.title, item.id),
+        new Date(item.updated),
+        "daily",
+        0.9
+      )
+    );
+  });
+}
+async function addPaginatedPages(
+  url: string,
+  sitemap: any[],
+  configFunction: any,
+  endpoint: string
+): Promise<void> {
+  let paginatedData = await getCollectionData(
+    configFunction("1", { fields: "id" })
+  );
+
+  while (paginatedData.page <= paginatedData.totalPages) {
+    sitemap.push(
+      page(url, `/${endpoint}/${paginatedData.page}`, new Date(), "daily", 0.9)
+    );
+
+    paginatedData = await getCollectionData(
+      configFunction((paginatedData.page + 1).toString(), { fields: "id" })
+    );
+  }
 }

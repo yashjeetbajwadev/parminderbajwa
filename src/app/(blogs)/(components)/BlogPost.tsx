@@ -14,12 +14,12 @@ import BackButtonBreadcrumb from "@/components/custom/BreadCrumb";
 import { formatSinglePage, validDate } from "@/lib/utils";
 import { BlogsResponse } from "@/types/pocketbase";
 
-export function BlogPost({ data }: { data: BlogsResponse }) {
+export function BlogPost({ data }: Readonly<{ data: BlogsResponse }>) {
   const BreadcrumbItems = [
     { href: "/", label: "Home" },
     { href: "/blogs", label: "Blogs" },
     {
-      href: `/${formatSinglePage("blogs", data.id, data.title)}`,
+      href: formatSinglePage("blogs", data.id, data.title),
       label: data.title,
     },
   ];

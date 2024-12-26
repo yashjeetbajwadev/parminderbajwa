@@ -124,7 +124,7 @@ export function formatSinglePage(
   id: string,
   title: string
 ) {
-  return `${collectionName}/${encodeURI(title)}/${encodeURI(id)}`;
+  return `/${collectionName}/${encodeURI(title)}/${encodeURI(id)}`;
 }
 export function validDate(date: string) {
   return new Date(date).toString() !== "Invalid Date";

@@ -3,30 +3,29 @@ import { getCollectionData } from "@/lib/utils";
 import React from "react";
 import { ListingsTabList } from "./(components)/ListingsTab";
 import { ListingPageConfig, SoldListingPageConfig } from "./settings";
-export default async function page({
+import { ListingsResponse } from "@/types/pocketbase";
+import { ListResult } from "pocketbase";
+
+
+export async function SoldListingsPage({
   params,
   searchParams,
 }: Readonly<{
-  params: Promise<{ slug: string }>;
+  params: Promise<{ slug: string, pageno: string }>;
   searchParams?: Promise<{ [key: string]: string }>;
 }>) {
   const BreadcrumbItems = [
     { href: "/", label: "Home" },
     { href: "/listings", label: "Properties" },
   ];
-  const resolvedSearchParams = await searchParams;
-  const page = resolvedSearchParams?.page ?? "1";
-  const soldPage = resolvedSearchParams?.soldPage ?? "1";
-  const tab = resolvedSearchParams?.tab ?? "active";
-  const [activeListings, soldListings] = await Promise.all([
-    getCollectionData(ListingPageConfig(page)),
-    getCollectionData(SoldListingPageConfig(soldPage)),
+  const { pageno } = await params;
+  const [soldListings, activeListings] = await Promise.all([
+    getCollectionData(SoldListingPageConfig(pageno)),
+    getCollectionData(ListingPageConfig(pageno)),
   ]);
 
-  let defaultTab = "active";
-  if (tab === "sold") {
-    defaultTab = "sold";
-  }
+  let defaultTab = "sold";
+
 
   return (
     <React.Fragment>

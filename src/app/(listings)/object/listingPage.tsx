@@ -1,21 +1,13 @@
-import { PropertyPage } from "@/app/listings/(components)/PropertyPage";
 import { getCollectionData, getCollectionDataWithId } from "@/lib/utils";
 import { ListingsResponse } from "@/types/pocketbase";
 import { ListResult } from "pocketbase";
-import { ListingPageConfig } from "../../settings";
+import { PropertyPage } from "../(components)/PropertyPage";
 
-export async function generateStaticParams() {
-  const listings = await getCollectionData(ListingPageConfig("1", { perPage: 100 }));
-  return listings.items.map((listing) => ({
-    params: { object: listing.id, },
-  }));
-}
-
-export default async function page({
+export default async function PropertyPagePage({
   params,
   searchParams,
 }: Readonly<{
-  params: Promise<{ object: string }>;
+  params: Promise<{ slug: string, title: string, object: string }>;
   searchParams?: Promise<{ [key: string]: string }>;
 }>) {
   const { object } = await params;

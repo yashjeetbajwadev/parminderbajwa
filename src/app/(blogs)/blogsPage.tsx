@@ -6,21 +6,20 @@ import React from "react";
 import { BlogList } from "./(components)/BlogList";
 import { BlogsListConfig } from "./settings";
 
-export default async function page({
+export async function BlogsPage({
   params,
   searchParams,
 }: Readonly<{
-  params: Promise<{ slug: string }>;
+  params: Promise<{ slug: string, pageno: string }>;
   searchParams?: Promise<{ [key: string]: string }>;
 }>) {
   const BreadcrumbItems = [
     { href: "/", label: "Home" },
     { href: "/blogs", label: "Blogs" },
   ];
-  const resolvedSearchParams = await searchParams;
-  const pageNumber = resolvedSearchParams?.page ?? "1";
+  const { pageno } = await params;
 
-  const blogs: ListResult<BlogsResponse> = await getCollectionData(BlogsListConfig(pageNumber));
+  const blogs: ListResult<BlogsResponse> = await getCollectionData(BlogsListConfig(pageno));
   return (
     <React.Fragment>
       <BackButtonBreadcrumb items={BreadcrumbItems} />

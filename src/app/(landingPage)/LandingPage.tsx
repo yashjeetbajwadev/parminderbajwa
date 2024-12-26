@@ -3,7 +3,7 @@ import { getCollectionData } from "@/lib/utils";
 import { ListingsResponse } from "@/types/pocketbase";
 import { ListResult } from "pocketbase";
 import React from "react";
-import ListingsSwiper from "../listings/(components)/ListingSwiper";
+import ListingsSwiper from "../(listings)/(components)/ListingSwiper";
 import Hero from "./landing-page-components/Hero";
 import Incentive from "./landing-page-components/Incentive";
 import Testimonials from "./landing-page-components/Testimonials";

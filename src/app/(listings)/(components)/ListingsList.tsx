@@ -13,15 +13,16 @@ import { ListingsResponse } from "@/types/pocketbase";
 import {
   BathIcon,
   BedIcon,
-  CarIcon,
-  RulerIcon,
-  HomeIcon,
   CalendarIcon,
+  CarIcon,
+  HomeIcon,
+  RulerIcon,
 } from "lucide-react";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { ListResult } from "pocketbase";
-import { Fragment, useCallback, useEffect, useState } from "react";
+import { Fragment, useState } from "react";
 import { ListingListImageCarousel } from "./ListingListImageCarousel";
+import { useRouter } from "next/navigation";
+import { PagenationButton } from "@/components/ui/pagenationButton";
 
 export function ListingsList({
   data,
@@ -30,71 +31,16 @@ export function ListingsList({
   data: ListResult<ListingsResponse>;
   sold?: boolean;
 }>): JSX.Element {
-  const router = useRouter();
-  const [currentPage, setCurrentPage] = useState(data?.page ?? 1);
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
 
-  const setParams = useCallback(
-    (thisCurrentPage?: number) => {
-      let newSearch = new URLSearchParams(searchParams);
-      newSearch.set(
-        sold ? "soldPage" : "page",
-        thisCurrentPage?.toString() ?? currentPage.toString()
-      );
-      let newUrl = new URL(pathname, window.location.origin);
-      newUrl.search = newSearch.toString();
-      router.push(newUrl.toString());
-    },
-    [searchParams, sold, currentPage, pathname, router]
-  );
-  useEffect(() => {
-    setParams();
-  }, [setParams]);
   return (
     <div className="container px-5 py-8 xl:px-0">
-      <div className="flex items-center justify-between mb-8">
-        <p className="mr-4 text-sm text-muted-foreground md:text-base">
-          Showing {data.items.length} of {data.totalItems}{" "}
-          {sold ? "Sold listings" : "Active listings"}
-        </p>
-        <div className="flex gap-2">
-          <Button
-            buttonevent="Listings Previous Page"
-            variant="outline"
-            disabled={currentPage === 1}
-            onClick={() => {
-              let thisCurrentPage =
-                (sold
-                  ? Number(searchParams.get("soldPage"))
-                  : Number(searchParams.get("page"))) ?? 1;
-              if (thisCurrentPage > 1) {
-                setCurrentPage(thisCurrentPage - 1);
-                setParams(thisCurrentPage);
-              }
-            }}
-          >
-            Previous
-          </Button>
-          <Button
-            buttonevent="Listings Next Page"
-            variant="outline"
-            disabled={currentPage === data.totalPages}
-            onClick={() => {
-              let thisCurrentPage =
-                (sold
-                  ? Number(searchParams.get("soldPage"))
-                  : Number(searchParams.get("page"))) ?? 1;
-              if (thisCurrentPage < data.totalPages) {
-                setCurrentPage(thisCurrentPage + 1);
-                setParams(thisCurrentPage);
-              }
-            }}
-          >
-            Next
-          </Button>
-        </div>
-      </div>
+      <PagenationButton
+        currentItems={data.items.length}
+        maxItems={data.totalItems}
+        title={sold ? "Sold listings" : "Active listings"}
+        currentPage={data?.page}
+        totalPages={data.totalPages}
+        path="/listings" />
       <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
         {data?.items?.map((listing: ListingsResponse) => (
           <Card
@@ -220,48 +166,15 @@ export function ListingsList({
           </Card>
         ))}
       </div>
-      <div className="flex items-center justify-between my-8">
-        <p className="mr-4 text-sm text-muted-foreground md:text-base">
-          Showing {data.items.length} of {data.totalItems}{" "}
-          {sold ? "Sold listings" : "Active listings"}
-        </p>
-        <div className="flex gap-2">
-          <Button
-            buttonevent="Listings Previous Page"
-            variant="outline"
-            disabled={currentPage === 1}
-            onClick={() => {
-              let thisCurrentPage =
-                (sold
-                  ? Number(searchParams.get("soldPage"))
-                  : Number(searchParams.get("page"))) ?? 1;
-              if (thisCurrentPage > 1) {
-                setCurrentPage(thisCurrentPage - 1);
-                setParams(thisCurrentPage);
-              }
-            }}
-          >
-            Previous
-          </Button>
-          <Button
-            buttonevent="Listings Next Page"
-            variant="outline"
-            disabled={currentPage === data.totalPages}
-            onClick={() => {
-              let thisCurrentPage =
-                (sold
-                  ? Number(searchParams.get("soldPage"))
-                  : Number(searchParams.get("page"))) ?? 1;
-              if (thisCurrentPage < data.totalPages) {
-                setCurrentPage(thisCurrentPage + 1);
-                setParams(thisCurrentPage);
-              }
-            }}
-          >
-            Next
-          </Button>
-        </div>
-      </div>
+      <PagenationButton
+        currentItems={data.items.length}
+        maxItems={data.totalItems}
+        title={sold ? "Sold listings" : "Active listings"}
+        currentPage={data?.page}
+        totalPages={data.totalPages}
+        path="/listings" />
+
     </div>
   );
 }
+

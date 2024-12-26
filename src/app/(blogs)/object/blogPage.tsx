@@ -1,16 +1,6 @@
-import { BlogPost } from "@/app/blogs/(components)/BlogPost";
-import { CommonAPIPropsWithId, getCollectionData, getCollectionDataWithId } from "@/lib/utils";
+import { BlogPost } from "@/app/(blogs)/(components)/BlogPost";
+import { CommonAPIPropsWithId, getCollectionDataWithId } from "@/lib/utils";
 import { BlogsResponse } from "@/types/pocketbase";
-import { BlogsListConfig } from "../../settings";
-
-const BlogsConfig = BlogsListConfig("1", { perPage: 100 });
-
-export async function generateStaticParams() {
-  const blogs = await getCollectionData(BlogsConfig);
-  return blogs.items.map((blog) => ({
-    params: { object: blog.title, },
-  }));
-}
 
 function blogConfig(object: string): CommonAPIPropsWithId<'blogs'> {
   return {
@@ -23,7 +13,7 @@ function blogConfig(object: string): CommonAPIPropsWithId<'blogs'> {
   } as CommonAPIPropsWithId<'blogs'>;
 }
 
-export default async function page({
+export default async function BlogPage({
   params,
   searchParams,
 }: Readonly<{

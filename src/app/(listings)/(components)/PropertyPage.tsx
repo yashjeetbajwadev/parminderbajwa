@@ -1,6 +1,6 @@
 "use client";
 
-import { ListingListImageCarousel } from "@/app/listings/(components)/ListingListImageCarousel";
+import { ListingListImageCarousel } from "@/app/(listings)/(components)/ListingListImageCarousel";
 import BackButtonBreadcrumb from "@/components/custom/BreadCrumb";
 import { ContactMe } from "@/components/custom/ContactMe/ContactMe";
 import { Badge } from "@/components/ui/badge";
@@ -13,10 +13,10 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { formatDate, formatSinglePage, validDate } from "@/lib/utils";
-import { ListingsResponse, UsersRecord } from "@/types/pocketbase";
-import { BathIcon, BedIcon, CarIcon, HomeIcon, RulerIcon } from "lucide-react";
+import { ListingsResponse } from "@/types/pocketbase";
+import { BathIcon, BedIcon, CarIcon, HomeIcon } from "lucide-react";
 import { ListResult } from "pocketbase";
-import React, { Fragment } from "react";
+import React from "react";
 import ListingsSwiper from "./ListingSwiper";
 
 export function PropertyPage({
@@ -27,15 +27,13 @@ export function PropertyPage({
   listingList: ListResult<ListingsResponse>;
 }>): JSX.Element {
   if (!data) return <div>No data available</div>;
-  const expand = data?.expand as { agent: UsersRecord };
-  const agent = expand?.agent ?? { name: "Unknown" };
 
   const BreadcrumbItems = () => {
     return [
       { href: "/", label: "Home" },
       { href: "/listings", label: "Properties" },
       {
-        href: `/${formatSinglePage("listings", data.id, data.title)}`,
+        href: formatSinglePage("listings", data.id, data.title),
         label: data.title ?? "Property",
       },
     ];
