@@ -20,10 +20,10 @@ export const ListingsTabList = ({ activeListings, soldListings, tab }: ListingsT
                 <ListingsTab text={`Recently Sold (${soldListings.totalItems})`} value="sold" />
             </TabsList>
             <TabsContent value="listings">
-                <ListingsList data={activeListings} />
+                {tab === "listings" && <ListingsList data={activeListings} />}
             </TabsContent>
             <TabsContent value="sold">
-                <ListingsList data={soldListings} sold />
+                {tab === "sold" && <ListingsList data={soldListings} sold />}
             </TabsContent>
         </Tabs>
     );

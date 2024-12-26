@@ -3,8 +3,6 @@ import { getCollectionData } from "@/lib/utils";
 import React from "react";
 import { ListingsTabList } from "./(components)/ListingsTab";
 import { ListingPageConfig, SoldListingPageConfig } from "./settings";
-import { ListingsResponse } from "@/types/pocketbase";
-import { ListResult } from "pocketbase";
 
 
 export async function SoldListingsPage({
