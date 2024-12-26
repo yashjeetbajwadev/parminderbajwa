@@ -21,10 +21,9 @@ export async function GET(request: NextRequest) {
 
   try {
     // Construct the file URL directly
-    let fileUrl = `api/files/${collectionId}/${recordId}/${encodeURIComponent(
-      filename
-    )}`;
+    let fileUrl = `api/files/${collectionId}/${recordId}/${encodeURIComponent(filename)}`;
     fileUrl = pb.buildUrl(fileUrl);
+
     // Add thumb parameter if provided
     if (thumb) {
       fileUrl += `?thumb=${encodeURIComponent(thumb)}`;
@@ -40,29 +39,45 @@ export async function GET(request: NextRequest) {
         "public",
         "placeholder.png"
       );
-      const placeholderBuffer = fs.readFileSync(placeholderPath);
 
-      return new NextResponse(placeholderBuffer, {
-        headers: { "Content-Type": "image/png" },
+      // Read the placeholder file
+      const placeholderBuffer = await fs.promises.readFile(placeholderPath);
+
+      // Create File object
+      const file = new File([placeholderBuffer], "placeholder.png", {
+        type: "image/png",
+      });
+
+      // Convert File to Response
+      return new Response(file.stream(), {
+        headers: {
+          "Content-Type": file.type,
+          "Content-Disposition": `inline; filename="${file.name}"`,
+        },
       });
     }
 
-    const imageData = await fileResponse.arrayBuffer();
+    const imageBuffer = Buffer.from(await fileResponse.arrayBuffer());
+    const contentType =
+      fileResponse.headers.get("Content-Type") ?? "application/octet-stream";
 
-    // Return the image with appropriate headers
-    return new NextResponse(imageData, {
+    // Create File object
+    const file = new File([imageBuffer], filename, { type: contentType });
+
+    // Convert File to Response
+    return new Response(file.stream(), {
       headers: {
-        "Content-Type":
-          fileResponse.headers.get("Content-Type") ||
-          "application/octet-stream",
-        "Content-Disposition": `inline; filename="${filename}"`,
+        "Content-Type": file.type,
+        "Content-Disposition": `inline; filename="${file.name}"`,
       },
     });
   } catch (error) {
     console.error("Error fetching image:", error);
-    return NextResponse.json(
-      { error: "Failed to fetch image" },
-      { status: 500 }
-    );
+    return new Response(JSON.stringify({ error: "Failed to fetch image" }), {
+      status: 500,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
   }
 }

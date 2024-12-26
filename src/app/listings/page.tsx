@@ -2,7 +2,7 @@ import BackButtonBreadcrumb from "@/components/custom/BreadCrumb";
 import { getCollectionData } from "@/lib/utils";
 import React from "react";
 import { ListingsTabList } from "./(components)/ListingsTab";
-
+import { ListingPageConfig, SoldListingPageConfig } from "./settings";
 export default async function page({
   params,
   searchParams,
@@ -19,14 +19,8 @@ export default async function page({
   const soldPage = resolvedSearchParams?.soldPage ?? "1";
   const tab = resolvedSearchParams?.tab ?? "active";
   const [activeListings, soldListings] = await Promise.all([
-    getCollectionData({
-      collectionName: "listings",
-      options: { filter: "status='active'", page: Number(page ?? 1), sort: "-featuredOnHomePage,created"},
-    }),
-    getCollectionData({
-      collectionName: "listings",
-      options: { filter: "status='sold'", page: Number(soldPage ?? 1), perPage: 50, sort: "-featuredOnHomePage,updated"},
-    }),
+    getCollectionData(ListingPageConfig(page)),
+    getCollectionData(SoldListingPageConfig(soldPage)),
   ]);
 
   let defaultTab = "active";

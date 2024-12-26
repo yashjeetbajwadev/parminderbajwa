@@ -1,9 +1,10 @@
-import { BlogList } from "./(components)/BlogList";
 import BackButtonBreadcrumb from "@/components/custom/BreadCrumb";
-import React from "react";
-import { BlogsResponse } from "@/types/pocketbase";
 import { getCollectionData } from "@/lib/utils";
+import { BlogsResponse } from "@/types/pocketbase";
 import { ListResult } from "pocketbase";
+import React from "react";
+import { BlogList } from "./(components)/BlogList";
+import { BlogsListConfig } from "./settings";
 
 export default async function page({
   params,
@@ -17,15 +18,9 @@ export default async function page({
     { href: "/blogs", label: "Blogs" },
   ];
   const resolvedSearchParams = await searchParams;
-  const page = resolvedSearchParams?.page ?? "1";
+  const pageNumber = resolvedSearchParams?.page ?? "1";
 
-  const blogs: ListResult<BlogsResponse> = await getCollectionData({
-    collectionName: "blogs", options: {
-      fields: "id,title,description,created,updated,author,images,body:excerpt(135,true)",
-      filter: "active=true",
-      page: Number(page ?? 1),
-    }
-  });
+  const blogs: ListResult<BlogsResponse> = await getCollectionData(BlogsListConfig(pageNumber));
   return (
     <React.Fragment>
       <BackButtonBreadcrumb items={BreadcrumbItems} />

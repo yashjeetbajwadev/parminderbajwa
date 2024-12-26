@@ -55,12 +55,12 @@ export async function getCollectionData<T extends keyof CollectionRecords>({
   }
 }
 export async function getCollectionDataWithId<
-  T extends keyof CollectionRecords
+  T extends keyof CollectionRecords,
 >({
   collectionName,
   id,
   options,
-}: CommonAPIProps<T> & { id: string }): Promise<CollectionResponses[T]> {
+}: CommonAPIPropsWithId<T>): Promise<CollectionResponses[T]> {
   const optionsString = new URLSearchParams(options).toString();
   if (isServer()) {
     const response = await getDataHandleRequest(collectionName, id, options);
@@ -124,7 +124,7 @@ export function formatSinglePage(
   id: string,
   title: string
 ) {
-  return `${collectionName}/${encodeURI(title)}?object=${encodeURI(id)}`;
+  return `${collectionName}/${encodeURI(title)}/${encodeURI(id)}`;
 }
 export function validDate(date: string) {
   return new Date(date).toString() !== "Invalid Date";
@@ -145,14 +145,18 @@ export const getSearchParams = (
   return searchParam[key] as string | undefined;
 };
 
-type CommonAPIProps<T extends keyof CollectionRecords> = {
+export type CommonAPIProps<T extends keyof CollectionRecords> = {
   collectionName: T;
   options?: ListOptions;
 };
-type APIResult<T extends keyof CollectionRecords> =
+export type CommonAPIPropsWithId<T extends keyof CollectionRecords> =
+  CommonAPIProps<T> & { id: string };
+  
+export type APIResult<T extends keyof CollectionRecords> =
   | ListResult<CollectionResponses[T]>
   | ValueOf<CollectionResponses>;
-type FetchDataFromAPIProps<T extends keyof CollectionRecords> =
+
+export type FetchDataFromAPIProps<T extends keyof CollectionRecords> =
   CommonAPIProps<T> & {
     id?: string;
     setData?: (data: APIResult<T> | null) => void;

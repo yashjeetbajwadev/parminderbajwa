@@ -174,14 +174,12 @@ export function PropertyPage({
                     </p>
                   </div>
                 )}
-                {Boolean(agent.name) && (
-                  <div className="flex flex-col">
-                    <p className="text-sm sm:text-base">
-                      <span className="font-medium text-gray-900">Agent:</span>{" "}
-                      <span className="text-gray-600">{agent.name}</span>
-                    </p>
-                  </div>
-                )}
+                <div className="flex flex-col">
+                  <p className="text-sm sm:text-base">
+                    <span className="font-medium text-gray-900">Agent:</span>{" "}
+                    <span className="text-gray-600">Parminder Bajwa</span>
+                  </p>
+                </div>
               </section>
 
               {data.amenities && (
