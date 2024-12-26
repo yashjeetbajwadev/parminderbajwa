@@ -32,7 +32,7 @@ function page(
   priority?: number
 ) {
   return {
-    url: url + (endPoint ? `/${endPoint}` : ""),
+    url: url + (endPoint ? (endPoint.startsWith("/") ? endPoint : `/${endPoint}`) : ""),
     lastModified: lastModified ?? new Date(),
     changeFrequency: changeFrequency ?? "yearly",
     priority: priority ?? 1,
