@@ -40,7 +40,7 @@ export function ListingsList({
         title={sold ? "Sold listings" : "Active listings"}
         currentPage={data?.page}
         totalPages={data.totalPages}
-        path="/listings" />
+        path={sold? "/sold" : "/listings"} />
       <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
         {data?.items?.map((listing: ListingsResponse) => (
           <Card
@@ -172,7 +172,7 @@ export function ListingsList({
         title={sold ? "Sold listings" : "Active listings"}
         currentPage={data?.page}
         totalPages={data.totalPages}
-        path="/listings" />
+        path={sold? "/sold" : "/listings"} />
 
     </div>
   );
