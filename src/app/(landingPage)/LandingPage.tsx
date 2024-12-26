@@ -1,14 +1,12 @@
-import Head from "next/head";
-import React from "react";
-import { websiteName } from "../contentSections";
-import Hero from "./landing-page-components/Hero";
-import Incentive from "./landing-page-components/Incentive";
-import Testimonials from "./landing-page-components/Testimonials";
-import ListingsSwiper from "../listings/(components)/ListingSwiper";
+import { ContactMe } from "@/components/custom/ContactMe/ContactMe";
 import { getCollectionData } from "@/lib/utils";
 import { ListingsResponse } from "@/types/pocketbase";
 import { ListResult } from "pocketbase";
-import { ContactMe } from "@/components/custom/ContactMe/ContactMe";
+import React from "react";
+import ListingsSwiper from "../listings/(components)/ListingSwiper";
+import Hero from "./landing-page-components/Hero";
+import Incentive from "./landing-page-components/Incentive";
+import Testimonials from "./landing-page-components/Testimonials";
 
 export default async function LandingPage() {
   const listingsList: ListResult<ListingsResponse> = await getCollectionData({
@@ -22,10 +20,6 @@ export default async function LandingPage() {
 
   return (
     <React.Fragment>
-      <Head>
-        <title>{websiteName}</title>
-        <meta name="description" content={websiteName} />
-      </Head>
       <Incentive />
       <main className="isolate dark:bg-boxdark-2">
         <Hero />
