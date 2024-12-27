@@ -8,6 +8,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const sitemap = [
     page(url, "", new Date(), "daily", 1),
     page(url, "about", new Date(), "monthly", 0.8),
+    page(url, "favicon.ico", new Date(), "yearly", 0.1),
   ];
 
   const [activeListings, blogs] = await Promise.all([
