@@ -14,7 +14,7 @@ export async function SoldListingsPage({
 }>) {
   const BreadcrumbItems = [
     { href: "/", label: "Home" },
-    { href: "/listings", label: "Properties" },
+    { href: "/listings/1", label: "Properties" },
   ];
   const { pageno } = await params;
   const [soldListings, activeListings] = await Promise.all([

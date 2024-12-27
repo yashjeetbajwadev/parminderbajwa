@@ -31,7 +31,7 @@ export function PropertyPage({
   const BreadcrumbItems = () => {
     return [
       { href: "/", label: "Home" },
-      { href: "/listings", label: "Properties" },
+      { href: "/listings/1", label: "Properties" },
       {
         href: formatSinglePage("listings", data.id, data.title),
         label: data.title ?? "Property",

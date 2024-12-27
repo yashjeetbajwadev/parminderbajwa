@@ -15,7 +15,7 @@ export async function BlogsPage({
 }>) {
   const BreadcrumbItems = [
     { href: "/", label: "Home" },
-    { href: "/blogs", label: "Blogs" },
+    { href: "/blogs/1", label: "Blogs" },
   ];
   const { pageno } = await params;
 

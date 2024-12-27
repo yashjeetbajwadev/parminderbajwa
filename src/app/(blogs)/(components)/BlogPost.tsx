@@ -17,7 +17,7 @@ import { BlogsResponse } from "@/types/pocketbase";
 export function BlogPost({ data }: Readonly<{ data: BlogsResponse }>) {
   const BreadcrumbItems = [
     { href: "/", label: "Home" },
-    { href: "/blogs", label: "Blogs" },
+    { href: "/blogs/1", label: "Blogs" },
     {
       href: formatSinglePage("blogs", data.id, data.title),
       label: data.title,
