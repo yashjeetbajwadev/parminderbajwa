@@ -52,7 +52,7 @@ function addItemsToSitemap(
     sitemap.push(
       page(
         url,
-        formatSinglePage(endpoint, item.title, item.id),
+        formatSinglePage(endpoint, item.id, item.title),
         new Date(item.updated),
         "daily",
         0.9
