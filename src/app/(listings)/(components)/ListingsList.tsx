@@ -1,6 +1,6 @@
 "use client";
 import { Badge } from "@/components/ui/badge";
-import { Button, LinkButton } from "@/components/ui/button";
+import { LinkButton } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -8,6 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { PagenationButton } from "@/components/ui/pagenationButton";
 import { formatDate, formatSinglePage, validDate } from "@/lib/utils";
 import { ListingsResponse } from "@/types/pocketbase";
 import {
@@ -19,10 +20,8 @@ import {
   RulerIcon,
 } from "lucide-react";
 import { ListResult } from "pocketbase";
-import { Fragment, useState } from "react";
+import { Fragment } from "react";
 import { ListingListImageCarousel } from "./ListingListImageCarousel";
-import { useRouter } from "next/navigation";
-import { PagenationButton } from "@/components/ui/pagenationButton";
 
 export function ListingsList({
   data,
@@ -31,7 +30,6 @@ export function ListingsList({
   data: ListResult<ListingsResponse>;
   sold?: boolean;
 }>): JSX.Element {
-
   return (
     <div className="container px-5 py-8 xl:px-0">
       <PagenationButton
@@ -40,7 +38,8 @@ export function ListingsList({
         title={sold ? "Sold listings" : "Active listings"}
         currentPage={data?.page}
         totalPages={data.totalPages}
-        path={sold? "/sold" : "/listings"} />
+        path={sold ? "/sold" : "/listings"}
+      />
       <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
         {data?.items?.map((listing: ListingsResponse) => (
           <Card
@@ -172,9 +171,8 @@ export function ListingsList({
         title={sold ? "Sold listings" : "Active listings"}
         currentPage={data?.page}
         totalPages={data.totalPages}
-        path={sold? "/sold" : "/listings"} />
-
+        path={sold ? "/sold" : "/listings"}
+      />
     </div>
   );
 }
-
